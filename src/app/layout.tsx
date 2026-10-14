@@ -11,7 +11,7 @@ const dmMono = DM_Mono({ subsets: ["latin"], weight: ["300", "400", "500"], vari
 
 export const metadata: Metadata = {
   title: {
-    default: "Hita Shah, Architecture Portfolio",
+    default: "Hita Shah, MArch / RIBA Part II",
     template: "%s | Hita Shah",
   },
   description:
@@ -25,9 +25,6 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" suppressHydrationWarning className={`${jost.variable} ${hanken.variable} ${dmMono.variable}`}>
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
-      </head>
       <body>
         <LightboxProvider>
           <SmoothScroll />

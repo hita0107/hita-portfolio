@@ -1,94 +1,76 @@
-"use client";
-
 import Link from "next/link";
-import { useState } from "react";
+import Image from "next/image";
 import { Picture } from "@/components/Picture";
-import { SectionLabel } from "@/components/SectionLabel";
 import { projects } from "@/content/portfolio";
 
-const SHADES = ["#758965", "#6c7f5d", "#627556", "#596b4e", "#4f6046"];
+const projectsByYear = [...projects].sort(
+  (a, b) => Number(b.years.slice(0, 4)) - Number(a.years.slice(0, 4)),
+);
 
 export function WorksIndex() {
-  const [active, setActive] = useState(0);
-
   return (
-    <section id="work" aria-labelledby="work-title" className="bg-paper pb-28 pt-8 md:pb-40">
+    <section id="work" aria-labelledby="work-title" className="bg-cream paper-grain pb-28 pt-20 md:pb-40 md:pt-28">
       <div className="shell">
-        <div className="grid items-end gap-8 border-t border-sage-300/60 pt-10 md:grid-cols-12">
-          <div className="md:col-span-7">
-            <SectionLabel>Selected Works</SectionLabel>
-            <h2 id="work-title" className="t-display mt-8 text-[clamp(3.2rem,9vw,8.5rem)] text-ink">
-              Selected Works
-            </h2>
-          </div>
-          <div className="md:col-span-4 md:col-start-9">
-            <p className="font-mono text-sm text-sage-700">2022-26</p>
-            <p className="t-body mt-3">
-              Four studio projects from the University of Dundee, and tender and design work from a placement at Design Concepts in Dubai.
-            </p>
-          </div>
+        <div className="border-t border-sage-300/60 pt-8">
+          <h2 id="work-title" className="flex items-center gap-3 font-mono text-lg uppercase tracking-[0.14em] text-sage-700 sm:text-xl">
+            <span aria-hidden className="h-px w-12 bg-sage-500" />
+            Projects
+          </h2>
+          <p className="t-body mt-8 max-w-3xl">
+            A curated selection of my architectural and design work, spanning from studio projects from the University of Dundee to commercial projects developed during my placement at Design Concepts in Dubai.
+          </p>
         </div>
 
-        <ul className="mt-14 hidden h-[clamp(440px,70vh,660px)] gap-2.5 md:flex">
-          {projects.map((p, i) => {
-            const open = active === i;
-            return (
-              <li
-                key={p.slug}
-                className="relative min-w-0 transition-[flex-grow] duration-[900ms] ease-[var(--ease-expo)]"
-                style={{ flexGrow: open ? 3.6 : 1, flexBasis: 0 }}
+        <ul className="mt-10 space-y-6 md:mt-12 md:space-y-10">
+          {projectsByYear.map((p, i) => (
+            <li key={p.slug}>
+              <Link
+                href={`/work/${p.slug}/`}
+                className="group relative block min-h-[290px] overflow-hidden bg-ink text-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sage-700 md:min-h-[230px]"
               >
-                <Link
-                  href={`/work/${p.slug}/`}
-                  onMouseEnter={() => setActive(i)}
-                  onFocus={() => setActive(i)}
-                  className="group relative block h-full overflow-hidden text-paper"
-                  style={{ backgroundColor: SHADES[i] }}
-                >
-                  <span className={`absolute inset-0 transition-opacity duration-700 ${open ? "opacity-100" : "opacity-0"}`}>
-                    <Picture id={p.indexImage} sizes="50vw" alt="" className="h-full w-full object-cover" />
-                    <span className="absolute inset-0 bg-gradient-to-t from-ink/80 via-ink/10 to-transparent" />
+                {p.slug === "common-ground" ? (
+                  <Image
+                    src="/common-ground/long-section-index.webp"
+                    alt=""
+                    fill
+                    unoptimized
+                    sizes="(min-width: 1440px) 1330px, 100vw"
+                  className="object-cover object-center opacity-90 contrast-[1.15] transition-opacity duration-700 ease-[var(--ease-expo)] group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+                  />
+                ) : (
+                  <Picture
+                    id={p.indexImage}
+                    sizes="(min-width: 1440px) 1330px, 100vw"
+                    alt=""
+                    className="absolute inset-0 h-full w-full object-cover opacity-85 transition-opacity duration-700 ease-[var(--ease-expo)] group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
+                  />
+                )}
+                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/45 to-ink/30 md:bg-gradient-to-r md:from-ink/85 md:via-ink/50 md:to-ink/5" />
+                <span className="relative z-10 flex min-h-[290px] flex-col justify-between p-5 transition-[min-height] duration-700 ease-[var(--ease-expo)] group-hover:min-h-[410px] group-focus-visible:min-h-[410px] sm:p-6 md:min-h-[230px] md:group-hover:min-h-[390px] md:group-focus-visible:min-h-[390px] md:p-7 motion-reduce:transition-none">
+                  <span className="font-mono text-xl leading-none tracking-[0.04em] text-sage-50 sm:text-2xl">
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="t-label absolute left-5 top-5">{String(i + 1).padStart(2, "0")}</span>
-                  <span
-                    className={`absolute bottom-6 left-5 font-display text-[clamp(1.7rem,2.6vw,2.6rem)] font-light leading-none transition-opacity duration-500 [writing-mode:vertical-rl] rotate-180 ${open ? "opacity-0" : "opacity-100"}`}
-                  >
-                    {p.title}
-                  </span>
-                  <span
-                    className={`absolute inset-x-6 bottom-6 transition-[opacity,transform] duration-700 ease-[var(--ease-expo)] ${open ? "translate-y-0 opacity-100 delay-200" : "translate-y-4 opacity-0"}`}
-                  >
-                    <span className="t-label block text-sage-100">{p.stage}</span>
-                    <span className="mt-2 block font-display text-[clamp(2rem,3.2vw,3.4rem)] font-light leading-none">{p.title}</span>
-                    <span className="mt-3 block max-w-md text-[15px] leading-snug text-sage-50/90">{p.subtitle}</span>
-                    <span className="t-label mt-5 inline-flex items-center gap-2 border-b border-sage-100/60 pb-1">
-                      Open project
-                      <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden>
-                        <path d="M9 1l4 4-4 4M13 5H1" fill="none" stroke="currentColor" strokeWidth="1.2" />
-                      </svg>
+                  <span className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-8">
+                    <span className="block max-w-2xl">
+                      <span className="block font-display text-[clamp(1.65rem,2.6vw,2.6rem)] font-light leading-none">
+                        {p.title}
+                      </span>
+                      <span className="mt-3 block max-w-xl text-[15px] leading-snug text-sage-50/90 md:text-base">
+                        {p.subtitle}
+                      </span>
+                      <span className="t-label mt-3 inline-flex items-center gap-2 border-b border-sage-100/60 pb-1">
+                        Open project
+                        <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden>
+                          <path d="M9 1l4 4-4 4M13 5H1" fill="none" stroke="currentColor" strokeWidth="1.2" />
+                        </svg>
+                      </span>
+                    </span>
+                    <span className={`flex shrink-0 flex-wrap justify-end gap-x-3 gap-y-1 self-end text-right font-mono text-xs tracking-[0.08em] ${p.slug === "common-ground" ? "text-sage-50/85 md:text-ink/85" : "text-sage-50/85"}`}>
+                      <span>{p.years}</span>
+                      {p.stage.startsWith("Year ") && <span>{p.stage.split(" / ")[0]}</span>}
                     </span>
                   </span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-
-        <ul className="mt-12 space-y-10 md:hidden">
-          {projects.map((p, i) => (
-            <li key={p.slug}>
-              <Link href={`/work/${p.slug}/`} className="block">
-                <span className="block aspect-[4/3] overflow-hidden" style={{ backgroundColor: SHADES[i] }}>
-                  <Picture id={p.indexImage} sizes="92vw" alt="" className="h-full w-full object-cover" />
                 </span>
-                <span className="mt-4 flex items-baseline justify-between gap-4">
-                  <span className="font-display text-3xl font-light text-ink">
-                    <span className="mr-3 font-mono text-sm text-sage-700">{String(i + 1).padStart(2, "0")}</span>
-                    {p.title}
-                  </span>
-                  <span className="t-label shrink-0 text-sage-700">{p.years}</span>
-                </span>
-                <span className="t-body mt-2 block">{p.subtitle}</span>
               </Link>
             </li>
           ))}

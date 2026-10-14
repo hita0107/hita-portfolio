@@ -39,7 +39,7 @@ export default async function ProjectPage({ params }: PageProps<"/work/[slug]">)
       <ProjectBar project={project} next={next} />
       <main>
         <View project={project} />
-        <NextProject next={next} />
+        <NextProject next={next} white={project.slug === "common-ground"} />
       </main>
       <Contact />
     </>

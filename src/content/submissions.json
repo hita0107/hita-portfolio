@@ -1,0 +1,316 @@
+{
+  "common-ground": [
+    {
+      "id": "cg-axonometric",
+      "label": "Spatial system",
+      "alt": "Annotated axonometric of Common Ground and its landscape",
+      "src": "/submissions/cg-axonometric-1600.webp",
+      "full": "/submissions/cg-axonometric-2800.webp",
+      "width": 1600,
+      "height": 1133,
+      "srcSet": "/submissions/cg-axonometric-900.webp 900w, /submissions/cg-axonometric-1600.webp 1600w, /submissions/cg-axonometric-2800.webp 2800w"
+    },
+    {
+      "id": "cg-programme",
+      "label": "Library and hall",
+      "alt": "Common Ground plan and interior studies of the library and hall",
+      "src": "/submissions/cg-programme-1600.webp",
+      "full": "/submissions/cg-programme-2800.webp",
+      "width": 1600,
+      "height": 1133,
+      "srcSet": "/submissions/cg-programme-900.webp 900w, /submissions/cg-programme-1600.webp 1600w, /submissions/cg-programme-2800.webp 2800w"
+    },
+    {
+      "id": "cg-ground-plan",
+      "label": "Ground-floor plan",
+      "alt": "Detailed ground-floor plan of Common Ground",
+      "src": "/submissions/cg-ground-plan-1600.webp",
+      "full": "/submissions/cg-ground-plan-2800.webp",
+      "width": 1600,
+      "height": 1133,
+      "srcSet": "/submissions/cg-ground-plan-900.webp 900w, /submissions/cg-ground-plan-1600.webp 1600w, /submissions/cg-ground-plan-2800.webp 2800w"
+    },
+    {
+      "id": "cg-upper-plan",
+      "label": "Upper-floor plan",
+      "alt": "Detailed upper-floor plan of Common Ground",
+      "src": "/submissions/cg-upper-plan-1600.webp",
+      "full": "/submissions/cg-upper-plan-2800.webp",
+      "width": 1600,
+      "height": 1133,
+      "srcSet": "/submissions/cg-upper-plan-900.webp 900w, /submissions/cg-upper-plan-1600.webp 1600w, /submissions/cg-upper-plan-2800.webp 2800w"
+    },
+    {
+      "id": "cg-folio-rooms",
+      "label": "Rooms in use",
+      "alt": "Reflective folio plate showing Common Ground rooms and interior views",
+      "src": "/submissions/cg-folio-rooms-1600.webp",
+      "full": "/submissions/cg-folio-rooms-2800.webp",
+      "width": 1600,
+      "height": 1133,
+      "srcSet": "/submissions/cg-folio-rooms-900.webp 900w, /submissions/cg-folio-rooms-1600.webp 1600w, /submissions/cg-folio-rooms-2800.webp 2800w"
+    }
+  ],
+  "faithlie-centre": [
+    {
+      "id": "fc-tectonic",
+      "label": "Tectonic study",
+      "alt": "Exploded construction and corten screen study for Faithlie Centre",
+      "src": "/submissions/fc-tectonic-1600.webp",
+      "full": "/submissions/fc-tectonic-2800.webp",
+      "width": 1600,
+      "height": 1132,
+      "srcSet": "/submissions/fc-tectonic-900.webp 900w, /submissions/fc-tectonic-1600.webp 1600w, /submissions/fc-tectonic-2800.webp 2800w"
+    },
+    {
+      "id": "fc-model",
+      "label": "Physical model",
+      "alt": "Physical model of the Faithlie Centre extension",
+      "src": "/submissions/fc-model-1600.webp",
+      "full": "/submissions/fc-model-2800.webp",
+      "width": 1600,
+      "height": 1132,
+      "srcSet": "/submissions/fc-model-900.webp 900w, /submissions/fc-model-1600.webp 1600w, /submissions/fc-model-2800.webp 2800w"
+    },
+    {
+      "id": "fc-interior",
+      "label": "Inside the model",
+      "alt": "Interior photographs of the Faithlie Centre physical model",
+      "src": "/submissions/fc-interior-1600.webp",
+      "full": "/submissions/fc-interior-2800.webp",
+      "width": 1600,
+      "height": 1132,
+      "srcSet": "/submissions/fc-interior-900.webp 900w, /submissions/fc-interior-1600.webp 1600w, /submissions/fc-interior-2800.webp 2800w"
+    }
+  ],
+  "verdant-theatre": [
+    {
+      "id": "vt-approach",
+      "label": "Street approach",
+      "alt": "Exterior view of Verdant Theatre in its urban setting",
+      "src": "/submissions/vt-approach-1600.webp",
+      "full": "/submissions/vt-approach-2800.webp",
+      "width": 1600,
+      "height": 1133,
+      "srcSet": "/submissions/vt-approach-900.webp 900w, /submissions/vt-approach-1600.webp 1600w, /submissions/vt-approach-2800.webp 2800w"
+    },
+    {
+      "id": "vt-auditorium",
+      "label": "Auditorium",
+      "alt": "Interior rendering of the Verdant Theatre auditorium",
+      "src": "/submissions/vt-auditorium-1600.webp",
+      "full": "/submissions/vt-auditorium-2800.webp",
+      "width": 1600,
+      "height": 1133,
+      "srcSet": "/submissions/vt-auditorium-900.webp 900w, /submissions/vt-auditorium-1600.webp 1600w, /submissions/vt-auditorium-2800.webp 2800w"
+    },
+    {
+      "id": "vt-roof",
+      "label": "Living roof",
+      "alt": "Aerial rendering of the Verdant Theatre green roof",
+      "src": "/submissions/vt-roof-1600.webp",
+      "full": "/submissions/vt-roof-2800.webp",
+      "width": 1600,
+      "height": 1133,
+      "srcSet": "/submissions/vt-roof-900.webp 900w, /submissions/vt-roof-1600.webp 1600w, /submissions/vt-roof-2800.webp 2800w"
+    },
+    {
+      "id": "vt-section",
+      "label": "Theatre section",
+      "alt": "Long section showing seating, stage and surrounding levels",
+      "src": "/submissions/vt-section-1600.webp",
+      "full": "/submissions/vt-section-2800.webp",
+      "width": 1600,
+      "height": 1133,
+      "srcSet": "/submissions/vt-section-900.webp 900w, /submissions/vt-section-1600.webp 1600w, /submissions/vt-section-2800.webp 2800w"
+    }
+  ],
+  "elysian-arcadia": [
+    {
+      "id": "ea-site",
+      "label": "Site plan",
+      "alt": "Elysian Arcadia site plan and courtyard arrangement",
+      "src": "/submissions/ea-site-1600.webp",
+      "full": "/submissions/ea-site-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/ea-site-900.webp 900w, /submissions/ea-site-1600.webp 1600w, /submissions/ea-site-2800.webp 2800w"
+    },
+    {
+      "id": "ea-elevations",
+      "label": "Elevations",
+      "alt": "Elevations of the Elysian Arcadia housing blocks",
+      "src": "/submissions/ea-elevations-1600.webp",
+      "full": "/submissions/ea-elevations-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/ea-elevations-900.webp 900w, /submissions/ea-elevations-1600.webp 1600w, /submissions/ea-elevations-2800.webp 2800w"
+    },
+    {
+      "id": "ea-courtyard",
+      "label": "Shared courtyard",
+      "alt": "Rendering of the planted shared courtyard at Elysian Arcadia",
+      "src": "/submissions/ea-courtyard-1600.webp",
+      "full": "/submissions/ea-courtyard-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/ea-courtyard-900.webp 900w, /submissions/ea-courtyard-1600.webp 1600w, /submissions/ea-courtyard-2800.webp 2800w"
+    },
+    {
+      "id": "ea-model",
+      "label": "Spatial model",
+      "alt": "Sectional model and material studies for Elysian Arcadia",
+      "src": "/submissions/ea-model-1600.webp",
+      "full": "/submissions/ea-model-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/ea-model-900.webp 900w, /submissions/ea-model-1600.webp 1600w, /submissions/ea-model-2800.webp 2800w"
+    },
+    {
+      "id": "ea-masterplan",
+      "label": "Site context \u00b7 Foster + Partners masterplan",
+      "alt": "Foster + Partners' Ellinikon waterfront masterplan, shown as site context for Elysian Arcadia",
+      "src": "/submissions/ea-masterplan-1600.webp",
+      "full": "/submissions/ea-masterplan-2800.webp",
+      "width": 1600,
+      "height": 1132,
+      "srcSet": "/submissions/ea-masterplan-900.webp 900w, /submissions/ea-masterplan-1600.webp 1600w, /submissions/ea-masterplan-2800.webp 2800w"
+    },
+    {
+      "id": "ea-timber-floor",
+      "label": "Timber floor study",
+      "alt": "Timber floor assembly study for Elysian Arcadia",
+      "src": "/submissions/ea-timber-floor-1600.webp",
+      "full": "/submissions/ea-timber-floor-2800.webp",
+      "width": 1131,
+      "height": 1600,
+      "srcSet": "/submissions/ea-timber-floor-900.webp 636w, /submissions/ea-timber-floor-1600.webp 1131w, /submissions/ea-timber-floor-2800.webp 1980w"
+    },
+    {
+      "id": "ea-tectonic-model",
+      "label": "Tectonic model",
+      "alt": "Physical timber model of an Elysian Arcadia unit",
+      "src": "/submissions/ea-tectonic-model-1600.webp",
+      "full": "/submissions/ea-tectonic-model-2800.webp",
+      "width": 1131,
+      "height": 1600,
+      "srcSet": "/submissions/ea-tectonic-model-900.webp 636w, /submissions/ea-tectonic-model-1600.webp 1131w, /submissions/ea-tectonic-model-2800.webp 1980w"
+    }
+  ],
+  "jss-private-school": [
+    {
+      "id": "jss-exterior",
+      "label": "School exterior",
+      "alt": "High-resolution rendering of the JSS Private School exterior",
+      "src": "/submissions/jss-exterior-1600.webp",
+      "full": "/submissions/jss-exterior-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/jss-exterior-900.webp 900w, /submissions/jss-exterior-1600.webp 1600w, /submissions/jss-exterior-2800.webp 2800w"
+    },
+    {
+      "id": "jss-ground-plan",
+      "label": "Ground-floor plan",
+      "alt": "Tender ground-floor plan for JSS Private School",
+      "src": "/submissions/jss-ground-plan-1600.webp",
+      "full": "/submissions/jss-ground-plan-2800.webp",
+      "width": 1600,
+      "height": 1130,
+      "srcSet": "/submissions/jss-ground-plan-900.webp 900w, /submissions/jss-ground-plan-1600.webp 1600w, /submissions/jss-ground-plan-2800.webp 2800w"
+    },
+    {
+      "id": "jss-perspectives",
+      "label": "Perspective views",
+      "alt": "Perspective views of JSS Private School",
+      "src": "/submissions/jss-perspectives-1600.webp",
+      "full": "/submissions/jss-perspectives-2800.webp",
+      "width": 1600,
+      "height": 1130,
+      "srcSet": "/submissions/jss-perspectives-900.webp 900w, /submissions/jss-perspectives-1600.webp 1600w, /submissions/jss-perspectives-2800.webp 2800w"
+    }
+  ],
+  "luxury-villa": [
+    {
+      "id": "villa-front",
+      "label": "Front elevation",
+      "alt": "High-resolution exterior rendering of the luxury villa",
+      "src": "/submissions/villa-front-1600.webp",
+      "full": "/submissions/villa-front-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/villa-front-900.webp 900w, /submissions/villa-front-1600.webp 1600w, /submissions/villa-front-2800.webp 2800w"
+    },
+    {
+      "id": "villa-entrance",
+      "label": "Entrance",
+      "alt": "High-resolution rendering of the luxury villa entrance",
+      "src": "/submissions/villa-entrance-1600.webp",
+      "full": "/submissions/villa-entrance-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/villa-entrance-900.webp 900w, /submissions/villa-entrance-1600.webp 1600w, /submissions/villa-entrance-2800.webp 1920w"
+    },
+    {
+      "id": "villa-courtyard",
+      "label": "Courtyard",
+      "alt": "High-resolution rendering of the luxury villa courtyard",
+      "src": "/submissions/villa-courtyard-1600.webp",
+      "full": "/submissions/villa-courtyard-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/villa-courtyard-900.webp 900w, /submissions/villa-courtyard-1600.webp 1600w, /submissions/villa-courtyard-2800.webp 2800w"
+    },
+    {
+      "id": "villa-plan",
+      "label": "Floor plan",
+      "alt": "Floor plan from the luxury villa preliminary submission",
+      "src": "/submissions/villa-plan-1600.webp",
+      "full": "/submissions/villa-plan-2800.webp",
+      "width": 1600,
+      "height": 1130,
+      "srcSet": "/submissions/villa-plan-900.webp 900w, /submissions/villa-plan-1600.webp 1600w, /submissions/villa-plan-2800.webp 2800w"
+    }
+  ],
+  "furjan-residential": [
+    {
+      "id": "furjan-street",
+      "label": "Street view",
+      "alt": "High-resolution street view of the Furjan residential building",
+      "src": "/submissions/furjan-street-1600.webp",
+      "full": "/submissions/furjan-street-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/furjan-street-900.webp 900w, /submissions/furjan-street-1600.webp 1600w, /submissions/furjan-street-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-dusk",
+      "label": "Evening view",
+      "alt": "High-resolution evening rendering of the Furjan residential building",
+      "src": "/submissions/furjan-dusk-1600.webp",
+      "full": "/submissions/furjan-dusk-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/furjan-dusk-900.webp 900w, /submissions/furjan-dusk-1600.webp 1600w, /submissions/furjan-dusk-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-entry",
+      "label": "Ground level",
+      "alt": "High-resolution rendering of the Furjan residential ground level",
+      "src": "/submissions/furjan-entry-1600.webp",
+      "full": "/submissions/furjan-entry-2800.webp",
+      "width": 1600,
+      "height": 900,
+      "srcSet": "/submissions/furjan-entry-900.webp 900w, /submissions/furjan-entry-1600.webp 1600w, /submissions/furjan-entry-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-plan",
+      "label": "Floor plan",
+      "alt": "Floor plan of the Furjan multistorey residential building",
+      "src": "/submissions/furjan-plan-1600.webp",
+      "full": "/submissions/furjan-plan-2800.webp",
+      "width": 1600,
+      "height": 1132,
+      "srcSet": "/submissions/furjan-plan-900.webp 900w, /submissions/furjan-plan-1600.webp 1600w, /submissions/furjan-plan-2800.webp 2800w"
+    }
+  ]
+}

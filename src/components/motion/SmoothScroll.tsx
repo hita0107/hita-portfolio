@@ -7,6 +7,7 @@ import { setLenis } from "@/lib/lenis";
 
 export function SmoothScroll() {
   useEffect(() => {
+    document.documentElement.classList.add("js");
     const lenis = new Lenis({ lerp: 0.11, anchors: { offset: -24 }, autoRaf: false });
     setLenis(lenis);
     lenis.on("scroll", ScrollTrigger.update);

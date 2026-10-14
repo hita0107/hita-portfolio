@@ -1,4 +1,3 @@
-import { SectionLabel } from "@/components/SectionLabel";
 import { certifications, recognition, software } from "@/content/portfolio";
 
 function Ledger({ title, rows }: { title: string; rows: { title: string; org: string; years: string }[] }) {
@@ -22,17 +21,10 @@ function Ledger({ title, rows }: { title: string; rows: { title: string; org: st
 
 export function Skills() {
   return (
-    <section id="skills" aria-labelledby="skills-title" className="bg-paper py-28 md:py-40">
+    <section id="skills" aria-labelledby="skills-title" className="bg-paper pb-28 pt-20 md:pb-40 md:pt-28">
       <div className="shell">
-        <div className="grid gap-8 md:grid-cols-12">
-          <div className="md:col-span-6">
-            <SectionLabel>Skills</SectionLabel>
-            <h2 id="skills-title" className="t-display mt-8 text-[clamp(2.8rem,6vw,5rem)] text-ink">
-              Software
-            </h2>
-          </div>
-        </div>
-        <ul className="mt-14 grid grid-cols-2 gap-y-10 border-t border-sage-300/60 pt-10 sm:grid-cols-3 lg:grid-cols-6">
+        <h2 id="skills-title" className="t-label text-sage-700">SOFTWARES</h2>
+        <ul className="mt-2 grid grid-cols-2 gap-y-10 border-t border-sage-300/60 pt-10 sm:grid-cols-3 lg:grid-cols-6">
           {software.map((g) => (
             <li key={g.group} className="border-l border-sage-300 pl-5 pr-3">
               <h3 className="t-label text-sage-700">{g.group}</h3>

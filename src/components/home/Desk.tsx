@@ -14,7 +14,6 @@ type Place = { x: number; y: number; w: number; r: number };
 type Card = { key: string; lg: Place; sm?: Place; depth: number } & (
   | { kind: "image"; image: ImageId; label: string; tag: string; href: string }
   | { kind: "buildup"; href: string }
-  | { kind: "note" }
 );
 
 const CARDS: Card[] = [
@@ -28,7 +27,6 @@ const CARDS: Card[] = [
   { key: "sketch", kind: "image", image: "vt-sketch", label: "Verdant Theatre", tag: "Sketch", href: "/work/verdant-theatre/", lg: { x: 22, y: 78, w: 230, r: 1.2 }, depth: 0.5 },
   { key: "ea-model", kind: "image", image: "ea-model-2", label: "Elysian Arcadia", tag: "Model", href: "/work/elysian-arcadia/", lg: { x: 67, y: 54, w: 170, r: -2.5 }, depth: 0.9 },
   { key: "buildup", kind: "buildup", href: "/work/common-ground/", lg: { x: 83.5, y: 73, w: 176, r: 1.5 }, depth: 0.6 },
-  { key: "note", kind: "note", lg: { x: 4, y: 81, w: 208, r: -1 }, depth: 0.4 },
 ];
 
 const greenRoof = commonGroundAnatomy.find((s) => s.id === "green-roof")!.buildUps[0];
@@ -63,26 +61,17 @@ function CardBody({ card }: { card: Card }) {
       </Link>
     );
   }
-  if (card.kind === "buildup") {
-    return (
-      <Link href={card.href} data-link className="block bg-white p-3 shadow-[0_14px_32px_-16px_rgb(30_37_27/0.35)]" aria-label="Common Ground: green roof build-up, 303 mm">
-        <span className="t-label flex justify-between text-sage-700">
-          <span>Green roof</span>
-          <span className="text-ink">303 mm</span>
-        </span>
-        <span className="mt-2 block">
-          <BuildUpDiagram data={greenRoof} active compact height={120} />
-        </span>
-        <span className="mt-2 block font-display text-[13px] text-ink">Common Ground</span>
-      </Link>
-    );
-  }
   return (
-    <div className="bg-sage-100 p-4 shadow-[0_14px_32px_-18px_rgb(30_37_27/0.35)]">
-      <p className="t-label text-sage-700">Currently</p>
-      <p className="mt-2 font-display text-lg leading-snug text-ink">{profile.status}</p>
-      <p className="mt-2 text-[13px] leading-snug text-ink-soft">MArch / RIBA Part 2, University of Dundee, 2026</p>
-    </div>
+    <Link href={card.href} data-link className="block bg-white p-3 shadow-[0_14px_32px_-16px_rgb(30_37_27/0.35)]" aria-label="Common Ground: green roof build-up, 303 mm">
+      <span className="t-label flex justify-between text-sage-700">
+        <span>Green roof</span>
+        <span className="text-ink">303 mm</span>
+      </span>
+      <span className="mt-2 block">
+        <BuildUpDiagram data={greenRoof} active compact height={120} />
+      </span>
+      <span className="mt-2 block font-display text-[13px] text-ink">Common Ground</span>
+    </Link>
   );
 }
 
@@ -168,17 +157,6 @@ export function Desk() {
 
   return (
     <section id="top" ref={root} aria-label="Desk" className="relative h-[100svh] min-h-[640px] overflow-hidden bg-cream dot-grid">
-      <header className="shell pointer-events-none relative z-30 flex items-start justify-between pt-5 md:pt-7">
-        <p className="pointer-events-auto">
-          <span className="block font-display text-lg leading-none text-ink">Hita Shah</span>
-          <span className="t-label mt-1.5 block text-sage-700">{profile.role}</span>
-        </p>
-        <p className="pointer-events-auto flex items-center gap-2.5 text-right">
-          <span aria-hidden className="h-2 w-2 bg-sage-500" />
-          <span className="t-label text-ink">{profile.status}</span>
-        </p>
-      </header>
-
       {CARDS.map((c) => (
         <div
           key={c.key}
@@ -204,7 +182,7 @@ export function Desk() {
               <span className="block h-11 w-11 overflow-hidden bg-sage-100">
                 <Picture id="portrait" sizes="44px" alt="" priority className="h-full w-full object-cover object-top" />
               </span>
-              <span className="t-label text-sage-700">Selected works 2022-26</span>
+              <span className="t-label text-sage-700">{profile.role}</span>
             </div>
             <h1 className="t-display mt-5 text-[2.6rem] text-ink md:text-[3.1rem]">Hi, I&rsquo;m Hita.</h1>
             <p className="mt-4 text-[15px] leading-relaxed text-ink-soft">
@@ -217,9 +195,9 @@ export function Desk() {
               <a href={`mailto:${profile.email}`} className="rounded-full bg-ink px-5 py-2.5 text-[14px] text-paper transition-colors hover:bg-sage-700">
                 Get in touch
               </a>
-              <a href="#about" className="rounded-full border border-sage-300 px-5 py-2.5 text-[14px] text-ink transition-colors hover:bg-sage-100">
+              <Link href="/about/" className="rounded-full border border-sage-300 px-5 py-2.5 text-[14px] text-ink transition-colors hover:bg-sage-100">
                 About me
-              </a>
+              </Link>
             </div>
           </div>
           <div aria-hidden className="cursor-chip pointer-events-none absolute -bottom-9 right-2 hidden items-start gap-1 md:flex">
@@ -231,10 +209,6 @@ export function Desk() {
         </div>
       </div>
 
-      <div aria-hidden className="pointer-events-none absolute bottom-24 left-1/2 z-0 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex">
-        <span className="t-label text-sage-700">Scroll</span>
-        <span className="scroll-cue block h-10 w-px bg-sage-500" />
-      </div>
     </section>
   );
 }

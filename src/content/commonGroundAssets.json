@@ -1,0 +1,226 @@
+{
+  "bubble-diagram": {
+    "width": 3544,
+    "height": 3544,
+    "src": "/common-ground/bubble-diagram-2400.webp",
+    "full": "/common-ground/bubble-diagram-2400.webp",
+    "srcSet": "/common-ground/bubble-diagram-800.webp 800w, /common-ground/bubble-diagram-1600.webp 1600w, /common-ground/bubble-diagram-2400.webp 2400w"
+  },
+  "detail-section-zoomed": {
+    "width": 4961,
+    "height": 3508,
+    "src": "/common-ground/detail-section-zoomed-2400.webp",
+    "full": "/common-ground/detail-section-zoomed-2400.webp",
+    "srcSet": "/common-ground/detail-section-zoomed-800.webp 800w, /common-ground/detail-section-zoomed-1600.webp 1600w, /common-ground/detail-section-zoomed-2400.webp 2400w"
+  },
+  "detailed-zoom-ins": {
+    "width": 2600,
+    "height": 1840,
+    "src": "/common-ground/detailed-zoom-ins-2400.webp",
+    "full": "/common-ground/detailed-zoom-ins-2400.webp",
+    "srcSet": "/common-ground/detailed-zoom-ins-800.webp 800w, /common-ground/detailed-zoom-ins-1600.webp 1600w, /common-ground/detailed-zoom-ins-2400.webp 2400w"
+  },
+  "edi-periphery-map": {
+    "width": 2600,
+    "height": 1840,
+    "src": "/common-ground/edi-periphery-map-2400.webp",
+    "full": "/common-ground/edi-periphery-map-2400.webp",
+    "srcSet": "/common-ground/edi-periphery-map-800.webp 800w, /common-ground/edi-periphery-map-1600.webp 1600w, /common-ground/edi-periphery-map-2400.webp 2400w"
+  },
+  "garden-layout": {
+    "width": 2600,
+    "height": 1840,
+    "src": "/common-ground/garden-layout-2400.webp",
+    "full": "/common-ground/garden-layout-2400.webp",
+    "srcSet": "/common-ground/garden-layout-800.webp 800w, /common-ground/garden-layout-1600.webp 1600w, /common-ground/garden-layout-2400.webp 2400w"
+  },
+  "hybrid-diagrams": {
+    "width": 2600,
+    "height": 1839,
+    "src": "/common-ground/hybrid-diagrams-2400.webp",
+    "full": "/common-ground/hybrid-diagrams-2400.webp",
+    "srcSet": "/common-ground/hybrid-diagrams-800.webp 800w, /common-ground/hybrid-diagrams-1600.webp 1600w, /common-ground/hybrid-diagrams-2400.webp 2400w"
+  },
+  "intro-diagram": {
+    "width": 2600,
+    "height": 2600,
+    "src": "/common-ground/intro-diagram-2400.webp",
+    "full": "/common-ground/intro-diagram-2400.webp",
+    "srcSet": "/common-ground/intro-diagram-800.webp 800w, /common-ground/intro-diagram-1600.webp 1600w, /common-ground/intro-diagram-2400.webp 2400w"
+  },
+  "layout-of-rooms": {
+    "width": 2600,
+    "height": 1840,
+    "src": "/common-ground/layout-of-rooms-2400.webp",
+    "full": "/common-ground/layout-of-rooms-2400.webp",
+    "srcSet": "/common-ground/layout-of-rooms-800.webp 800w, /common-ground/layout-of-rooms-1600.webp 1600w, /common-ground/layout-of-rooms-2400.webp 2400w"
+  },
+  "light-proximity": {
+    "width": 3544,
+    "height": 3544,
+    "src": "/common-ground/light-proximity-2400.webp",
+    "full": "/common-ground/light-proximity-2400.webp",
+    "srcSet": "/common-ground/light-proximity-800.webp 800w, /common-ground/light-proximity-1600.webp 1600w, /common-ground/light-proximity-2400.webp 2400w"
+  },
+  "long-section": {
+    "width": 4200,
+    "height": 1060,
+    "src": "/common-ground/long-section-4200.webp",
+    "full": "/common-ground/long-section-4200.webp",
+    "srcSet": "/common-ground/long-section-800.webp 800w, /common-ground/long-section-1600.webp 1600w, /common-ground/long-section-2400.webp 2400w, /common-ground/long-section-4200.webp 4200w"
+  },
+  "long-section-hall": {
+    "width": 1800,
+    "height": 645,
+    "src": "/common-ground/long-section-hall-1800.webp",
+    "full": "/common-ground/long-section-hall-1800.webp",
+    "srcSet": "/common-ground/long-section-hall-600.webp 600w, /common-ground/long-section-hall-1000.webp 1000w, /common-ground/long-section-hall-1600.webp 1600w, /common-ground/long-section-hall-1800.webp 1800w"
+  },
+  "long-section-library": {
+    "width": 1210,
+    "height": 645,
+    "src": "/common-ground/long-section-library-1210.webp",
+    "full": "/common-ground/long-section-library-1210.webp",
+    "srcSet": "/common-ground/long-section-library-600.webp 600w, /common-ground/long-section-library-1000.webp 1000w, /common-ground/long-section-library-1210.webp 1210w"
+  },
+  "contemporary-site-plan": {
+    "width": 2600,
+    "height": 1840,
+    "src": "/common-ground/contemporary-site-plan-2400.webp",
+    "full": "/common-ground/contemporary-site-plan-2400.webp",
+    "srcSet": "/common-ground/contemporary-site-plan-800.webp 800w, /common-ground/contemporary-site-plan-1600.webp 1600w, /common-ground/contemporary-site-plan-2400.webp 2400w"
+  },
+  "mat-site-plan": {
+    "width": 2600,
+    "height": 1840,
+    "src": "/common-ground/mat-site-plan-2400.webp",
+    "full": "/common-ground/mat-site-plan-2400.webp",
+    "srcSet": "/common-ground/mat-site-plan-800.webp 800w, /common-ground/mat-site-plan-1600.webp 1600w, /common-ground/mat-site-plan-2400.webp 2400w"
+  },
+  "sociable-activities": {
+    "width": 3544,
+    "height": 3544,
+    "src": "/common-ground/sociable-activities-2400.webp",
+    "full": "/common-ground/sociable-activities-2400.webp",
+    "srcSet": "/common-ground/sociable-activities-800.webp 800w, /common-ground/sociable-activities-1600.webp 1600w, /common-ground/sociable-activities-2400.webp 2400w"
+  },
+  "space-proximity-map": {
+    "width": 2600,
+    "height": 1840,
+    "src": "/common-ground/space-proximity-map-2400.webp",
+    "full": "/common-ground/space-proximity-map-2400.webp",
+    "srcSet": "/common-ground/space-proximity-map-800.webp 800w, /common-ground/space-proximity-map-1600.webp 1600w, /common-ground/space-proximity-map-2400.webp 2400w"
+  },
+  "hall-plan": {
+    "width": 1313,
+    "height": 1687,
+    "src": "/common-ground/hall-plan-1200.webp",
+    "full": "/common-ground/hall-plan-1200.webp",
+    "srcSet": "/common-ground/hall-plan-480.webp 480w, /common-ground/hall-plan-800.webp 800w, /common-ground/hall-plan-1200.webp 1200w"
+  },
+  "hall-sports": {
+    "width": 773,
+    "height": 570,
+    "src": "/common-ground/hall-sports-773.webp",
+    "full": "/common-ground/hall-sports-773.webp",
+    "srcSet": "/common-ground/hall-sports-400.webp 400w, /common-ground/hall-sports-773.webp 773w"
+  },
+  "hall-performance": {
+    "width": 773,
+    "height": 568,
+    "src": "/common-ground/hall-performance-773.webp",
+    "full": "/common-ground/hall-performance-773.webp",
+    "srcSet": "/common-ground/hall-performance-400.webp 400w, /common-ground/hall-performance-773.webp 773w"
+  },
+  "hall-events": {
+    "width": 773,
+    "height": 575,
+    "src": "/common-ground/hall-events-773.webp",
+    "full": "/common-ground/hall-events-773.webp",
+    "srcSet": "/common-ground/hall-events-400.webp 400w, /common-ground/hall-events-773.webp 773w"
+  },
+  "sensory-plan": {
+    "width": 1275,
+    "height": 1062,
+    "src": "/common-ground/sensory-plan-1200.webp",
+    "full": "/common-ground/sensory-plan-1200.webp",
+    "srcSet": "/common-ground/sensory-plan-480.webp 480w, /common-ground/sensory-plan-800.webp 800w, /common-ground/sensory-plan-1200.webp 1200w"
+  },
+  "sensory-yoga": {
+    "width": 773,
+    "height": 570,
+    "src": "/common-ground/sensory-yoga-773.webp",
+    "full": "/common-ground/sensory-yoga-773.webp",
+    "srcSet": "/common-ground/sensory-yoga-400.webp 400w, /common-ground/sensory-yoga-773.webp 773w"
+  },
+  "sensory-painting": {
+    "width": 773,
+    "height": 568,
+    "src": "/common-ground/sensory-painting-773.webp",
+    "full": "/common-ground/sensory-painting-773.webp",
+    "srcSet": "/common-ground/sensory-painting-400.webp 400w, /common-ground/sensory-painting-773.webp 773w"
+  },
+  "sensory-aerial": {
+    "width": 773,
+    "height": 575,
+    "src": "/common-ground/sensory-aerial-773.webp",
+    "full": "/common-ground/sensory-aerial-773.webp",
+    "srcSet": "/common-ground/sensory-aerial-400.webp 400w, /common-ground/sensory-aerial-773.webp 773w"
+  },
+  "library-plan": {
+    "width": 974,
+    "height": 1487,
+    "src": "/common-ground/library-plan-974.webp",
+    "full": "/common-ground/library-plan-974.webp",
+    "srcSet": "/common-ground/library-plan-480.webp 480w, /common-ground/library-plan-800.webp 800w, /common-ground/library-plan-974.webp 974w"
+  },
+  "library-study": {
+    "width": 773,
+    "height": 570,
+    "src": "/common-ground/library-study-773.webp",
+    "full": "/common-ground/library-study-773.webp",
+    "srcSet": "/common-ground/library-study-400.webp 400w, /common-ground/library-study-773.webp 773w"
+  },
+  "library-staircase": {
+    "width": 773,
+    "height": 568,
+    "src": "/common-ground/library-staircase-773.webp",
+    "full": "/common-ground/library-staircase-773.webp",
+    "srcSet": "/common-ground/library-staircase-400.webp 400w, /common-ground/library-staircase-773.webp 773w"
+  },
+  "library-meeting": {
+    "width": 773,
+    "height": 575,
+    "src": "/common-ground/library-meeting-773.webp",
+    "full": "/common-ground/library-meeting-773.webp",
+    "srcSet": "/common-ground/library-meeting-400.webp 400w, /common-ground/library-meeting-773.webp 773w"
+  },
+  "kitchen-plan": {
+    "width": 1275,
+    "height": 492,
+    "src": "/common-ground/kitchen-plan-1200.webp",
+    "full": "/common-ground/kitchen-plan-1200.webp",
+    "srcSet": "/common-ground/kitchen-plan-480.webp 480w, /common-ground/kitchen-plan-800.webp 800w, /common-ground/kitchen-plan-1200.webp 1200w"
+  },
+  "kitchen-growing": {
+    "width": 773,
+    "height": 570,
+    "src": "/common-ground/kitchen-growing-773.webp",
+    "full": "/common-ground/kitchen-growing-773.webp",
+    "srcSet": "/common-ground/kitchen-growing-400.webp 400w, /common-ground/kitchen-growing-773.webp 773w"
+  },
+  "kitchen-cooking": {
+    "width": 773,
+    "height": 568,
+    "src": "/common-ground/kitchen-cooking-773.webp",
+    "full": "/common-ground/kitchen-cooking-773.webp",
+    "srcSet": "/common-ground/kitchen-cooking-400.webp 400w, /common-ground/kitchen-cooking-773.webp 773w"
+  },
+  "kitchen-learning": {
+    "width": 773,
+    "height": 575,
+    "src": "/common-ground/kitchen-learning-773.webp",
+    "full": "/common-ground/kitchen-learning-773.webp",
+    "srcSet": "/common-ground/kitchen-learning-400.webp 400w, /common-ground/kitchen-learning-773.webp 773w"
+  }
+}

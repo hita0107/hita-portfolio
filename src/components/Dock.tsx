@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 import { profile } from "@/content/portfolio";
 
 const stroke = { fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round" } as const;
@@ -28,14 +27,7 @@ const icons = {
       <rect x="13.5" y="12" width="6.5" height="8" />
     </svg>
   ),
-  skills: (
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden {...stroke}>
-      <path d="M4 20V5l15 15z" />
-      <path d="M8 16v-3.5l3.5 3.5z" />
-      <path d="M4 9h2M4 13h1.5" />
-    </svg>
-  ),
-  contact: (
+  email: (
     <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden {...stroke}>
       <rect x="3.5" y="6" width="17" height="12" rx="1" />
       <path d="m4 7 8 6 8-6" />
@@ -57,80 +49,57 @@ const icons = {
 };
 
 const sections = [
-  { key: "top", label: "Home" },
-  { key: "about", label: "About" },
-  { key: "work", label: "Work" },
-  { key: "skills", label: "Skills" },
-  { key: "contact", label: "Contact" },
+  { key: "top", label: "Home", href: "/" },
+  { key: "about", label: "About me", href: "/about/" },
+  { key: "work", label: "Projects", href: "/work/" },
 ] as const;
-
-type Key = (typeof sections)[number]["key"];
-
-function Tip({ children }: { children: React.ReactNode }) {
-  return (
-    <span className="t-label pointer-events-none absolute -top-9 left-1/2 -translate-x-1/2 translate-y-1 whitespace-nowrap rounded-full bg-ink px-2.5 py-1 text-[10px] text-sage-50 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100 group-focus-visible:translate-y-0 group-focus-visible:opacity-100">
-      {children}
-    </span>
-  );
-}
 
 export function Dock() {
   const pathname = usePathname();
-  const onHome = pathname === "/";
-  const [active, setActive] = useState<Key>(onHome ? "top" : "work");
-
-  useEffect(() => {
-    if (!onHome) {
-      setActive("work");
-      return;
-    }
-    const els = sections.map((s) => document.getElementById(s.key)).filter((el): el is HTMLElement => el !== null);
-    const io = new IntersectionObserver(
-      (entries) => {
-        for (const e of entries) if (e.isIntersecting) setActive(e.target.id as Key);
-      },
-      { rootMargin: "-45% 0px -50% 0px" },
-    );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, [onHome]);
+  const active = pathname?.startsWith("/work") ? "work" : pathname?.startsWith("/contact") ? "about" : sections.find((s) => s.href === pathname || s.href.slice(0, -1) === pathname)?.key ?? "top";
 
   const item =
-    "group relative grid h-10 w-10 place-items-center rounded-full transition-[background-color,color,transform] duration-300 ease-[var(--ease-expo)] hover:-translate-y-0.5";
+    "group inline-flex min-h-12 min-w-11 flex-col items-center justify-center gap-0.5 rounded-2xl px-1.5 py-1 text-[9px] leading-tight transition-[background-color,color,transform] duration-300 ease-[var(--ease-expo)] hover:-translate-y-0.5 sm:min-w-0 sm:flex-row sm:gap-2 sm:px-3 sm:text-xs";
 
   return (
     <nav
       aria-label="Site"
-      className="dock-in fixed bottom-4 left-1/2 z-50 -translate-x-1/2 rounded-full border border-white/10 bg-ink/92 p-1.5 shadow-[0_18px_40px_-18px_rgb(30_37_27/0.55)] backdrop-blur-md md:bottom-6"
+      className="dock-in fixed bottom-3 left-1/2 z-50 max-w-[calc(100vw-1rem)] -translate-x-1/2 overflow-x-auto rounded-3xl border border-white/10 bg-ink/92 p-1.5 shadow-[0_18px_40px_-18px_rgb(30_37_27/0.55)] backdrop-blur-md [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:bottom-6"
     >
-      <ul className="flex items-center gap-1">
+      <ul className="flex w-max items-center gap-0.5 sm:gap-1">
         {sections.map((s) => {
           const isActive = active === s.key;
           return (
             <li key={s.key}>
               <Link
-                href={onHome ? `#${s.key}` : `/#${s.key}`}
+                href={s.href}
                 aria-label={s.label}
                 aria-current={isActive ? "true" : undefined}
                 className={`${item} ${isActive ? "bg-sage-500 text-white" : "text-sage-100 hover:bg-white/10"}`}
               >
                 {icons[s.key]}
-                <Tip>{s.label}</Tip>
+                <span className="whitespace-nowrap">{s.label}</span>
               </Link>
             </li>
           );
         })}
-        <li aria-hidden className="mx-1 h-5 w-px bg-white/15" />
+        <li aria-hidden className="mx-0.5 h-6 w-px shrink-0 bg-white/15 md:mx-1" />
         <li>
           <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className={`${item} text-sage-100 hover:bg-white/10`}>
             {icons.linkedin}
-            <Tip>LinkedIn</Tip>
+            <span>LinkedIn</span>
           </a>
         </li>
         <li>
           <a href={profile.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className={`${item} text-sage-100 hover:bg-white/10`}>
             {icons.instagram}
-            <Tip>Instagram</Tip>
+            <span>Instagram</span>
+          </a>
+        </li>
+        <li>
+          <a href={`mailto:${profile.email}`} aria-label="Email" className={`${item} text-sage-100 hover:bg-white/10`}>
+            {icons.email}
+            <span>Email</span>
           </a>
         </li>
       </ul>

@@ -2,9 +2,9 @@ import Link from "next/link";
 import { Picture } from "@/components/Picture";
 import type { Project } from "@/content/portfolio";
 
-export function NextProject({ next }: { next: Project }) {
+export function NextProject({ next, white = false }: { next: Project; white?: boolean }) {
   return (
-    <section className="bg-paper">
+    <section className={white ? "bg-white" : "bg-paper"}>
       <Link href={`/work/${next.slug}/`} className="group block border-t border-sage-300/70">
         <div className="shell grid items-center gap-10 py-20 md:grid-cols-12 md:py-28">
           <div className="md:col-span-7">

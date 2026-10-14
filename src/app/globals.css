@@ -99,6 +99,11 @@
   background-size: 22px 22px;
 }
 
+@keyframes cg-place-reveal {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* Content that animates in starts hidden only when JS and motion are both available. */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-reveal] {

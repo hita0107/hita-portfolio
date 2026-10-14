@@ -212,12 +212,12 @@ export function BuildUpDiagram({ data, active, tone = "light", height = 380, com
   const nullCount = data.layers.filter((l) => l.mm === null).length;
   const scale = (H - nullCount * MEMBRANE_PX) / numeric;
   let y = 0;
-  const geo = data.layers.map((l) => {
+  const geo: { y: number; h: number; c: number }[] = [];
+  for (const l of data.layers) {
     const h = l.mm === null ? MEMBRANE_PX : Math.max(l.mm * scale, l.material === "membrane" ? MEMBRANE_PX : 1.5);
-    const g = { y, h, c: y + h / 2 };
+    geo.push({ y, h, c: y + h / 2 });
     y += h;
-    return g;
-  });
+  }
   const drawnH = y;
 
   const GAP = 15;

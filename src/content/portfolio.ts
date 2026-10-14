@@ -2,13 +2,10 @@ import type { ImageId } from "./images";
 
 export const profile = {
   name: "Hita Shah",
-  role: "MArch / RIBA Part 2",
+  role: "MArch / RIBA Part II",
   email: "hita0107@gmail.com",
   linkedin: "https://www.linkedin.com/in/hita-shah01/",
   instagram: "https://www.instagram.com/hita01_arch/",
-  status: "Open to roles in Dubai",
-  approach:
-    "My approach combines conceptual design, technical development and a strong understanding of context, with particular interests in people-centred, sustainable and environmentally responsive architecture.",
   about: [
     "I am a Master of Architecture graduate from the University of Dundee, with RIBA Part 1 and Part 2 qualifications and previous architectural experience in Dubai. My approach combines conceptual design, technical development and a strong understanding of context, with particular interests in people-centred, sustainable and environmentally responsive architecture.",
     "Having studied and worked across different cultural and professional environments, I value adaptability, collaboration and thoughtful design solutions. This portfolio presents a selection of academic projects alongside professional work experience, demonstrating my development across research, design, visual communication and technical resolution, and my continued ambition to contribute to innovative architectural practices in Dubai.",
@@ -117,7 +114,7 @@ export const projects: Project[] = [
     slug: "common-ground",
     number: "1",
     title: "Common Ground",
-    subtitle: "Reimagining Social Infrastructure As A Spatial System That Produces Encounter",
+    subtitle: "How social infrastructure as a spatial system can produce encounter",
     stage: "Year 5 / 2025-2026",
     years: "2025-2026",
     cover: "cg-axo",
@@ -126,12 +123,12 @@ export const projects: Project[] = [
       { label: "Stage", value: "Year 5, MArch" },
       { label: "Years", value: "2025-2026" },
       { label: "Site", value: "Edinburgh" },
-      { label: "Brief", value: "Community centre" },
-      { label: "Structure", value: "Glulam timber" },
+      { label: "Brief", value: "Social infrastructure" },
+      { label: "Structure", value: "Glulam timber, glazing, CLT" },
     ],
     paragraphs: [
       "This project explores how architecture can rebuild social connections within Edinburgh’s rapidly expanding peripheral neighbourhoods. It responds to the growing separation between housing, work, leisure and civic life, where spaces for informal interaction are overlooked. Rather than proposing a single-purpose building, social infrastructure is conceived as an open framework that encourages people to interact and reimagines what a contemporary community centre can be.",
-      "The primary aim was to investigate how architecture can deliberately create conditions of encounter between different groups, cultures and communities. It therefore combines hybrid programme of learning, recreation, wellbeing and community activities including a multipurpose hall, community kitchen, library, sensory room, and more. The three key topics structuring the research are: hybrid programme, biophilic design and phenomenology. Sustainability is embedded within this approach through passive environmental strategies, green roofs, and an integrated greenhouse and the use of renewable timber construction.",
+      "By zooming in on spaces like the multipurpose hall, community kitchen, library, and sensory room, this section illustrates how hybrid rooms can host multiple activities, seamlessly adapting to diverse age groups and user needs.",
       "The proposal was developed as a transferable spatial system including a courtyard-based organisation, glulam timber construction, adaptable rooms and carefully placed thresholds. Green roofs and the greenhouse extend the landscape, supporting biodiversity, food growing and environmental performance. These strategies together offer a new approach to a contemporary community infrastructure focusing on civic, social and landscape functions with an adaptable and sustainable architectural framework.",
     ],
   },

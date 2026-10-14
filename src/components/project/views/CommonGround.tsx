@@ -1,48 +1,72 @@
 import type { Project } from "@/content/portfolio";
+import Image from "next/image";
 import { commonGroundAnatomy } from "@/content/buildups";
-import { Figure } from "@/components/Figure";
 import { Opener } from "../Opener";
-import { Story } from "../Story";
-import { AnnotatedAxo } from "../AnnotatedAxo";
-import { HGallery } from "../HGallery";
+import { CommonGroundSite, CommonGroundConstruction } from "../CommonGroundVisuals";
+import { CommonGroundExploration } from "../CommonGroundExploration";
+import { CommonGroundScrollMotion } from "../CommonGroundScrollMotion";
+import { CommonGroundRooms } from "../CommonGroundRooms";
 import { Anatomy } from "../Anatomy";
 
 export function CommonGround({ project }: { project: Project }) {
-  const [p1, p2, p3] = project.paragraphs;
+  const programme = project.paragraphs[1];
+  const introduction = [
+    project.paragraphs[0],
+    "The primary aim was to investigate how architecture can deliberately create conditions of encounter between different groups, cultures and communities. It therefore combines hybrid programme of learning, recreation, wellbeing and community activities including a multipurpose hall, community kitchen, library, sensory room, and more. The three key topics structuring the research are: hybrid programme, biophilic design and phenomenology. Sustainability is embedded within this approach through passive environmental strategies, green roofs, and an integrated greenhouse and the use of renewable timber construction.",
+    project.paragraphs[2],
+  ];
   return (
     <>
-      <Opener project={project} hero={<Figure id="cg-section-library" sizes="(min-width: 1440px) 1330px, 94vw" priority caption={false} />} />
-      <Story
-        label="Encounter"
-        beats={[
-          { text: p1, visual: <Figure id="cg-sitemap" sizes="(min-width: 768px) 55vw, 92vw" /> },
-          { text: p2, visual: <AnnotatedAxo /> },
-          {
-            text: p3,
-            visual: (
-              <div className="grid grid-cols-2 gap-6">
-                <Figure id="cg-plan-1" group={["cg-plan-1", "cg-plan-2"]} sizes="(min-width: 768px) 27vw, 45vw" />
-                <Figure id="cg-plan-2" group={["cg-plan-1", "cg-plan-2"]} sizes="(min-width: 768px) 27vw, 45vw" />
-              </div>
-            ),
-          },
-        ]}
+      <Opener
+        project={project}
+        white
+        compactSubtitle
+        progressBar
+        alignSheetWithTitle
+        introduction={introduction}
+        sideImage={
+          <a
+            href="/common-ground/exploration/intro.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open the Common Ground spatial organisation drawing as a PDF"
+            className="block"
+          >
+            <Image
+              src="/common-ground/exploration/intro.webp"
+              alt="Common Ground spatial organisation drawing showing the network of rooms and circulation paths."
+              width={1772}
+              height={1772}
+              sizes="(min-width: 768px) 30vw, 90vw"
+              className="h-auto w-full"
+              unoptimized
+            />
+          </a>
+        }
       />
-      <HGallery
-        label="Rooms in use"
-        title="Learning, recreation, wellbeing and community"
-        intro="The hybrid programme in use: the library, the multipurpose hall, the community kitchen and the greenhouse, in plans and renders."
-        groups={[
-          { label: "Library", items: ["cg-plan-library", "cg-study-1", "cg-staircase", "cg-study-2"] },
-          { label: "Multi-Purpose Hall", items: ["cg-plan-hall", "cg-hall-1", "cg-hall-2", "cg-hall-3"] },
-          { label: "Hybrid programme", items: ["cg-plan-11a", "cg-yoga", "cg-art", "cg-aerial", "cg-plan-11b", "cg-greenhouse", "cg-kitchen", "cg-cooking"] },
-        ]}
-      />
+      <CommonGroundScrollMotion>
+        <CommonGroundSite />
+        <CommonGroundExploration />
+        <CommonGroundRooms programme={programme} />
+        <CommonGroundConstruction />
+      </CommonGroundScrollMotion>
       <Anatomy
-        label="Construction"
-        title="Detail sections"
-        intro="Four build-ups from the hall and library sections, drawn to scale from the specification. Pick a marker on the section, or keep scrolling."
+        label="Construction details"
+        title="Build-ups in section"
+        intro="Select a marker on the section, or scroll through the four animated assemblies."
         steps={commonGroundAnatomy}
+        white
+        showDetailThumbs={false}
+        sectionImages={{
+          "cg-section-hall": { id: "long-section-hall", caption: "Long section · multipurpose hall" },
+          "cg-section-library": { id: "long-section-library", caption: "Long section · library" },
+        }}
+        hotspotPositions={{
+          ground: { x: 0.17, y: 0.86 },
+          sprung: { x: 0.63, y: 0.86 },
+          "green-roof": { x: 0.48, y: 0.15 },
+          "clt-wall": { x: 0.69, y: 0.49 },
+        }}
       />
     </>
   );
