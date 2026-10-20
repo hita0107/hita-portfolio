@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 const stages = [
   { label: "Site analysis", id: "cg-site-analysis" },
   { label: "Exploration", id: "cg-exploration" },
-  { label: "Construction", id: "cg-construction" },
+  { label: "Final drawings", id: "cg-final-drawings" },
 ] as const;
 
 type ProgressState = { active: number; fills: number[] };

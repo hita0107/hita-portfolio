@@ -166,7 +166,7 @@ export const faithlieAnatomy: AnatomyStep[] = [
     buildUps: [
       {
         id: "fc-parapet-roof",
-        title: "1. Roof",
+        title: "Roof",
         layers: [
           { name: "Waterproofing membrane", mm: null, material: "membrane" },
           { name: "Roof board rigid PIR foam insulation", mm: 200, material: "pir" },
@@ -180,7 +180,7 @@ export const faithlieAnatomy: AnatomyStep[] = [
       },
       {
         id: "fc-parapet-wall",
-        title: "2. Wall",
+        title: "Wall",
         ends: ["Inside", "Outside"],
         layers: [
           { name: "Vapour control layer", mm: null, material: "membrane" },
@@ -220,7 +220,7 @@ export const faithlieAnatomy: AnatomyStep[] = [
     buildUps: [
       {
         id: "fc-foundation-floor",
-        title: "1. Ground Floor",
+        title: "Ground Floor",
         layers: [
           { name: "Concrete floating screed", mm: 80, material: "screed" },
           { name: "Floorboard rigid PIR foam insulation", mm: 120, material: "pir" },
@@ -231,7 +231,7 @@ export const faithlieAnatomy: AnatomyStep[] = [
       },
       {
         id: "fc-foundation-wall",
-        title: "2. Foundation Wall",
+        title: "Foundation Wall",
         ends: ["Inside", "Ground"],
         layers: [
           { name: "Blockwork foundation wall", mm: 140, material: "blockwork" },

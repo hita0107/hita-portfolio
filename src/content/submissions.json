@@ -168,7 +168,7 @@
     },
     {
       "id": "ea-masterplan",
-      "label": "Site context \u00b7 Foster + Partners masterplan",
+      "label": "Site context · Foster + Partners masterplan",
       "alt": "Foster + Partners' Ellinikon waterfront masterplan, shown as site context for Elysian Arcadia",
       "src": "/submissions/ea-masterplan-1600.webp",
       "full": "/submissions/ea-masterplan-2800.webp",
@@ -274,8 +274,8 @@
   "furjan-residential": [
     {
       "id": "furjan-street",
-      "label": "Street view",
-      "alt": "High-resolution street view of the Furjan residential building",
+      "label": "Street and podium",
+      "alt": "Furjan Residences — street and podium, Design Concepts",
       "src": "/submissions/furjan-street-1600.webp",
       "full": "/submissions/furjan-street-2800.webp",
       "width": 1600,
@@ -285,7 +285,7 @@
     {
       "id": "furjan-dusk",
       "label": "Evening view",
-      "alt": "High-resolution evening rendering of the Furjan residential building",
+      "alt": "Furjan Residences — evening view, Design Concepts",
       "src": "/submissions/furjan-dusk-1600.webp",
       "full": "/submissions/furjan-dusk-2800.webp",
       "width": 1600,
@@ -294,8 +294,8 @@
     },
     {
       "id": "furjan-entry",
-      "label": "Ground level",
-      "alt": "High-resolution rendering of the Furjan residential ground level",
+      "label": "Entrance and facade",
+      "alt": "Furjan Residences — entrance and facade, Design Concepts",
       "src": "/submissions/furjan-entry-1600.webp",
       "full": "/submissions/furjan-entry-2800.webp",
       "width": 1600,
@@ -303,14 +303,114 @@
       "srcSet": "/submissions/furjan-entry-900.webp 900w, /submissions/furjan-entry-1600.webp 1600w, /submissions/furjan-entry-2800.webp 2800w"
     },
     {
-      "id": "furjan-plan",
-      "label": "Floor plan",
-      "alt": "Floor plan of the Furjan multistorey residential building",
-      "src": "/submissions/furjan-plan-1600.webp",
-      "full": "/submissions/furjan-plan-2800.webp",
+      "id": "furjan-context",
+      "label": "Tower in context",
+      "alt": "Furjan Residences — tower in context, Design Concepts",
+      "src": "/submissions/furjan-context-1600.webp",
+      "full": "/submissions/furjan-context-2800.webp",
       "width": 1600,
-      "height": 1132,
-      "srcSet": "/submissions/furjan-plan-900.webp 900w, /submissions/furjan-plan-1600.webp 1600w, /submissions/furjan-plan-2800.webp 2800w"
+      "height": 900,
+      "srcSet": "/submissions/furjan-context-900.webp 900w, /submissions/furjan-context-1600.webp 1600w, /submissions/furjan-context-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-floor-01",
+      "label": "Ground floor",
+      "alt": "Furjan Residences — ground floor, Design Concepts",
+      "src": "/submissions/furjan-floor-01-1600.webp",
+      "full": "/submissions/furjan-floor-01-full.webp",
+      "width": 1600,
+      "height": 1131,
+      "srcSet": "/submissions/furjan-floor-01-900.webp 900w, /submissions/furjan-floor-01-1600.webp 1600w, /submissions/furjan-floor-01-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-floor-02",
+      "label": "Podium 1",
+      "alt": "Furjan Residences — podium 1, Design Concepts",
+      "src": "/submissions/furjan-floor-02-1600.webp",
+      "full": "/submissions/furjan-floor-02-full.webp",
+      "width": 1600,
+      "height": 1131,
+      "srcSet": "/submissions/furjan-floor-02-900.webp 900w, /submissions/furjan-floor-02-1600.webp 1600w, /submissions/furjan-floor-02-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-floor-03",
+      "label": "Podium 2",
+      "alt": "Furjan Residences — podium 2, Design Concepts",
+      "src": "/submissions/furjan-floor-03-1600.webp",
+      "full": "/submissions/furjan-floor-03-full.webp",
+      "width": 1600,
+      "height": 1131,
+      "srcSet": "/submissions/furjan-floor-03-900.webp 900w, /submissions/furjan-floor-03-1600.webp 1600w, /submissions/furjan-floor-03-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-floor-04",
+      "label": "First floor and amenities",
+      "alt": "Furjan Residences — first floor and amenities, Design Concepts",
+      "src": "/submissions/furjan-floor-04-1600.webp",
+      "full": "/submissions/furjan-floor-04-full.webp",
+      "width": 1600,
+      "height": 1131,
+      "srcSet": "/submissions/furjan-floor-04-900.webp 900w, /submissions/furjan-floor-04-1600.webp 1600w, /submissions/furjan-floor-04-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-floor-05",
+      "label": "Second floor",
+      "alt": "Furjan Residences — second floor, Design Concepts",
+      "src": "/submissions/furjan-floor-05-1600.webp",
+      "full": "/submissions/furjan-floor-05-full.webp",
+      "width": 1600,
+      "height": 1131,
+      "srcSet": "/submissions/furjan-floor-05-900.webp 900w, /submissions/furjan-floor-05-1600.webp 1600w, /submissions/furjan-floor-05-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-floor-06",
+      "label": "Third and fourth floors",
+      "alt": "Furjan Residences — third and fourth floors, Design Concepts",
+      "src": "/submissions/furjan-floor-06-1600.webp",
+      "full": "/submissions/furjan-floor-06-full.webp",
+      "width": 1600,
+      "height": 1131,
+      "srcSet": "/submissions/furjan-floor-06-900.webp 900w, /submissions/furjan-floor-06-1600.webp 1600w, /submissions/furjan-floor-06-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-floor-07",
+      "label": "Fifth to tenth floors",
+      "alt": "Furjan Residences — fifth to tenth floors, Design Concepts",
+      "src": "/submissions/furjan-floor-07-1600.webp",
+      "full": "/submissions/furjan-floor-07-full.webp",
+      "width": 1600,
+      "height": 1131,
+      "srcSet": "/submissions/furjan-floor-07-900.webp 900w, /submissions/furjan-floor-07-1600.webp 1600w, /submissions/furjan-floor-07-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-floor-08",
+      "label": "Eleventh to fifteenth floors",
+      "alt": "Furjan Residences — eleventh to fifteenth floors, Design Concepts",
+      "src": "/submissions/furjan-floor-08-1600.webp",
+      "full": "/submissions/furjan-floor-08-full.webp",
+      "width": 1600,
+      "height": 1131,
+      "srcSet": "/submissions/furjan-floor-08-900.webp 900w, /submissions/furjan-floor-08-1600.webp 1600w, /submissions/furjan-floor-08-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-floor-09",
+      "label": "Sixteenth floor",
+      "alt": "Furjan Residences — sixteenth floor, Design Concepts",
+      "src": "/submissions/furjan-floor-09-1600.webp",
+      "full": "/submissions/furjan-floor-09-full.webp",
+      "width": 1600,
+      "height": 1131,
+      "srcSet": "/submissions/furjan-floor-09-900.webp 900w, /submissions/furjan-floor-09-1600.webp 1600w, /submissions/furjan-floor-09-2800.webp 2800w"
+    },
+    {
+      "id": "furjan-floor-10",
+      "label": "Seventeenth floor",
+      "alt": "Furjan Residences — seventeenth floor, Design Concepts",
+      "src": "/submissions/furjan-floor-10-1600.webp",
+      "full": "/submissions/furjan-floor-10-full.webp",
+      "width": 1600,
+      "height": 1131,
+      "srcSet": "/submissions/furjan-floor-10-900.webp 900w, /submissions/furjan-floor-10-1600.webp 1600w, /submissions/furjan-floor-10-2800.webp 2800w"
     }
   ]
 }

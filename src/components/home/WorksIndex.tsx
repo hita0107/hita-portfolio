@@ -1,80 +1,95 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Picture } from "@/components/Picture";
-import { projects } from "@/content/portfolio";
+import { SectionReveal } from "@/components/motion/SectionReveal";
+import { projects, type Project } from "@/content/portfolio";
 
-const projectsByYear = [...projects].sort(
-  (a, b) => Number(b.years.slice(0, 4)) - Number(a.years.slice(0, 4)),
-);
+const sorted = [...projects].sort((a, b) => Number(b.years.slice(0, 4)) - Number(a.years.slice(0, 4)));
+type View = "grid" | "list" | "gallery";
+
+function Cover({ project, className }: { project: Project; className: string }) {
+  return project.indexSrc ? (
+    <Image src={project.indexSrc} alt="" fill unoptimized sizes="(min-width: 1024px) 50vw, 100vw" className={className} />
+  ) : (
+    <Picture id={project.indexImage} alt="" sizes="(min-width: 1024px) 50vw, 100vw" className={className} />
+  );
+}
+
+function ProjectCard({ project, index, gallery = false }: { project: Project; index: number; gallery?: boolean }) {
+  return (
+    <li className={gallery && index % 3 === 1 ? "md:pt-28" : ""}>
+      <SectionReveal>
+      <Link href={`/work/${project.slug}/`} className="group block focus-visible:outline-offset-4">
+        <div className={`relative overflow-hidden bg-cream ${gallery ? "aspect-[4/5]" : "aspect-[4/3]"}`}>
+          <Cover project={project} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[var(--ease-expo)] group-hover:scale-[1.045] group-focus-visible:scale-[1.045] motion-reduce:transition-none" />
+          <span className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10" />
+          <span className="absolute bottom-5 right-5 translate-y-3 text-[12px] uppercase tracking-[.14em] text-white opacity-0 transition-[opacity,transform] duration-500 group-hover:translate-y-0 group-hover:opacity-100">View project ↗</span>
+        </div>
+        <div className="mt-3 flex items-start justify-between gap-6 text-[12px] leading-snug md:text-[13px]">
+          <div><span className="block">{project.title}</span><span className="mt-0.5 block text-ink-soft">{project.subtitle}</span></div>
+          <span className="shrink-0 text-ink-soft">{project.years}</span>
+        </div>
+      </Link>
+      </SectionReveal>
+    </li>
+  );
+}
 
 export function WorksIndex() {
-  return (
-    <section id="work" aria-labelledby="work-title" className="bg-cream paper-grain pb-28 pt-20 md:pb-40 md:pt-28">
-      <div className="shell">
-        <div className="border-t border-sage-300/60 pt-8">
-          <h2 id="work-title" className="flex items-center gap-3 font-mono text-lg uppercase tracking-[0.14em] text-sage-700 sm:text-xl">
-            <span aria-hidden className="h-px w-12 bg-sage-500" />
-            Projects
-          </h2>
-          <p className="t-body mt-8 max-w-3xl">
-            A curated selection of my architectural and design work, spanning from studio projects from the University of Dundee to commercial projects developed during my placement at Design Concepts in Dubai.
-          </p>
-        </div>
+  const [view, setView] = useState<View>("grid");
 
-        <ul className="mt-10 space-y-6 md:mt-12 md:space-y-10">
-          {projectsByYear.map((p, i) => (
-            <li key={p.slug}>
-              <Link
-                href={`/work/${p.slug}/`}
-                className="group relative block min-h-[290px] overflow-hidden bg-ink text-paper focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-sage-700 md:min-h-[230px]"
-              >
-                {p.slug === "common-ground" ? (
-                  <Image
-                    src="/common-ground/long-section-index.webp"
-                    alt=""
-                    fill
-                    unoptimized
-                    sizes="(min-width: 1440px) 1330px, 100vw"
-                  className="object-cover object-center opacity-90 contrast-[1.15] transition-opacity duration-700 ease-[var(--ease-expo)] group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
-                  />
-                ) : (
-                  <Picture
-                    id={p.indexImage}
-                    sizes="(min-width: 1440px) 1330px, 100vw"
-                    alt=""
-                    className="absolute inset-0 h-full w-full object-cover opacity-85 transition-opacity duration-700 ease-[var(--ease-expo)] group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none"
-                  />
-                )}
-                <span className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/45 to-ink/30 md:bg-gradient-to-r md:from-ink/85 md:via-ink/50 md:to-ink/5" />
-                <span className="relative z-10 flex min-h-[290px] flex-col justify-between p-5 transition-[min-height] duration-700 ease-[var(--ease-expo)] group-hover:min-h-[410px] group-focus-visible:min-h-[410px] sm:p-6 md:min-h-[230px] md:group-hover:min-h-[390px] md:group-focus-visible:min-h-[390px] md:p-7 motion-reduce:transition-none">
-                  <span className="font-mono text-xl leading-none tracking-[0.04em] text-sage-50 sm:text-2xl">
-                    {String(i + 1).padStart(2, "0")}
+  return (
+    <section id="work" aria-labelledby="work-title" className="min-h-screen bg-white pb-28 pt-32 md:pt-40">
+      <div className="shell">
+        <SectionReveal className="grid gap-6 border-b editorial-line pb-10 md:grid-cols-[1fr_1fr] md:gap-14 md:pb-16">
+          <div>
+            <p className="text-[11px] uppercase tracking-[.2em] text-ink-soft">Portfolio / 2022–2026</p>
+            <h1 id="work-title" className="mt-5 font-display text-[clamp(4.5rem,9vw,10rem)] leading-[.78] tracking-[-.06em]">Projects</h1>
+          </div>
+          <p className="max-w-xl self-end text-[clamp(1rem,1.3vw,1.2rem)] leading-[1.6] text-ink-soft">
+            A curated selection of my architectural and design work, from studio projects at the University of Dundee to commercial work developed during my placement at Design Concepts in Dubai.
+          </p>
+        </SectionReveal>
+
+        <SectionReveal>
+          <div className="mb-10 mt-5 flex items-center justify-between text-[11px] uppercase tracking-[.16em] text-ink-soft">
+            <span>{String(sorted.length).padStart(2, "0")} projects</span>
+            <div className="flex items-center gap-1" role="group" aria-label="Project view">
+              {(["grid", "list", "gallery"] as const).map((option) => (
+                <button key={option} type="button" aria-pressed={view === option} onClick={() => setView(option)} className={`min-h-9 px-3 py-2 transition-colors hover:text-ink ${view === option ? "bg-ink text-white hover:text-white" : ""}`}>
+                  {option}
+                </button>
+              ))}
+            </div>
+          </div>
+        </SectionReveal>
+
+          {view === "list" ? (
+          <ol className="border-t editorial-line">
+            {sorted.map((project, index) => (
+              <li key={project.slug} className="border-b editorial-line">
+                <SectionReveal>
+                <Link href={`/work/${project.slug}/`} className="group relative grid items-center gap-4 py-5 transition-[background-color,padding] duration-500 hover:bg-cream hover:px-4 focus-visible:bg-cream focus-visible:px-4 md:grid-cols-[4rem_1fr_9rem_2rem] md:py-7">
+                  <span className="text-[12px] text-ink-soft">{String(index + 1).padStart(2, "0")}</span>
+                  <span className="font-display text-[clamp(2.5rem,5vw,6rem)] leading-[.86] tracking-[-.05em]">{project.title}</span>
+                  <span className="text-[12px] text-ink-soft">{project.years}</span>
+                  <span aria-hidden className="text-xl transition-transform duration-500 group-hover:translate-x-2">↗</span>
+                  <span className="pointer-events-none absolute right-[17%] z-20 hidden h-44 w-64 overflow-hidden opacity-0 shadow-2xl transition-[opacity,transform] duration-500 group-hover:-translate-y-2 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block">
+                    <span className="relative block h-full w-full"><Cover project={project} className="absolute inset-0 h-full w-full object-cover" /></span>
                   </span>
-                  <span className="flex flex-col gap-5 md:flex-row md:items-end md:justify-between md:gap-8">
-                    <span className="block max-w-2xl">
-                      <span className="block font-display text-[clamp(1.65rem,2.6vw,2.6rem)] font-light leading-none">
-                        {p.title}
-                      </span>
-                      <span className="mt-3 block max-w-xl text-[15px] leading-snug text-sage-50/90 md:text-base">
-                        {p.subtitle}
-                      </span>
-                      <span className="t-label mt-3 inline-flex items-center gap-2 border-b border-sage-100/60 pb-1">
-                        Open project
-                        <svg width="14" height="10" viewBox="0 0 14 10" aria-hidden>
-                          <path d="M9 1l4 4-4 4M13 5H1" fill="none" stroke="currentColor" strokeWidth="1.2" />
-                        </svg>
-                      </span>
-                    </span>
-                    <span className={`flex shrink-0 flex-wrap justify-end gap-x-3 gap-y-1 self-end text-right font-mono text-xs tracking-[0.08em] ${p.slug === "common-ground" ? "text-sage-50/85 md:text-ink/85" : "text-sage-50/85"}`}>
-                      <span>{p.years}</span>
-                      {p.stage.startsWith("Year ") && <span>{p.stage.split(" / ")[0]}</span>}
-                    </span>
-                  </span>
-                </span>
-              </Link>
-            </li>
-          ))}
-        </ul>
+                </Link>
+                </SectionReveal>
+              </li>
+            ))}
+          </ol>
+          ) : (
+          <ol className={`grid gap-x-7 gap-y-12 ${view === "gallery" ? "grid-cols-2 md:grid-cols-3 md:gap-x-5" : "md:grid-cols-2 md:gap-y-20"}`}>
+            {sorted.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} gallery={view === "gallery"} />)}
+          </ol>
+          )}
       </div>
     </section>
   );

@@ -1,8 +1,9 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
-import { SplitReveal } from "@/components/motion/SplitReveal";
+import { Picture } from "@/components/Picture";
 import { projects, type Project } from "@/content/portfolio";
 
 type Props = {
@@ -16,21 +17,32 @@ type Props = {
   progressBar?: boolean;
 };
 
-export function Opener({ project, hero, introduction, sideImage, alignSheetWithTitle = false, white = false, compactSubtitle = false, progressBar = false }: Props) {
+function Cover({ project }: { project: Project }) {
+  if (project.coverSrc) {
+    return <Image src={project.coverSrc} alt={`${project.title} architectural drawing`} fill unoptimized priority sizes="100vw" className="editorial-image h-full w-full object-cover" />;
+  }
+  return <Picture id={project.cover} alt={`${project.title} architectural visual`} sizes="100vw" priority className="editorial-image absolute inset-0 h-full w-full object-cover" />;
+}
+
+export function Opener({ project, hero, introduction, sideImage }: Props) {
   const root = useRef<HTMLElement>(null);
   const sheetNo = project.number.padStart(2, "0");
+  const paragraphs = introduction ?? [project.paragraphs[0]];
 
   useGSAP(
     () => {
       gsap.matchMedia().add(MOTION_OK, () => {
-        gsap.from("[data-sheet] > *", { opacity: 0, y: 12, duration: 0.9, ease: "expo.out", stagger: 0.06, delay: 0.45 });
-        if (hero) {
-          gsap.fromTo(
-            "[data-hero]",
-            { clipPath: "inset(18% 8% 0% 8%)" },
-            { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: "[data-hero]", start: "top 95%", end: "top 25%", scrub: 0.6 } },
-          );
-          gsap.fromTo("[data-hero-inner]", { scale: 1.12 }, { scale: 1, ease: "none", scrollTrigger: { trigger: "[data-hero]", start: "top bottom", end: "bottom top", scrub: true } });
+        gsap.to("[data-project-cover]", {
+          yPercent: 10,
+          ease: "none",
+          scrollTrigger: { trigger: "[data-project-hero]", start: "top top", end: "bottom top", scrub: true },
+        });
+        if (hero && project.slug !== "verdant-theatre" && project.slug !== "elysian-arcadia") {
+          gsap.fromTo("[data-secondary-hero]", { clipPath: "inset(12% 5% 12% 5%)" }, {
+            clipPath: "inset(0% 0% 0% 0%)",
+            ease: "none",
+            scrollTrigger: { trigger: "[data-secondary-hero]", start: "top 90%", end: "top 30%", scrub: .5 },
+          });
         }
       });
     },
@@ -38,57 +50,44 @@ export function Opener({ project, hero, introduction, sideImage, alignSheetWithT
   );
 
   return (
-    <section ref={root} className={`${white ? "bg-white" : "bg-paper"} ${progressBar ? "pt-32 md:pt-40" : "pt-20 md:pt-28"}`}>
-      <div className="shell grid gap-10 md:grid-cols-12">
-        <div className="md:col-span-8">
-          <h1 className="flex items-center gap-3 border-t border-sage-300/60 pt-8 font-mono text-lg uppercase tracking-[0.14em] text-sage-700 sm:text-xl">
-            <span aria-hidden className="h-px w-12 shrink-0 bg-sage-500" />
-            {project.title}
-          </h1>
-          <p className="t-label mt-8 text-sage-700">{project.stage}</p>
-          {compactSubtitle ? (
-            <p className="mt-5 max-w-2xl font-mono text-sm uppercase leading-relaxed tracking-[0.14em] text-sage-700 sm:text-base">
-              {project.subtitle}
-            </p>
-          ) : (
-            <SplitReveal as="p" onScroll={false} delay={0.25} className="mt-5 max-w-2xl font-display text-[clamp(1.25rem,2vw,1.9rem)] font-light leading-snug text-sage-700">
-              {project.subtitle}
-            </SplitReveal>
-          )}
-          {introduction && (
-            <div className="mt-10 max-w-2xl space-y-5 text-[15px] leading-[1.75] text-ink-soft md:text-base">
-              {introduction.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
-            </div>
-          )}
-        </div>
-        <div className={`${alignSheetWithTitle ? "self-start md:mt-8" : "self-end"} md:col-span-4`}>
-          <dl data-sheet className="border border-sage-300 text-[14px]">
-            {project.sheet.map((row) => (
-              <div key={row.label} className="grid grid-cols-[7.5rem_1fr] border-b border-sage-300/70">
-                <dt className="t-label border-r border-sage-300/70 px-3 py-2.5 text-sage-700">{row.label}</dt>
-                <dd className="px-3 py-2.5 text-ink">{row.value}</dd>
-              </div>
-            ))}
-            <div className="grid grid-cols-[7.5rem_1fr] bg-sage-100/70">
-              <dt className="t-label border-r border-sage-300/70 px-3 py-2.5 text-sage-700">Sheet</dt>
-              <dd className="flex justify-between px-3 py-2.5 font-mono text-[12px] text-ink">
-                <span>
-                  {sheetNo} / {String(projects.length).padStart(2, "0")}
-                </span>
-                {project.slug !== "common-ground" && <span className="text-sage-700">Hita Shah</span>}
-              </dd>
-            </div>
-          </dl>
-          {sideImage && <div className="mt-6">{sideImage}</div>}
+    <section ref={root} className="bg-white">
+      <div data-project-hero className="relative flex min-h-[80svh] overflow-hidden bg-ink text-white md:min-h-[100svh]">
+        <div data-project-cover className="absolute inset-0 -top-[10%] h-[110%] w-full"><Cover project={project} /></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/15 to-black/15" />
+        <div className="shell relative flex flex-1 flex-col justify-end pb-10 pt-36 md:pb-14">
+          <p className="editorial-rise text-[11px] uppercase tracking-[.2em] text-white/85">Project {sheetNo} / {String(projects.length).padStart(2, "0")} &nbsp; · &nbsp; {project.stage}</p>
+          <h1 className="editorial-rise mt-5 max-w-[1250px] font-display text-[clamp(5rem,12vw,15rem)] leading-[.74] tracking-[-.065em]" style={{ animationDelay: "110ms" }}>{project.title}</h1>
+          <div className="editorial-rise mt-8 flex flex-wrap items-end justify-between gap-6" style={{ animationDelay: "220ms" }}>
+            <p className="max-w-xl text-[13px] leading-[1.5] text-white/85 md:text-[15px]">{project.subtitle}</p>
+            <p className="text-[11px] uppercase tracking-[.2em] text-white/75">Scroll to explore ↓</p>
+          </div>
         </div>
       </div>
-      {hero && (
-        <div className="shell mt-16 md:mt-24">
-          <div data-hero className="overflow-hidden">
-            <div data-hero-inner className="origin-center">
-              {hero}
-            </div>
+
+      <div className="shell grid gap-12 py-20 md:grid-cols-[minmax(0,1.35fr)_minmax(0,.65fr)] md:gap-20 md:py-28">
+        <div>
+          <p className="text-[11px] uppercase tracking-[.2em] text-ink-soft">The project / {sheetNo}</p>
+          <h2 className="mt-7 max-w-[900px] font-display text-[clamp(2.8rem,5.2vw,6rem)] leading-[.94] tracking-[-.045em]">{project.subtitle}</h2>
+          <div className="mt-10 max-w-[760px] space-y-5 border-t editorial-line pt-7 text-[15px] leading-[1.75] text-ink-soft">
+            {paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
+        </div>
+        <div className="min-w-0">
+          <p className="mb-4 text-[11px] uppercase tracking-[.2em] text-ink-soft">Project information</p>
+          <dl className="border-t editorial-line">
+            {project.sheet.map((row) => (
+              <div key={row.label} className="grid grid-cols-[7rem_1fr] gap-4 border-b editorial-line py-3.5 text-[13px] leading-snug">
+                <dt className="text-ink-soft">{row.label}</dt><dd>{row.value}</dd>
+              </div>
+            ))}
+          </dl>
+          {sideImage && <div className="mt-9">{sideImage}</div>}
+        </div>
+      </div>
+
+      {hero && project.slug !== "verdant-theatre" && project.slug !== "elysian-arcadia" && (
+        <div className="shell pb-20 md:pb-28">
+          <div data-secondary-hero className="overflow-hidden">{hero}</div>
         </div>
       )}
     </section>

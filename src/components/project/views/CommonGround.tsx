@@ -1,12 +1,14 @@
 import type { Project } from "@/content/portfolio";
 import Image from "next/image";
-import { commonGroundAnatomy } from "@/content/buildups";
 import { Opener } from "../Opener";
 import { CommonGroundSite, CommonGroundConstruction } from "../CommonGroundVisuals";
 import { CommonGroundExploration } from "../CommonGroundExploration";
+import { CommonGroundResearch } from "../CommonGroundResearch";
+import { CommonGroundFinal } from "../CommonGroundFinal";
 import { CommonGroundScrollMotion } from "../CommonGroundScrollMotion";
 import { CommonGroundRooms } from "../CommonGroundRooms";
-import { Anatomy } from "../Anatomy";
+import { CommonGroundGardens } from "../CommonGroundGardens";
+import { CommonGroundAxonometric } from "../CommonGroundAxonometric";
 
 export function CommonGround({ project }: { project: Project }) {
   const programme = project.paragraphs[1];
@@ -45,29 +47,15 @@ export function CommonGround({ project }: { project: Project }) {
         }
       />
       <CommonGroundScrollMotion>
+        <CommonGroundResearch />
         <CommonGroundSite />
         <CommonGroundExploration />
         <CommonGroundRooms programme={programme} />
+        <CommonGroundGardens />
+        <CommonGroundFinal />
         <CommonGroundConstruction />
+        <CommonGroundAxonometric />
       </CommonGroundScrollMotion>
-      <Anatomy
-        label="Construction details"
-        title="Build-ups in section"
-        intro="Select a marker on the section, or scroll through the four animated assemblies."
-        steps={commonGroundAnatomy}
-        white
-        showDetailThumbs={false}
-        sectionImages={{
-          "cg-section-hall": { id: "long-section-hall", caption: "Long section · multipurpose hall" },
-          "cg-section-library": { id: "long-section-library", caption: "Long section · library" },
-        }}
-        hotspotPositions={{
-          ground: { x: 0.17, y: 0.86 },
-          sprung: { x: 0.63, y: 0.86 },
-          "green-roof": { x: 0.48, y: 0.15 },
-          "clt-wall": { x: 0.69, y: 0.49 },
-        }}
-      />
     </>
   );
 }

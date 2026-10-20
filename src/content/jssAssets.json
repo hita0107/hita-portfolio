@@ -1,0 +1,158 @@
+{
+  "renders": [
+    {
+      "title": "Main entrance",
+      "alt": "JSS Private School — main entrance",
+      "src": "/jss-private-school/renders/entrance.webp",
+      "full": "/jss-private-school/renders/entrance-full.webp"
+    },
+    {
+      "title": "Sports field and running track",
+      "alt": "JSS Private School — sports field and running track",
+      "src": "/jss-private-school/renders/sports-field.webp",
+      "full": "/jss-private-school/renders/sports-field-full.webp"
+    },
+    {
+      "title": "School building and arrival",
+      "alt": "JSS Private School — school building and arrival",
+      "src": "/jss-private-school/renders/arrival.webp",
+      "full": "/jss-private-school/renders/arrival-full.webp"
+    }
+  ],
+  "campusPlans": [
+    {
+      "title": "Basement plan",
+      "alt": "JSS Private School — basement plan",
+      "src": "/jss-private-school/campusPlans/basement.webp",
+      "full": "/jss-private-school/campusPlans/basement-full.webp"
+    },
+    {
+      "title": "Ground-floor plan",
+      "alt": "JSS Private School — ground-floor plan",
+      "src": "/jss-private-school/campusPlans/ground.webp",
+      "full": "/jss-private-school/campusPlans/ground-full.webp"
+    },
+    {
+      "title": "First-floor plan",
+      "alt": "JSS Private School — first-floor plan",
+      "src": "/jss-private-school/campusPlans/first.webp",
+      "full": "/jss-private-school/campusPlans/first-full.webp"
+    },
+    {
+      "title": "Second-floor plan",
+      "alt": "JSS Private School — second-floor plan",
+      "src": "/jss-private-school/campusPlans/second.webp",
+      "full": "/jss-private-school/campusPlans/second-full.webp"
+    },
+    {
+      "title": "Third-floor plan",
+      "alt": "JSS Private School — third-floor plan",
+      "src": "/jss-private-school/campusPlans/third.webp",
+      "full": "/jss-private-school/campusPlans/third-full.webp"
+    },
+    {
+      "title": "Roof plan",
+      "alt": "JSS Private School — roof plan",
+      "src": "/jss-private-school/campusPlans/roof.webp",
+      "full": "/jss-private-school/campusPlans/roof-full.webp"
+    }
+  ],
+  "blockPlans": [
+    {
+      "title": "Block B / basement",
+      "alt": "JSS Private School — block b / basement",
+      "src": "/jss-private-school/blockPlans/basement.webp",
+      "full": "/jss-private-school/blockPlans/basement-full.webp"
+    },
+    {
+      "title": "Block B / ground floor",
+      "alt": "JSS Private School — block b / ground floor",
+      "src": "/jss-private-school/blockPlans/ground.webp",
+      "full": "/jss-private-school/blockPlans/ground-full.webp"
+    },
+    {
+      "title": "Block B / first floor",
+      "alt": "JSS Private School — block b / first floor",
+      "src": "/jss-private-school/blockPlans/first.webp",
+      "full": "/jss-private-school/blockPlans/first-full.webp"
+    },
+    {
+      "title": "Block B / second floor",
+      "alt": "JSS Private School — block b / second floor",
+      "src": "/jss-private-school/blockPlans/second.webp",
+      "full": "/jss-private-school/blockPlans/second-full.webp"
+    },
+    {
+      "title": "Block B / third floor",
+      "alt": "JSS Private School — block b / third floor",
+      "src": "/jss-private-school/blockPlans/third.webp",
+      "full": "/jss-private-school/blockPlans/third-full.webp"
+    }
+  ],
+  "sections": [
+    {
+      "title": "Sections AA, CC and DD",
+      "alt": "JSS Private School — sections aa, cc and dd",
+      "src": "/jss-private-school/sections/sections-a-c-d.webp",
+      "full": "/jss-private-school/sections/sections-a-c-d-full.webp"
+    },
+    {
+      "title": "Sections BB, FF and EE",
+      "alt": "JSS Private School — sections bb, ff and ee",
+      "src": "/jss-private-school/sections/sections-b-f-e.webp",
+      "full": "/jss-private-school/sections/sections-b-f-e-full.webp"
+    },
+    {
+      "title": "Block B / wall sections 01",
+      "alt": "JSS Private School — block b / wall sections 01",
+      "src": "/jss-private-school/sections/wall-section-01.webp",
+      "full": "/jss-private-school/sections/wall-section-01-full.webp"
+    },
+    {
+      "title": "Block B / wall section 02",
+      "alt": "JSS Private School — block b / wall section 02",
+      "src": "/jss-private-school/sections/wall-section-02.webp",
+      "full": "/jss-private-school/sections/wall-section-02-full.webp"
+    },
+    {
+      "title": "Block B / wall section 03",
+      "alt": "JSS Private School — block b / wall section 03",
+      "src": "/jss-private-school/sections/wall-section-03.webp",
+      "full": "/jss-private-school/sections/wall-section-03-full.webp"
+    }
+  ],
+  "elevations": [
+    {
+      "title": "Elevations 1–4",
+      "alt": "JSS Private School — elevations 1–4",
+      "src": "/jss-private-school/elevations/elevations.webp",
+      "full": "/jss-private-school/elevations/elevations-full.webp"
+    }
+  ],
+  "landscape": [
+    {
+      "title": "Landscape details 01",
+      "alt": "JSS Private School — landscape details 01",
+      "src": "/jss-private-school/landscape/landscape-01.webp",
+      "full": "/jss-private-school/landscape/landscape-01-full.webp"
+    },
+    {
+      "title": "Landscape details 02",
+      "alt": "JSS Private School — landscape details 02",
+      "src": "/jss-private-school/landscape/landscape-02.webp",
+      "full": "/jss-private-school/landscape/landscape-02-full.webp"
+    },
+    {
+      "title": "Landscape details 03",
+      "alt": "JSS Private School — landscape details 03",
+      "src": "/jss-private-school/landscape/landscape-03.webp",
+      "full": "/jss-private-school/landscape/landscape-03-full.webp"
+    },
+    {
+      "title": "Landscape details 04",
+      "alt": "JSS Private School — landscape details 04",
+      "src": "/jss-private-school/landscape/landscape-04.webp",
+      "full": "/jss-private-school/landscape/landscape-04-full.webp"
+    }
+  ]
+}

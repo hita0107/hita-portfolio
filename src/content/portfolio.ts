@@ -29,6 +29,7 @@ export const education: TimelineItem[] = [
     years: "2024 - 2026",
     links: [
       { label: "Common Ground, Year 5", href: "/work/common-ground/" },
+      { label: "Rooms + Cities, Year 5 group study", href: "/work/rooms-cities/" },
       { label: "Faithlie Centre, Year 4", href: "/work/faithlie-centre/" },
       { label: "Elysian Arcadia, Year 4", href: "/work/elysian-arcadia/" },
     ],
@@ -56,7 +57,11 @@ export const experience: TimelineItem[] = [
     years: "Jun - Sept 2024",
     detail:
       "Tender submission packages, architectural renders, landscape detailing and bay sections, as well as detailed drawings for flooring, ceilings, windows, toilets and the gymnasium.",
-    links: [{ label: "See the work", href: "/work/design-concepts/" }],
+    links: [
+      { label: "JSS Private School", href: "/work/jss-private-school/" },
+      { label: "Luxury Villa", href: "/work/luxury-villa/" },
+      { label: "Conceptual Multistorey", href: "/work/conceptual-multistorey/" },
+    ],
   },
   {
     title: "Student Ambassador",
@@ -94,7 +99,7 @@ export const software = [
   { group: "Documentation", tools: ["Microsoft Office", "Affinity", "InDesign"] },
 ];
 
-export type ProjectSlug = "common-ground" | "faithlie-centre" | "verdant-theatre" | "elysian-arcadia" | "design-concepts";
+export type ProjectSlug = "common-ground" | "rooms-cities" | "faithlie-centre" | "verdant-theatre" | "elysian-arcadia" | "jss-private-school" | "luxury-villa" | "conceptual-multistorey";
 
 export type Project = {
   slug: ProjectSlug;
@@ -105,6 +110,8 @@ export type Project = {
   years: string;
   cover: ImageId;
   indexImage: ImageId;
+  coverSrc?: string;
+  indexSrc?: string;
   sheet: { label: string; value: string }[];
   paragraphs: string[];
 };
@@ -119,6 +126,8 @@ export const projects: Project[] = [
     years: "2025-2026",
     cover: "cg-axo",
     indexImage: "cg-plan-1",
+    coverSrc: "/common-ground/long-section-4200.webp",
+    indexSrc: "/common-ground/long-section-4200.webp",
     sheet: [
       { label: "Stage", value: "Year 5, MArch" },
       { label: "Years", value: "2025-2026" },
@@ -133,18 +142,45 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "faithlie-centre",
+    slug: "rooms-cities",
     number: "2",
+    title: "Rooms + Cities",
+    subtitle: "A comparative lexicon of neighbourhoods",
+    stage: "Year 5 group studio / 2025–26",
+    years: "2025-2026",
+    cover: "cg-sitemap",
+    indexImage: "cg-sitemap",
+    coverSrc: "/rooms-cities/neighbourhoods/berlin/character.webp",
+    indexSrc: "/rooms-cities/neighbourhoods/berlin/character.webp",
+    sheet: [
+      { label: "Stage", value: "Year 5, MArch" },
+      { label: "Years", value: "2025–26" },
+      { label: "Format", value: "Studio group project" },
+      { label: "Scope", value: "Eight neighbourhoods across eight cities" },
+      { label: "Method", value: "Comparative mapping and urban analysis" },
+    ],
+    paragraphs: [
+      "Rooms + Cities is a studio group project comparing the lexicons of eight neighbourhoods across Europe and Japan. A shared set of drawings and categories allows each place to be read at the scale of the city, neighbourhood and room.",
+      "The study compares location, population, history, transport, building use, green space, character and typical rooms. Repeating the same lenses across the case studies reveals how different urban patterns shape local identity and everyday life.",
+    ],
+  },
+  {
+    slug: "faithlie-centre",
+    number: "3",
     title: "Faithlie Centre",
-    subtitle: "Edinburgh Case Study",
+    subtitle: "A case study looking at the tectonics + Praxis",
     stage: "Year 4 / 2024-2025",
     years: "2024-2025",
     cover: "fc-model-1",
     indexImage: "fc-model-1",
+    coverSrc: "/faithlie/submission/model/01.webp",
+    indexSrc: "/faithlie/submission/model/01.webp",
     sheet: [
       { label: "Stage", value: "Year 4, MArch" },
       { label: "Years", value: "2024-2025" },
       { label: "Study", value: "Precedent and tectonics" },
+      { label: "Location", value: "Fraserburgh, Scotland" },
+      { label: "Architect", value: "Moxon Architects" },
       { label: "Materials", value: "Corten steel, retained stone" },
       { label: "Embodied carbon", value: "~ 114 tCO₂e" },
     ],
@@ -155,13 +191,15 @@ export const projects: Project[] = [
   },
   {
     slug: "verdant-theatre",
-    number: "3",
+    number: "4",
     title: "Verdant Theatre",
     subtitle: "Creating a new landmark building in Edinburgh for Musical Performances",
     stage: "Year 3 / 2023-2024",
     years: "2023-2024",
     cover: "vt-auditorium",
     indexImage: "vt-auditorium",
+    coverSrc: "/verdant-theatre/renders/auditorium-full.webp",
+    indexSrc: "/verdant-theatre/renders/auditorium.webp",
     sheet: [
       { label: "Stage", value: "Year 3, BA" },
       { label: "Years", value: "2023-2024" },
@@ -178,13 +216,15 @@ export const projects: Project[] = [
   },
   {
     slug: "elysian-arcadia",
-    number: "4",
+    number: "5",
     title: "Elysian Arcadia",
     subtitle: "Reimagining an Urban Block through Timber and Vertical Farming",
     stage: "Year 4 / 2024-2025",
     years: "2024-2025",
     cover: "ea-courtyard",
     indexImage: "ea-courtyard",
+    coverSrc: "/elysian/submission/final/renders/6.webp",
+    indexSrc: "/elysian/submission/final/renders/6.webp",
     sheet: [
       { label: "Stage", value: "Year 4, MArch" },
       { label: "Years", value: "2024-2025" },
@@ -199,25 +239,72 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "design-concepts",
-    number: "5",
-    title: "Design Concepts",
-    subtitle: "Work Experience, United Arab Emirates",
+    slug: "jss-private-school",
+    number: "6",
+    title: "JSS Private School",
+    subtitle: "A school tender package in Jebel Ali",
     stage: "2024",
     years: "2024",
-    cover: "tower-render",
-    indexImage: "tower-render",
+    cover: "jss-facade",
+    indexImage: "jss-facade",
+    coverSrc: "/jss-private-school/renders/entrance-full.webp",
+    indexSrc: "/jss-private-school/renders/entrance.webp",
     sheet: [
       { label: "Role", value: "Architectural Assistant / Intern" },
       { label: "Period", value: "Jun - Sept 2024" },
       { label: "Practice", value: "Design Concepts" },
-      { label: "Location", value: "United Arab Emirates" },
-      { label: "Scope", value: "Tender packages, renders, details" },
+      { label: "Location", value: "Jebel Ali, Dubai" },
+      { label: "Scope", value: "Tender drawings, landscape and visualisations" },
     ],
     paragraphs: [
-      "During my work experience at Design Concepts, an architectural and engineering consultancy specialising in urban planning and architectural design, I gained exposure to a range of live projects. I worked on projects ranging from luxury private villa in Abu Dhabi, JSS Private School in Jebel Ali, and a proposal for a multi-storey residential development in Al Furjan.",
-      "My work included tender submission packages, architectural renders, landscape detailing and bay sections, as well as detailed drawings for flooring, ceilings, windows, toilets and the gymnasium. This gave me a better understanding of how design intent is translated into coordinated technical information and how individual drawing packages contribute to the delivery of a larger project.",
-      "This experience gave me a better understanding of architectural practices in the UAE, particularly the level of coordination, documentation and technical detailing required as projects progress towards tender and construction.",
+      "JSS Private School was one of the live projects I encountered during my placement at Design Concepts in Dubai. The tender material brings together plans across the school and Block B, elevations, building and wall sections, landscape details, and views of the entrance and sports facilities.",
+      "Working with the drawing package developed my understanding of how design intent becomes coordinated technical information across a larger school project.",
+    ],
+  },
+  {
+    slug: "luxury-villa",
+    number: "7",
+    title: "Luxury Villa",
+    subtitle: "A private residence in Abu Dhabi",
+    stage: "2024",
+    years: "2024",
+    cover: "villa-front",
+    indexImage: "villa-front",
+    coverSrc: "/luxury-villa/renders/front-elevation-full.webp",
+    indexSrc: "/luxury-villa/renders/front-elevation.webp",
+    sheet: [
+      { label: "Role", value: "Architectural Assistant / Intern" },
+      { label: "Period", value: "Jun - Sept 2024" },
+      { label: "Practice", value: "Design Concepts" },
+      { label: "Location", value: "Abu Dhabi, UAE" },
+      { label: "Scope", value: "Visualisations, plans, elevations and sections" },
+    ],
+    paragraphs: [
+      "This private villa project in Abu Dhabi formed part of my placement experience at Design Concepts. Exterior, entrance and courtyard views show the progression from arrival to the more sheltered spaces within the residence.",
+      "Ground- and first-floor plans, elevations and sections are presented alongside the visualisations to connect the spatial arrangement with the building's architectural character.",
+    ],
+  },
+  {
+    slug: "conceptual-multistorey",
+    number: "8",
+    title: "Furjan Residences",
+    subtitle: "A residential concept in Al Furjan",
+    stage: "2024",
+    years: "2024",
+    cover: "tower-render",
+    indexImage: "tower-render",
+    coverSrc: "/furjan-residences/cover-full.webp",
+    indexSrc: "/furjan-residences/cover.webp",
+    sheet: [
+      { label: "Role", value: "Architectural Assistant / Intern" },
+      { label: "Period", value: "Jun - Sept 2024" },
+      { label: "Practice", value: "Design Concepts" },
+      { label: "Location", value: "Al Furjan, Dubai" },
+      { label: "Scope", value: "Residential concept and visualisations" },
+    ],
+    paragraphs: [
+      "This conceptual multi-storey residential proposal in Al Furjan was developed during my placement at Design Concepts. The images study the building's street presence, podium and screened tower form.",
+      "The drawing sequence follows the proposal from the ground floor and parking podiums to the amenity level and residential floors.",
     ],
   },
 ];

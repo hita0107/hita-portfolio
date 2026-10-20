@@ -1,0 +1,82 @@
+{
+  "renders": [
+    {
+      "title": "Front elevation",
+      "alt": "Luxury Villa — front elevation",
+      "src": "/luxury-villa/renders/front-elevation.webp",
+      "full": "/luxury-villa/renders/front-elevation-full.webp"
+    },
+    {
+      "title": "Entrance",
+      "alt": "Luxury Villa — entrance",
+      "src": "/luxury-villa/renders/entrance.webp",
+      "full": "/luxury-villa/renders/entrance-full.webp"
+    },
+    {
+      "title": "Arrival",
+      "alt": "Luxury Villa — arrival",
+      "src": "/luxury-villa/renders/arrival.webp",
+      "full": "/luxury-villa/renders/arrival-full.webp"
+    },
+    {
+      "title": "Side elevation",
+      "alt": "Luxury Villa — side elevation",
+      "src": "/luxury-villa/renders/side-elevation.webp",
+      "full": "/luxury-villa/renders/side-elevation-full.webp"
+    },
+    {
+      "title": "Garden elevation",
+      "alt": "Luxury Villa — garden elevation",
+      "src": "/luxury-villa/renders/rear-elevation.webp",
+      "full": "/luxury-villa/renders/rear-elevation-full.webp"
+    },
+    {
+      "title": "Courtyard",
+      "alt": "Luxury Villa — courtyard",
+      "src": "/luxury-villa/renders/courtyard.webp",
+      "full": "/luxury-villa/renders/courtyard-full.webp"
+    },
+    {
+      "title": "Outdoor room",
+      "alt": "Luxury Villa — outdoor room",
+      "src": "/luxury-villa/renders/outdoor-room.webp",
+      "full": "/luxury-villa/renders/outdoor-room-full.webp"
+    }
+  ],
+  "plans": [
+    {
+      "title": "Ground-floor plan",
+      "alt": "Luxury Villa — ground-floor plan",
+      "src": "/luxury-villa/plans/ground-floor.webp",
+      "full": "/luxury-villa/plans/ground-floor-full.webp"
+    },
+    {
+      "title": "First-floor plan",
+      "alt": "Luxury Villa — first-floor plan",
+      "src": "/luxury-villa/plans/first-floor.webp",
+      "full": "/luxury-villa/plans/first-floor-full.webp"
+    }
+  ],
+  "sections": [
+    {
+      "title": "Building sections",
+      "alt": "Luxury Villa — building sections",
+      "src": "/luxury-villa/sections/sections.webp",
+      "full": "/luxury-villa/sections/sections-full.webp"
+    }
+  ],
+  "elevations": [
+    {
+      "title": "Elevation 01",
+      "alt": "Luxury Villa — elevation 01",
+      "src": "/luxury-villa/elevations/elevation-01.webp",
+      "full": "/luxury-villa/elevations/elevation-01-full.webp"
+    },
+    {
+      "title": "Elevation 02",
+      "alt": "Luxury Villa — elevation 02",
+      "src": "/luxury-villa/elevations/elevation-02.webp",
+      "full": "/luxury-villa/elevations/elevation-02-full.webp"
+    }
+  ]
+}

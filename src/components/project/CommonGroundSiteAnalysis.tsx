@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import { SectionLabel } from "@/components/SectionLabel";
+import { CommonGroundImageDialog, type SiteImage } from "./CommonGroundImageDialog";
 
 const mapWidth = 6082;
 const mapHeight = 3308;
@@ -16,10 +17,10 @@ const places = [
     summary: "A compact, semi-rural commuter settlement between major transport corridors.",
     characteristics: ["Small village with a quiet residential character", "Road and rail edges separate local uses", "Few everyday gathering and leisure spaces"],
     studies: [
-      { title: "Building use", image: "/common-ground/site-analysis/ratho-building-use.webp", width: 1902, height: 1902, alt: "Ratho building-use map, with residential, commercial and education buildings colour coded." },
-      { title: "Public transport", image: "/common-ground/site-analysis/ratho-public-transport.webp", width: 1949, height: 1949, alt: "Ratho public-transport map showing bus stops and the railway corridor." },
+      { title: "Building use", image: "/common-ground/submission/site-analysis/ratho/building-use.webp", width: 1902, height: 1902, alt: "Ratho building-use map, with residential, commercial and education buildings colour coded." },
+      { title: "Public transport", image: "/common-ground/submission/site-analysis/ratho/public-transport.webp", width: 1949, height: 1949, alt: "Ratho public-transport map showing bus stops and the railway corridor." },
     ],
-    fieldwork: "/common-ground/site-analysis/ratho-fieldwork.webp",
+    fieldwork: "/common-ground/submission/site-analysis/ratho/pictures.webp",
   },
   {
     name: "Ingliston",
@@ -29,10 +30,10 @@ const places = [
     summary: "A place shaped by the airport, bus and car movement, and the Royal Highland Centre.",
     characteristics: ["Strong transport links but a car-oriented public realm", "Large events bring occasional peaks of activity", "In-between land feels fragmented outside event days"],
     studies: [
-      { title: "Airport town", image: "/common-ground/site-analysis/ingliston-airport-town.webp", width: 1857, height: 1857, alt: "Ingliston map locating airport and Royal Highland Centre buildings, parking and tram infrastructure." },
-      { title: "Pop-up community", image: "/common-ground/site-analysis/ingliston-pop-up-community.webp", width: 1960, height: 1960, alt: "Ingliston diagram of temporary and permanent structures at the Royal Highland Centre." },
+      { title: "Airport town", image: "/common-ground/submission/site-analysis/airport/airport-town.webp", width: 1857, height: 1857, alt: "Ingliston map locating airport and Royal Highland Centre buildings, parking and tram infrastructure." },
+      { title: "Pop-up community", image: "/common-ground/submission/site-analysis/airport/pop-up-community.webp", width: 1960, height: 1960, alt: "Ingliston diagram of temporary and permanent structures at the Royal Highland Centre." },
     ],
-    fieldwork: "/common-ground/site-analysis/ingliston-fieldwork.webp",
+    fieldwork: "/common-ground/submission/site-analysis/airport/pictures.webp",
   },
   {
     name: "Gogarburn",
@@ -42,10 +43,10 @@ const places = [
     summary: "A green, biodiverse landscape organised around a large corporate campus.",
     characteristics: ["Landscaped open space and a calm setting", "Facilities primarily serve the working population", "Road, rail and tram routes limit wider connections"],
     studies: [
-      { title: "Nature", image: "/common-ground/site-analysis/gogarburn-nature.webp", width: 1908, height: 1908, alt: "Gogarburn landscape map showing trees, planted ground and open space around the campus." },
-      { title: "Transport", image: "/common-ground/site-analysis/gogarburn-transport.webp", width: 1998, height: 1998, alt: "Transport map connecting Gogarburn with the tram, roads and nearby stations." },
+      { title: "Nature", image: "/common-ground/submission/site-analysis/gogarburn/nature.webp", width: 1908, height: 1908, alt: "Gogarburn landscape map showing trees, planted ground and open space around the campus." },
+      { title: "Transport", image: "/common-ground/submission/site-analysis/gogarburn/transport.webp", width: 1998, height: 1998, alt: "Transport map connecting Gogarburn with the tram, roads and nearby stations." },
     ],
-    fieldwork: "/common-ground/site-analysis/gogarburn-fieldwork.webp",
+    fieldwork: "/common-ground/submission/site-analysis/gogarburn/photos.webp",
   },
   {
     name: "Edinburgh Park",
@@ -55,25 +56,27 @@ const places = [
     summary: "An office-led district whose car parks and transport routes divide its public life.",
     characteristics: ["Commercial buildings dominate the urban fabric", "Activity is concentrated in working hours", "Disconnected parcels leave room for more social uses"],
     studies: [
-      { title: "Movement network", image: "/common-ground/site-analysis/edinburgh-park-movement.webp", width: 1920, height: 1914, alt: "Edinburgh Park movement map showing motorway, tram, rail, bus and walking routes." },
-      { title: "Building typology", image: "/common-ground/site-analysis/edinburgh-park-typology.webp", width: 1915, height: 1907, alt: "Edinburgh Park building-use map identifying commercial, residential and public functions." },
+      { title: "Movement network", image: "/common-ground/submission/site-analysis/edi-park/movement-network.webp", width: 1920, height: 1914, alt: "Edinburgh Park movement map showing motorway, tram, rail, bus and walking routes." },
+      { title: "Building typology", image: "/common-ground/submission/site-analysis/edi-park/typology.webp", width: 1915, height: 1907, alt: "Edinburgh Park building-use map identifying commercial, residential and public functions." },
     ],
-    fieldwork: "/common-ground/site-analysis/edinburgh-park-fieldwork.webp",
+    fieldwork: "/common-ground/submission/site-analysis/edi-park/photos.webp",
   },
 ] as const;
 
 export function CommonGroundSiteAnalysis() {
   const [active, setActive] = useState(0);
+  const [viewer, setViewer] = useState<SiteImage | null>(null);
   const place = places[active];
 
   return (
-    <section id="cg-site-analysis" aria-labelledby="cg-site-title" className="scroll-mt-28 bg-white py-12 md:py-16">
+    <section id="cg-overview-map" aria-labelledby="cg-site-title" className="scroll-mt-28 bg-white py-12 md:py-16">
       <div className="shell pt-8">
         <div data-cg-heading>
-          <SectionLabel>Site analysis</SectionLabel>
-          <h2 id="cg-site-title" className="mt-5 font-display text-[clamp(1.35rem,2.1vw,1.8rem)] font-light leading-tight text-ink-soft">
-            A studio project
+          <SectionLabel>Study area</SectionLabel>
+          <h2 id="cg-site-title" className="mt-5 font-display text-[clamp(2rem,3.4vw,3.2rem)] font-light leading-tight text-ink">
+            Grand overview map
           </h2>
+          <p className="mt-5 max-w-3xl text-base leading-relaxed text-ink-soft">The group studio analysis focuses on four places along Edinburgh&apos;s western edge. Select an area on the map to see its spatial character, drawings and fieldwork.</p>
         </div>
 
         <div data-cg-media className="mx-auto mt-8 max-w-[900px]">
@@ -133,9 +136,9 @@ export function CommonGroundSiteAnalysis() {
 
         <div id="cg-place-details" key={place.name} aria-live="polite" className="mt-8">
           <div className="grid items-center gap-7 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-12">
-            <a href={place.image} target="_blank" rel="noopener noreferrer" aria-label={`Open site drawing of ${place.studyName}`} className="group block overflow-hidden border border-sage-300/60 bg-white p-4 focus-visible:outline-offset-4">
+            <button type="button" onClick={() => setViewer({ src: place.image, title: `${place.studyName} site drawing`, alt: `Site analysis drawing of ${place.studyName}` })} aria-label={`Enlarge site drawing of ${place.studyName}`} className="group block w-full overflow-hidden border border-sage-300/60 bg-white p-4 focus-visible:outline-offset-4">
               <Image src={place.image} alt={`Site analysis drawing of ${place.studyName}.`} width={900} height={900} unoptimized className="mx-auto h-auto max-h-[340px] w-full object-contain transition-transform duration-500 group-hover:scale-[1.03] group-focus-visible:scale-[1.03] motion-reduce:transition-none" />
-            </a>
+            </button>
             <div>
               <p className="t-label text-sage-700">Area study · {place.studyName}</p>
               <h3 className="mt-4 font-display text-[clamp(1.35rem,2.1vw,1.8rem)] font-light text-ink">{place.studyName}</h3>
@@ -149,23 +152,24 @@ export function CommonGroundSiteAnalysis() {
             <p className="t-label text-sage-700">Mapping and fieldwork · {place.studyName}</p>
             <div className="mt-5 grid gap-4 sm:grid-cols-3">
               {place.studies.map((study) => (
-                <a key={study.title} href={study.image} target="_blank" rel="noopener noreferrer" aria-label={`Open ${study.title} study of ${place.studyName}`} className="group block min-w-0 border border-sage-300/60 bg-white p-3 focus-visible:outline-offset-4">
+                <button key={study.title} type="button" onClick={() => setViewer({ src: study.image, title: `${place.studyName} · ${study.title}`, alt: study.alt })} aria-label={`Enlarge ${study.title} study of ${place.studyName}`} className="group block min-w-0 border border-sage-300/60 bg-white p-3 text-left focus-visible:outline-offset-4">
                   <div className="flex h-40 items-center justify-center overflow-hidden">
                     <Image src={study.image} alt={study.alt} width={study.width} height={study.height} unoptimized className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.08] group-focus-visible:scale-[1.08] motion-reduce:transition-none" />
                   </div>
                   <p className="t-label mt-3 text-ink-soft">{study.title}</p>
-                </a>
+                </button>
               ))}
-              <a href={place.fieldwork} target="_blank" rel="noopener noreferrer" aria-label={`Open photographic survey of ${place.studyName}`} className="group block min-w-0 border border-sage-300/60 bg-white p-3 focus-visible:outline-offset-4">
+              <button type="button" onClick={() => setViewer({ src: place.fieldwork, title: `${place.studyName} · photographic survey`, alt: `Numbered photographic survey and location map for ${place.studyName}` })} aria-label={`Enlarge photographic survey of ${place.studyName}`} className="group block min-w-0 border border-sage-300/60 bg-white p-3 text-left focus-visible:outline-offset-4">
                 <div className="flex h-40 items-center justify-center overflow-hidden">
                   <Image src={place.fieldwork} alt={`Numbered photographic survey and location map for ${place.studyName}.`} width={6615} height={3308} unoptimized className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-[1.08] group-focus-visible:scale-[1.08] motion-reduce:transition-none" />
                 </div>
                 <p className="t-label mt-3 text-ink-soft">Photographic survey</p>
-              </a>
+              </button>
             </div>
           </div>
         </div>
       </div>
+      <CommonGroundImageDialog image={viewer} onClose={() => setViewer(null)} />
     </section>
   );
 }

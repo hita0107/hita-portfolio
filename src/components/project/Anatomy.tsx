@@ -8,12 +8,14 @@ import { images, type ImageId } from "@/content/images";
 import { useLightbox } from "@/components/Lightbox";
 import { figures } from "@/content/figures";
 import { Picture } from "@/components/Picture";
+import Image from "next/image";
 import { SectionLabel } from "@/components/SectionLabel";
 import { BuildUpDiagram } from "./BuildUpDiagram";
 import { CommonGroundImage, type CommonGroundAssetId } from "./CommonGroundPlate";
 
 type Tone = "light" | "dark";
 type SectionImages = Partial<Record<ImageId, { id: CommonGroundAssetId; caption: string }>>;
+type DrawingImages = Partial<Record<ImageId, { src: string; width: number; height: number; alt: string; caption: string }>>;
 type HotspotPositions = Partial<Record<string, { x: number; y: number }>>;
 
 type Props = {
@@ -24,6 +26,7 @@ type Props = {
   tone?: Tone;
   white?: boolean;
   sectionImages?: SectionImages;
+  drawingImages?: DrawingImages;
   hotspotPositions?: HotspotPositions;
   showDetailThumbs?: boolean;
 };
@@ -68,7 +71,7 @@ function Hotspot({
   );
 }
 
-function Drawing({ steps, active, onPick, tone, sectionImages, hotspotPositions }: { steps: AnatomyStep[]; active: number; onPick?: (i: number) => void; tone: Tone; sectionImages?: SectionImages; hotspotPositions?: HotspotPositions }) {
+function Drawing({ steps, active, onPick, tone, sectionImages, drawingImages, hotspotPositions }: { steps: AnatomyStep[]; active: number; onPick?: (i: number) => void; tone: Tone; sectionImages?: SectionImages; drawingImages?: DrawingImages; hotspotPositions?: HotspotPositions }) {
   const drawings = [...new Set(steps.map((s) => s.drawing))];
   const current = steps[active].drawing;
   return (
@@ -76,14 +79,17 @@ function Drawing({ steps, active, onPick, tone, sectionImages, hotspotPositions 
       {drawings.map((d) => {
         const shown = d === current;
         const replacement = sectionImages?.[d];
+        const submission = drawingImages?.[d];
         return (
           <div
             key={d}
             aria-hidden={!shown}
-            style={{ maxWidth: replacement ? undefined : Math.round(images[d].w * 2.2) }}
+            style={{ maxWidth: replacement || submission ? undefined : Math.round(images[d].w * 2.2) }}
             className={`relative w-full self-start [grid-area:1/1] transition-opacity duration-700 motion-reduce:transition-none ${shown ? "opacity-100" : "pointer-events-none opacity-0"}`}
           >
-            {replacement ? (
+            {submission ? (
+              <Image src={submission.src} width={submission.width} height={submission.height} alt={submission.alt} unoptimized sizes="(min-width: 1024px) 46vw, 92vw" className="block h-auto w-full" />
+            ) : replacement ? (
               <CommonGroundImage id={replacement.id} alt={replacement.caption} sizes="(min-width: 1024px) 46vw, 92vw" className="block h-auto w-full" />
             ) : (
               <Picture id={d} sizes="(min-width: 1024px) 46vw, 92vw" className="block h-auto w-full" />
@@ -99,17 +105,10 @@ function Drawing({ steps, active, onPick, tone, sectionImages, hotspotPositions 
                   className={`group absolute grid place-items-center border transition-colors ${
                     i === active ? "border-solid border-ink bg-sage-500/15" : "border-dashed border-sage-500 hover:bg-sage-500/10"
                   }`}
-                  style={replacement && position
+                  style={(replacement || submission) && position
                     ? { left: `${position.x * 100}%`, top: `${position.y * 100}%`, width: 36, height: 36, transform: "translate(-50%, -50%)" }
                     : { left: `${s.hotspot.x * 100}%`, top: `${s.hotspot.y * 100}%`, width: `${s.hotspot.w * 100}%`, height: `${s.hotspot.h * 100}%` }}
                 >
-                  <span
-                    className={`absolute -top-3 left-1/2 grid h-6 min-w-6 -translate-x-1/2 place-items-center rounded-full px-1.5 font-mono text-[11px] ${
-                      i === active ? "bg-ink text-paper" : "bg-paper text-ink ring-1 ring-sage-500"
-                    }`}
-                  >
-                    {i + 1}
-                  </span>
                   {i === active && <span aria-hidden className="anatomy-ping absolute inset-0 border border-sage-500" />}
                 </Hotspot>
               ) : null;
@@ -117,7 +116,7 @@ function Drawing({ steps, active, onPick, tone, sectionImages, hotspotPositions 
           </div>
         );
       })}
-      <p className={`t-label mt-3 ${tone === "dark" ? "text-sage-300" : "text-ink-soft"}`}>{sectionImages?.[current]?.caption ?? figures[current].caption ?? steps[active].title}</p>
+      <p className={`t-label mt-3 ${tone === "dark" ? "text-sage-300" : "text-ink-soft"}`}>{drawingImages?.[current]?.caption ?? sectionImages?.[current]?.caption ?? figures[current].caption ?? steps[active].title}</p>
     </div>
   );
 }
@@ -152,14 +151,14 @@ function StepPanel({ step, active, tone, height, showDetailThumbs }: { step: Ana
       </div>
       <div className={`mt-5 grid gap-8 ${stacked ? "sm:grid-cols-2" : ""}`}>
         {step.buildUps.map((b) => (
-          <BuildUpDiagram key={b.id} data={b} active={active} tone={tone} height={height} stacked={stacked} showTitle={b.title !== step.title} />
+          <BuildUpDiagram key={b.id} data={b} active={active} tone={tone} height={height} stacked={stacked} showTitle={b.title !== step.title} showLayerNumbers={false} />
         ))}
       </div>
     </div>
   );
 }
 
-export function Anatomy({ label, title, intro, steps, tone = "light", white = false, sectionImages, hotspotPositions, showDetailThumbs = true }: Props) {
+export function Anatomy({ label, title, intro, steps, tone = "light", white = false, sectionImages, drawingImages, hotspotPositions, showDetailThumbs = true }: Props) {
   const root = useRef<HTMLElement>(null);
   const trigger = useRef<ScrollTrigger | null>(null);
   const [step, setStep] = useState(0);
@@ -225,7 +224,6 @@ export function Anatomy({ label, title, intro, steps, tone = "light", white = fa
                           : "border-sage-300 text-ink hover:bg-sage-100"
                     }`}
                   >
-                    <span className="mr-1.5 font-mono text-[11px] opacity-70">{i + 1}</span>
                     {s.title}
                   </button>
                 </li>
@@ -237,7 +235,7 @@ export function Anatomy({ label, title, intro, steps, tone = "light", white = fa
         {pinned ? (
           <div className="mt-8 grid grid-cols-12 items-start gap-10">
             <div className={maxStack > 1 ? "col-span-4" : "col-span-6"}>
-              <Drawing steps={steps} active={step} onPick={pick} tone={tone} sectionImages={sectionImages} hotspotPositions={hotspotPositions} />
+              <Drawing steps={steps} active={step} onPick={pick} tone={tone} sectionImages={sectionImages} drawingImages={drawingImages} hotspotPositions={hotspotPositions} />
             </div>
             <div className={maxStack > 1 ? "col-span-8" : "col-span-6"}>
               <StepPanel key={steps[step].id} step={steps[step]} active tone={tone} height={height} showDetailThumbs={showDetailThumbs} />
@@ -246,7 +244,7 @@ export function Anatomy({ label, title, intro, steps, tone = "light", white = fa
         ) : (
           <div className="mt-14 space-y-24">
             {steps.map((s, i) => (
-              <ListStep key={s.id} steps={steps} index={i} tone={tone} height={height} sectionImages={sectionImages} hotspotPositions={hotspotPositions} showDetailThumbs={showDetailThumbs} />
+                <ListStep key={s.id} steps={steps} index={i} tone={tone} height={height} sectionImages={sectionImages} drawingImages={drawingImages} hotspotPositions={hotspotPositions} showDetailThumbs={showDetailThumbs} />
             ))}
           </div>
         )}
@@ -255,7 +253,7 @@ export function Anatomy({ label, title, intro, steps, tone = "light", white = fa
   );
 }
 
-function ListStep({ steps, index, tone, height, sectionImages, hotspotPositions, showDetailThumbs }: { steps: AnatomyStep[]; index: number; tone: Tone; height: number; sectionImages?: SectionImages; hotspotPositions?: HotspotPositions; showDetailThumbs: boolean }) {
+function ListStep({ steps, index, tone, height, sectionImages, drawingImages, hotspotPositions, showDetailThumbs }: { steps: AnatomyStep[]; index: number; tone: Tone; height: number; sectionImages?: SectionImages; drawingImages?: DrawingImages; hotspotPositions?: HotspotPositions; showDetailThumbs: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -271,7 +269,7 @@ function ListStep({ steps, index, tone, height, sectionImages, hotspotPositions,
   const s = steps[index];
   return (
     <div ref={ref} className="grid gap-10 lg:grid-cols-2">
-      <Drawing steps={steps} active={index} tone={tone} sectionImages={sectionImages} hotspotPositions={hotspotPositions} />
+      <Drawing steps={steps} active={index} tone={tone} sectionImages={sectionImages} drawingImages={drawingImages} hotspotPositions={hotspotPositions} />
       <StepPanel step={s} active={seen} tone={tone} height={height} showDetailThumbs={showDetailThumbs} />
     </div>
   );

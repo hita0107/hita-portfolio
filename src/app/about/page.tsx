@@ -10,7 +10,7 @@ export default function AboutPage() {
     <main>
       <About />
       <Skills />
-      <Contact compact />
+      <Contact />
     </main>
   );
 }

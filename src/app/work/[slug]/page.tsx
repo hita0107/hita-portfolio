@@ -7,16 +7,22 @@ import { CommonGround } from "@/components/project/views/CommonGround";
 import { Faithlie } from "@/components/project/views/Faithlie";
 import { Verdant } from "@/components/project/views/Verdant";
 import { Elysian } from "@/components/project/views/Elysian";
-import { DesignConcepts } from "@/components/project/views/DesignConcepts";
+import { ConceptualMultistorey } from "@/components/project/views/PracticeProjects";
+import { LuxuryVilla } from "@/components/project/views/Villa";
+import { JssPrivateSchool } from "@/components/project/views/JssPrivateSchool";
+import { RoomsCities } from "@/components/project/views/RoomsCities";
 
 export const dynamicParams = false;
 
 const VIEWS: Record<ProjectSlug, (props: { project: Project }) => React.ReactNode> = {
   "common-ground": CommonGround,
+  "rooms-cities": RoomsCities,
   "faithlie-centre": Faithlie,
   "verdant-theatre": Verdant,
   "elysian-arcadia": Elysian,
-  "design-concepts": DesignConcepts,
+  "jss-private-school": JssPrivateSchool,
+  "luxury-villa": LuxuryVilla,
+  "conceptual-multistorey": ConceptualMultistorey,
 };
 
 export function generateStaticParams() {

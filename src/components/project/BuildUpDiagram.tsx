@@ -195,9 +195,10 @@ type Props = {
   compact?: boolean;
   stacked?: boolean;
   showTitle?: boolean;
+  showLayerNumbers?: boolean;
 };
 
-export function BuildUpDiagram({ data, active, tone = "light", height = 380, compact = false, stacked = false, showTitle = true }: Props) {
+export function BuildUpDiagram({ data, active, tone = "light", height = 380, compact = false, stacked = false, showTitle = true, showLayerNumbers = true }: Props) {
   const uid = useId().replace(/:/g, "");
   const p = `bu${uid}`;
   const sw = swatches(tone);
@@ -312,17 +313,19 @@ export function BuildUpDiagram({ data, active, tone = "light", height = 380, com
                     stroke={hover === i ? ink : soft}
                     strokeWidth={hover === i ? 1.1 : 0.7}
                   />
-                  <circle cx={X0 + STACK_W + 47} cy={tags[i]} r="7.5" fill={hover === i ? ink : "none"} stroke={hover === i ? ink : soft} strokeWidth="0.8" />
-                  <text
-                    x={X0 + STACK_W + 47}
-                    y={tags[i] + 3.2}
-                    textAnchor="middle"
-                    fontSize="8.5"
-                    fontFamily="var(--font-mono)"
-                    fill={hover === i ? (tone === "light" ? "#fcfbf7" : "#1e251b") : ink}
-                  >
-                    {i + 1}
-                  </text>
+                  {showLayerNumbers && <>
+                    <circle cx={X0 + STACK_W + 47} cy={tags[i]} r="7.5" fill={hover === i ? ink : "none"} stroke={hover === i ? ink : soft} strokeWidth="0.8" />
+                    <text
+                      x={X0 + STACK_W + 47}
+                      y={tags[i] + 3.2}
+                      textAnchor="middle"
+                      fontSize="8.5"
+                      fontFamily="var(--font-mono)"
+                      fill={hover === i ? (tone === "light" ? "#fcfbf7" : "#1e251b") : ink}
+                    >
+                      {i + 1}
+                    </text>
+                  </>}
                 </g>
               )}
             </g>
@@ -359,11 +362,11 @@ export function BuildUpDiagram({ data, active, tone = "light", height = 380, com
                 data-row
                 onMouseEnter={() => setHover(i)}
                 onMouseLeave={() => setHover(null)}
-                className={`grid cursor-default grid-cols-[1.5rem_4.5rem_1fr] items-baseline gap-2 rounded-sm px-1.5 leading-snug transition-colors ${stacked ? "py-0.5 text-[0.8rem]" : "py-1 text-[0.9rem]"} ${
+                className={`grid cursor-default ${showLayerNumbers ? "grid-cols-[1.5rem_4.5rem_1fr]" : "grid-cols-[4.5rem_1fr]"} items-baseline gap-2 rounded-sm px-1.5 leading-snug transition-colors ${stacked ? "py-0.5 text-[0.8rem]" : "py-1 text-[0.9rem]"} ${
                   hover === i ? (tone === "light" ? "bg-sage-100" : "bg-white/10") : ""
                 } ${l.outsideTotal ? "opacity-60" : ""}`}
               >
-                <span className={`font-mono text-[11px] ${tone === "light" ? "text-sage-700" : "text-sage-300"}`}>{i + 1}</span>
+                {showLayerNumbers && <span className={`font-mono text-[11px] ${tone === "light" ? "text-sage-700" : "text-sage-300"}`}>{i + 1}</span>}
                 <span className={`font-mono text-[12px] ${tone === "light" ? "text-ink" : "text-sage-50"}`}>
                   {l.mm === null ? "1 ply" : `${l.mm} mm`}
                 </span>
