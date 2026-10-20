@@ -21,7 +21,7 @@ function Cover({ project, className }: { project: Project; className: string }) 
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <li className="md:w-3/4 md:odd:ml-auto">
+    <li className="md:w-[68%] md:odd:ml-auto">
       <SectionReveal>
       <Link href={`/work/${project.slug}/`} className="group block focus-visible:outline-offset-4">
         <div className="relative aspect-[4/3] overflow-hidden bg-cream">
@@ -89,7 +89,7 @@ export function WorksIndex() {
             ))}
           </ol>
           ) : (
-          <ol className="grid gap-x-4 gap-y-12 md:grid-cols-2 md:gap-y-20">
+          <ol className="grid gap-x-4 gap-y-12 md:grid-cols-2 md:gap-x-8 md:gap-y-24">
             {sorted.map((project) => <ProjectCard key={project.slug} project={project} />)}
           </ol>
           )}
