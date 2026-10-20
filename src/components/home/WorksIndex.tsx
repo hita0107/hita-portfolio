@@ -29,7 +29,7 @@ function ProjectCard({ project }: { project: Project }) {
           <span className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10" />
           <span className="absolute bottom-5 right-5 translate-y-3 text-[12px] uppercase tracking-[.14em] text-white opacity-0 transition-[opacity,transform] duration-500 group-hover:translate-y-0 group-hover:opacity-100">View project ↗</span>
         </div>
-        <div className="mt-3 flex items-start justify-between gap-6 text-[12px] leading-snug md:text-[13px]">
+        <div className="mt-3 flex items-start justify-between gap-6 text-[12px] leading-snug md:min-h-[68px] md:text-[13px]">
           <div><span className="block">{project.title}</span><span className="mt-0.5 block text-ink-soft">{project.subtitle}</span></div>
           <span className="shrink-0 text-ink-soft">{project.years}</span>
         </div>
@@ -89,7 +89,7 @@ export function WorksIndex() {
             ))}
           </ol>
           ) : (
-          <ol className="grid gap-x-4 gap-y-12 md:grid-cols-2 md:gap-x-8 md:gap-y-24">
+          <ol className="grid gap-x-4 gap-y-12 md:grid-cols-2 md:gap-x-20 md:gap-y-0">
             {sorted.map((project) => <ProjectCard key={project.slug} project={project} />)}
           </ol>
           )}
