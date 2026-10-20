@@ -37,12 +37,12 @@ export function Dock() {
           <span className="mt-1.5 block text-[10px] font-normal uppercase leading-none tracking-[.12em] opacity-75 md:text-[11px]">Architecture portfolio</span>
         </Link>
         <ul className="flex flex-wrap items-center justify-end gap-x-4 gap-y-2 pt-1.5 text-[11px] font-medium tracking-[-.02em] sm:gap-x-6 md:gap-x-8 md:text-[13px]">
-          {links.map((link, i) => {
+          {links.map((link) => {
             const current = link.href === "/" ? pathname === "/" : pathname?.startsWith(link.href);
             return (
               <li key={link.href}>
                 <Link href={link.href} aria-current={current ? "page" : undefined} className="editorial-link py-1 transition-opacity hover:opacity-60">
-                  {link.label}{i < links.length - 1 ? "," : ""}
+                  {link.label}
                 </Link>
               </li>
             );

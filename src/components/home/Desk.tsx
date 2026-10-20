@@ -25,7 +25,7 @@ export function Desk() {
   return (
     <>
       <section id="top" aria-labelledby="home-title" className="relative h-[100svh] min-h-[620px] overflow-hidden bg-ink text-white">
-        <Picture id="vt-auditorium" alt="Interior view of Verdant Theatre" sizes="100vw" priority className="editorial-image absolute inset-0 h-full w-full object-cover object-center" />
+        <Image src="/elysian/submission/final/renders/1.webp" alt="The inhabited courtyard at Elysian Arcadia" fill unoptimized sizes="100vw" priority className="editorial-image object-cover object-center" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-black/10" />
         <div className="shell relative flex h-full flex-col justify-end pb-9 md:pb-12">
           <h1 id="home-title" className="editorial-rise max-w-[1050px] font-display font-normal text-[clamp(3.4rem,8.2vw,9rem)] leading-[.82] tracking-[-.045em]" style={{ animationDelay: "120ms" }}>
