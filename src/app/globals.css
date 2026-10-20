@@ -192,7 +192,8 @@
 .works-wall {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: clamp(1rem, 2.5vw, 2.5rem);
+  column-gap: clamp(1.5rem, 3.5vw, 3.5rem);
+  row-gap: clamp(2rem, 4vw, 4rem);
 }
 
 .works-wall-project {
@@ -202,22 +203,22 @@
 }
 
 .works-wall-position { position: absolute; }
-.works-wall-position--0 { left: 0; top: 0; width: 78%; }
-.works-wall-position--1 { right: 0; top: 18%; width: 44%; }
-.works-wall-position--2 { left: 9%; top: 50%; width: 45%; }
+.works-wall-position--0 { left: 0; top: 0; width: 72%; }
+.works-wall-position--1 { right: 0; top: 22%; width: 38%; }
+.works-wall-position--2 { left: 12%; top: 56%; width: 38%; }
 .works-wall-position--0 .works-wall-frame { aspect-ratio: 1.4; }
 .works-wall-position--1 .works-wall-frame { aspect-ratio: 4 / 5; }
 .works-wall-position--2 .works-wall-frame { aspect-ratio: 1 / 1; }
 
 .works-wall-project--1 .works-wall-position--0 { left: auto; right: 0; }
-.works-wall-project--1 .works-wall-position--1 { left: 0; right: auto; top: 13%; }
-.works-wall-project--1 .works-wall-position--2 { left: auto; right: 9%; top: 51%; }
-.works-wall-project--2 .works-wall-position--0 { left: 7%; width: 80%; }
-.works-wall-project--2 .works-wall-position--1 { top: 24%; width: 42%; }
-.works-wall-project--2 .works-wall-position--2 { left: 0; top: 51%; }
+.works-wall-project--1 .works-wall-position--1 { left: 0; right: auto; top: 18%; }
+.works-wall-project--1 .works-wall-position--2 { left: auto; right: 12%; top: 56%; }
+.works-wall-project--2 .works-wall-position--0 { left: 7%; width: 74%; }
+.works-wall-project--2 .works-wall-position--1 { top: 27%; width: 37%; }
+.works-wall-project--2 .works-wall-position--2 { left: 0; top: 57%; }
 .works-wall-project--3 .works-wall-position--0 { left: auto; right: 7%; }
-.works-wall-project--3 .works-wall-position--1 { left: 0; right: auto; }
-.works-wall-project--3 .works-wall-position--2 { left: auto; right: 0; top: 52%; }
+.works-wall-project--3 .works-wall-position--1 { left: 0; right: auto; top: 22%; }
+.works-wall-project--3 .works-wall-position--2 { left: auto; right: 0; top: 57%; }
 
 .works-wall-project-caption {
   position: absolute;
