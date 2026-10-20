@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/SiteImage";
 import { Picture } from "@/components/Picture";
 import type { Project } from "@/content/portfolio";
 

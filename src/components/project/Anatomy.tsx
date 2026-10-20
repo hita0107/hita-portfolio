@@ -8,7 +8,7 @@ import { images, type ImageId } from "@/content/images";
 import { useLightbox } from "@/components/Lightbox";
 import { figures } from "@/content/figures";
 import { Picture } from "@/components/Picture";
-import Image from "next/image";
+import Image from "@/components/SiteImage";
 import { SectionLabel } from "@/components/SectionLabel";
 import { BuildUpDiagram } from "./BuildUpDiagram";
 import { CommonGroundImage, type CommonGroundAssetId } from "./CommonGroundPlate";

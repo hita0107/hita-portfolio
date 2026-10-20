@@ -1,4 +1,5 @@
 import assets from "@/content/commonGroundAssets.json";
+import { publicPath, publicSrcSet } from "@/lib/publicPath";
 
 export type CommonGroundAssetId = keyof typeof assets;
 
@@ -18,8 +19,8 @@ export function CommonGroundImage({
     // Responsive files are generated ahead of time for the static site.
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={asset.src}
-      srcSet={asset.srcSet}
+      src={publicPath(asset.src)}
+      srcSet={publicSrcSet(asset.srcSet)}
       sizes={sizes}
       width={asset.width}
       height={asset.height}
@@ -47,7 +48,7 @@ export function CommonGroundPlate({
   return (
     <figure className={className}>
       <a
-        href={assets[id].full}
+        href={publicPath(assets[id].full)}
         target="_blank"
         rel="noopener noreferrer"
         className="group flex min-h-32 items-center justify-center overflow-hidden border border-sage-300/50 bg-white p-4 focus-visible:outline-offset-4"

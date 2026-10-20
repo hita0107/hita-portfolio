@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/SiteImage";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SectionReveal } from "@/components/motion/SectionReveal";
 import { CarbonSum } from "./CarbonSum";

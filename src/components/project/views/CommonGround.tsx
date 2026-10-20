@@ -1,5 +1,6 @@
 import type { Project } from "@/content/portfolio";
-import Image from "next/image";
+import Image from "@/components/SiteImage";
+import { publicPath } from "@/lib/publicPath";
 import { Opener } from "../Opener";
 import { CommonGroundSite, CommonGroundConstruction } from "../CommonGroundVisuals";
 import { CommonGroundExploration } from "../CommonGroundExploration";
@@ -28,7 +29,7 @@ export function CommonGround({ project }: { project: Project }) {
         introduction={introduction}
         sideImage={
           <a
-            href="/common-ground/exploration/intro.pdf"
+            href={publicPath("/common-ground/exploration/intro.pdf")}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open the Common Ground spatial organisation drawing as a PDF"

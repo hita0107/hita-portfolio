@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { lockScroll } from "@/lib/lenis";
+import { publicPath } from "@/lib/publicPath";
 
 export type SiteImage = { src: string; title: string; alt: string; blendWithPage?: boolean };
 
@@ -46,7 +47,7 @@ export function CommonGroundImageDialog({ image, onClose }: { image: SiteImage |
         </button>
         {/* The submitted WebP is already sized for this full-resolution view. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={image.src} alt={image.alt} className={`block max-h-[calc(96svh-5rem)] max-w-[calc(96vw-2.5rem)] object-contain ${image.blendWithPage ? "mix-blend-multiply" : ""}`} />
+        <img src={publicPath(image.src)} alt={image.alt} className={`block max-h-[calc(96svh-5rem)] max-w-[calc(96vw-2.5rem)] object-contain ${image.blendWithPage ? "mix-blend-multiply" : ""}`} />
         <p className="t-label mt-3 text-ink-soft">{image.title}</p>
       </div>
     </dialog>

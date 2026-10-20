@@ -1,4 +1,5 @@
 import submissions from "@/content/submissions.json";
+import { publicPath, publicSrcSet } from "@/lib/publicPath";
 
 type Group = keyof typeof submissions;
 
@@ -25,7 +26,7 @@ function Gallery({ group }: { group: Group }) {
         {submissions[group].map((item) => (
           <figure key={item.id}>
             <a
-              href={item.full}
+              href={publicPath(item.full)}
               target="_blank"
               rel="noopener noreferrer"
               className="group block cursor-zoom-in overflow-hidden border border-sage-300/40 bg-white p-3 shadow-sm focus-visible:outline-offset-4"
@@ -35,8 +36,8 @@ function Gallery({ group }: { group: Group }) {
                 {/* Responsive WebP files are prebuilt for this static-export site. */}
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
-                  src={item.src}
-                  srcSet={item.srcSet}
+                  src={publicPath(item.src)}
+                  srcSet={publicSrcSet(item.srcSet)}
                   sizes="(min-width: 1440px) 650px, (min-width: 640px) 46vw, 92vw"
                   width={item.width}
                   height={item.height}

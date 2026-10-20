@@ -1,8 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Image from "@/components/SiteImage";
 import type { SiteImage } from "./CommonGroundImageDialog";
+import { publicPath } from "@/lib/publicPath";
 
 export type DrawingItem = { title: string; alt: string; src: string; full: string };
 export type DrawingGroup = { label: string; items: readonly DrawingItem[] };
@@ -62,7 +63,7 @@ export function StackedDrawingBrowser({ groups, name, onOpen, compact = false }:
             className={`border-b border-sage-300/60 text-left text-sm transition-colors ${compact ? "py-2" : "py-3"} ${imageIndex === index ? "text-ink" : "text-ink-soft hover:text-ink"}`}
           >{String(index + 1).padStart(2, "0")} &nbsp; {item.title}</button>)}
         </div>
-        <a href={image.full} target="_blank" rel="noopener noreferrer" className="editorial-link mt-6 inline-block pb-1 text-[11px] uppercase tracking-[.12em]">Open detailed sheet ↗</a>
+        <a href={publicPath(image.full)} target="_blank" rel="noopener noreferrer" className="editorial-link mt-6 inline-block pb-1 text-[11px] uppercase tracking-[.12em]">Open detailed sheet ↗</a>
       </div>
     </div>
   </>;

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
+import Image from "@/components/SiteImage";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
 import { Picture } from "@/components/Picture";
 import { projects, type Project } from "@/content/portfolio";

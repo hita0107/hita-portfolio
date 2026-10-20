@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/SiteImage";
+import { publicPath } from "@/lib/publicPath";
 import { SectionLabel } from "@/components/SectionLabel";
 import images from "@/content/commonGroundSubmission.json";
 
@@ -22,7 +23,7 @@ export function CommonGroundFinal() {
           {drawings.map((drawing) => {
             const asset = images[drawing.key];
             return <figure key={drawing.key} data-cg-card className="min-w-0">
-              <a href={asset.src} target="_blank" rel="noopener noreferrer" aria-label={`Open ${drawing.title} in full resolution`} className="group flex h-[360px] items-center justify-center overflow-hidden bg-sage-50/30 p-3 md:h-[490px]">
+              <a href={publicPath(asset.src)} target="_blank" rel="noopener noreferrer" aria-label={`Open ${drawing.title} in full resolution`} className="group flex h-[360px] items-center justify-center overflow-hidden bg-sage-50/30 p-3 md:h-[490px]">
                 <Image src={asset.src} width={asset.width} height={asset.height} alt={`${drawing.title} for Common Ground`} unoptimized sizes="(min-width: 768px) 46vw, 92vw" className="max-h-[620px] h-full w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]" />
               </a>
               <figcaption className="mt-4 flex flex-wrap items-baseline justify-between gap-3 border-t border-sage-300/60 pt-3">

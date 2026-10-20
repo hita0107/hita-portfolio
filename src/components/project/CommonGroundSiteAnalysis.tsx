@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/SiteImage";
 import { useState } from "react";
 import { SectionLabel } from "@/components/SectionLabel";
 import { CommonGroundImageDialog, type SiteImage } from "./CommonGroundImageDialog";

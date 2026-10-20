@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
+import Image from "@/components/SiteImage";
 import type { Project } from "@/content/portfolio";
 import submissions from "@/content/submissions.json";
 import { SectionLabel } from "@/components/SectionLabel";

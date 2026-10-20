@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/SiteImage";
 import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import { SectionLabel } from "@/components/SectionLabel";
 import { SectionReveal } from "@/components/motion/SectionReveal";

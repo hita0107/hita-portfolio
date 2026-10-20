@@ -1,10 +1,11 @@
 import { images, type ImageId } from "@/content/images";
 import { figures } from "@/content/figures";
+import { publicPath } from "@/lib/publicPath";
 
 type Format = "avif" | "webp";
 
 export function srcFor(id: ImageId, width: number, format: Format) {
-  return `/img/${id}-${width}.${format}`;
+  return publicPath(`/img/${id}-${width}.${format}`);
 }
 
 export function largestWidth(id: ImageId) {
