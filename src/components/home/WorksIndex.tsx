@@ -8,7 +8,18 @@ import { SectionReveal } from "@/components/motion/SectionReveal";
 import { projects, type Project } from "@/content/portfolio";
 
 const sorted = [...projects].sort((a, b) => Number(b.years.slice(0, 4)) - Number(a.years.slice(0, 4)));
-type View = "grid" | "list" | "gallery";
+type View = "gallery" | "list" | "grid";
+
+const galleryLayout = [
+  { place: "w-[94%] sm:col-span-7 sm:col-start-1 sm:mt-5", shape: "aspect-[5/4]", tilt: "sm:-rotate-[1.2deg]" },
+  { place: "ml-auto w-[78%] sm:col-span-4 sm:col-start-9 sm:mt-32 sm:w-auto", shape: "aspect-[3/4]", tilt: "sm:rotate-[1.5deg]" },
+  { place: "ml-[5%] w-[78%] sm:col-span-4 sm:col-start-2 sm:mt-3 sm:w-auto", shape: "aspect-square", tilt: "sm:rotate-[1deg]" },
+  { place: "ml-auto w-[92%] sm:col-span-6 sm:col-start-7 sm:mt-28 sm:w-auto", shape: "aspect-[6/4]", tilt: "sm:-rotate-[.8deg]" },
+  { place: "w-[90%] sm:col-span-6 sm:col-start-1 sm:mt-10 sm:w-auto", shape: "aspect-[4/3]", tilt: "sm:rotate-[.7deg]" },
+  { place: "ml-auto w-[76%] sm:col-span-4 sm:col-start-9 sm:mt-36 sm:w-auto", shape: "aspect-[4/5]", tilt: "sm:-rotate-[1.4deg]" },
+  { place: "ml-[4%] w-[87%] sm:col-span-5 sm:col-start-2 sm:mt-8 sm:w-auto", shape: "aspect-[5/4]", tilt: "sm:-rotate-[.7deg]" },
+  { place: "ml-auto w-[82%] sm:col-span-5 sm:col-start-8 sm:mt-24 sm:w-auto", shape: "aspect-[4/3]", tilt: "sm:rotate-[1.1deg]" },
+] as const;
 
 function Cover({ project, className }: { project: Project; className: string }) {
   return project.indexSrc ? (
@@ -19,11 +30,12 @@ function Cover({ project, className }: { project: Project; className: string }) 
 }
 
 function ProjectCard({ project, index, gallery = false }: { project: Project; index: number; gallery?: boolean }) {
+  const wall = gallery ? galleryLayout[index % galleryLayout.length] : null;
   return (
-    <li className={gallery && index % 3 === 1 ? "md:pt-28" : ""}>
+    <li className={wall?.place ?? ""}>
       <SectionReveal>
-      <Link href={`/work/${project.slug}/`} className="group block focus-visible:outline-offset-4">
-        <div className={`relative overflow-hidden bg-cream ${gallery ? "aspect-[4/5]" : "aspect-[4/3]"}`}>
+      <Link href={`/work/${project.slug}/`} className={`group block transition-transform duration-700 ease-[var(--ease-expo)] hover:rotate-0 hover:scale-[1.025] focus-visible:rotate-0 focus-visible:scale-[1.025] focus-visible:outline-offset-4 motion-reduce:transition-none ${wall?.tilt ?? ""}`}>
+        <div className={`relative overflow-hidden bg-cream ${wall?.shape ?? "aspect-[4/3]"}`}>
           <Cover project={project} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[var(--ease-expo)] group-hover:scale-[1.045] group-focus-visible:scale-[1.045] motion-reduce:transition-none" />
           <span className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10" />
           <span className="absolute bottom-5 right-5 translate-y-3 text-[12px] uppercase tracking-[.14em] text-white opacity-0 transition-[opacity,transform] duration-500 group-hover:translate-y-0 group-hover:opacity-100">View project ↗</span>
@@ -39,7 +51,7 @@ function ProjectCard({ project, index, gallery = false }: { project: Project; in
 }
 
 export function WorksIndex() {
-  const [view, setView] = useState<View>("grid");
+  const [view, setView] = useState<View>("gallery");
 
   return (
     <section id="work" aria-labelledby="work-title" className="min-h-screen bg-white pb-28 pt-32 md:pt-40">
@@ -58,7 +70,7 @@ export function WorksIndex() {
           <div className="mb-10 mt-5 flex items-center justify-between text-[11px] uppercase tracking-[.16em] text-ink-soft">
             <span>{String(sorted.length).padStart(2, "0")} projects</span>
             <div className="flex items-center gap-1" role="group" aria-label="Project view">
-              {(["grid", "list", "gallery"] as const).map((option) => (
+              {(["gallery", "list", "grid"] as const).map((option) => (
                 <button key={option} type="button" aria-pressed={view === option} onClick={() => setView(option)} className={`min-h-9 px-3 py-2 transition-colors hover:text-ink ${view === option ? "bg-ink text-white hover:text-white" : ""}`}>
                   {option}
                 </button>
@@ -86,7 +98,7 @@ export function WorksIndex() {
             ))}
           </ol>
           ) : (
-          <ol className={`grid gap-x-7 gap-y-12 ${view === "gallery" ? "grid-cols-2 md:grid-cols-3 md:gap-x-5" : "md:grid-cols-2 md:gap-y-20"}`}>
+          <ol className={`grid ${view === "gallery" ? "grid-cols-1 gap-y-14 sm:grid-cols-12 sm:gap-x-6 sm:gap-y-24 lg:gap-y-32" : "gap-x-7 gap-y-12 md:grid-cols-2 md:gap-y-20"}`}>
             {sorted.map((project, index) => <ProjectCard key={project.slug} project={project} index={index} gallery={view === "gallery"} />)}
           </ol>
           )}
