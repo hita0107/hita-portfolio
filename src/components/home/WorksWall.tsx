@@ -83,18 +83,18 @@ export function WorksWall({ projects }: { projects: Project[] }) {
                     alt={`${project.title} — ${image.label}`}
                     fill
                     unoptimized
-                    sizes={imageIndex === 0 ? "(min-width: 768px) 55vw, 90vw" : "(min-width: 768px) 30vw, 45vw"}
+                    sizes={imageIndex === 0 ? "(min-width: 1024px) 22vw, (min-width: 640px) 45vw, 90vw" : "(min-width: 1024px) 13vw, (min-width: 640px) 25vw, 45vw"}
                     className="object-cover transition-transform duration-[1100ms] ease-[var(--ease-expo)] group-hover:scale-[1.045] group-focus-visible:scale-[1.045] motion-reduce:transition-none"
                   />
                   <span className="works-wall-visit" aria-hidden="true">View project ↗</span>
                 </span>
-                <span className="mt-2 flex items-baseline justify-between gap-4 text-[11px] leading-snug md:text-[12px]">
-                  <span>{imageIndex === 0 ? project.title : image.label}</span>
-                  {imageIndex === 0 && <span className="shrink-0 text-ink-soft">{project.years}</span>}
-                </span>
               </Link>
             </div>
           ))}
+          <div className="works-wall-project-caption flex items-baseline justify-between gap-3 text-[11px] leading-snug md:text-[12px]">
+            <span>{project.title}</span>
+            <span className="shrink-0 text-ink-soft">{project.years}</span>
+          </div>
         </li>
       ))}
     </ol>

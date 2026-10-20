@@ -189,20 +189,41 @@
   }
 }
 
-.works-wall-project {
+.works-wall {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  align-items: start;
-  gap: 1rem;
-  margin-bottom: clamp(4rem, 9vw, 8rem);
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1rem, 2.5vw, 2.5rem);
 }
 
-.works-wall-position--0 { grid-column: 1 / -1; }
-.works-wall-position--1 { margin-top: 0.5rem; }
-.works-wall-position--2 { margin-top: 3rem; }
-.works-wall-position--0 .works-wall-frame { aspect-ratio: 4 / 3; }
+.works-wall-project {
+  position: relative;
+  height: clamp(330px, 42vw, 370px);
+  transition: opacity 500ms ease;
+}
+
+.works-wall-position { position: absolute; }
+.works-wall-position--0 { left: 0; top: 0; width: 78%; }
+.works-wall-position--1 { right: 0; top: 18%; width: 44%; }
+.works-wall-position--2 { left: 9%; top: 50%; width: 45%; }
+.works-wall-position--0 .works-wall-frame { aspect-ratio: 1.4; }
 .works-wall-position--1 .works-wall-frame { aspect-ratio: 4 / 5; }
 .works-wall-position--2 .works-wall-frame { aspect-ratio: 1 / 1; }
+
+.works-wall-project--1 .works-wall-position--0 { left: auto; right: 0; }
+.works-wall-project--1 .works-wall-position--1 { left: 0; right: auto; top: 13%; }
+.works-wall-project--1 .works-wall-position--2 { left: auto; right: 9%; top: 51%; }
+.works-wall-project--2 .works-wall-position--0 { left: 7%; width: 80%; }
+.works-wall-project--2 .works-wall-position--1 { top: 24%; width: 42%; }
+.works-wall-project--2 .works-wall-position--2 { left: 0; top: 51%; }
+.works-wall-project--3 .works-wall-position--0 { left: auto; right: 7%; }
+.works-wall-project--3 .works-wall-position--1 { left: 0; right: auto; }
+.works-wall-project--3 .works-wall-position--2 { left: auto; right: 0; top: 52%; }
+
+.works-wall-project-caption {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+}
 
 .works-wall-tile {
   position: relative;
@@ -232,48 +253,26 @@
 }
 
 @media (hover: hover) {
-  .works-wall:has(.works-wall-tile:hover) .works-wall-tile:not(:hover) {
+  .works-wall:has(.works-wall-tile:hover) .works-wall-project:not(:has(.works-wall-tile:hover)) {
     opacity: 0.1;
   }
   .works-wall-position:has(.works-wall-tile:hover) { z-index: 5; }
   .works-wall-tile:hover { transform: scale(1.035); }
 }
 
-.works-wall:has(.works-wall-tile:focus-visible) .works-wall-tile:not(:focus-visible) {
+.works-wall:has(.works-wall-tile:focus-visible) .works-wall-project:not(:has(.works-wall-tile:focus-visible)) {
   opacity: 0.1;
 }
 .works-wall-position:has(.works-wall-tile:focus-visible) { z-index: 5; }
 
-@media (min-width: 768px) {
-  .works-wall-project {
-    position: relative;
-    display: block;
-    height: clamp(540px, 56vw, 800px);
-    margin-bottom: clamp(5rem, 9vw, 9rem);
-  }
-  .works-wall-position { position: absolute; margin: 0; }
+@media (min-width: 640px) {
+  .works-wall { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .works-wall-project { height: clamp(285px, 43vw, 350px); }
+}
 
-  .works-wall-project--0 .works-wall-position--0 { left: 0; top: 6%; width: 58%; }
-  .works-wall-project--0 .works-wall-position--1 { right: 4%; top: 0; width: 25%; }
-  .works-wall-project--0 .works-wall-position--2 { left: 60%; top: 59%; width: 32%; }
-  .works-wall-project--0 .works-wall-position--0 .works-wall-frame { aspect-ratio: 1.55; }
-
-  .works-wall-project--1 .works-wall-position--0 { right: 0; top: 13%; width: 59%; }
-  .works-wall-project--1 .works-wall-position--1 { left: 2%; top: 0; width: 29%; }
-  .works-wall-project--1 .works-wall-position--2 { left: 17%; top: 64%; width: 25%; }
-  .works-wall-project--1 .works-wall-position--0 .works-wall-frame { aspect-ratio: 1.45; }
-
-  .works-wall-project--2 .works-wall-position--0 { left: 4%; top: 16%; width: 53%; }
-  .works-wall-project--2 .works-wall-position--1 { right: 0; top: 0; width: 36%; }
-  .works-wall-project--2 .works-wall-position--2 { right: 12%; top: 65%; width: 24%; }
-  .works-wall-project--2 .works-wall-position--0 .works-wall-frame { aspect-ratio: 1.25; }
-  .works-wall-project--2 .works-wall-position--1 .works-wall-frame { aspect-ratio: 1.15; }
-
-  .works-wall-project--3 .works-wall-position--0 { right: 5%; top: 2%; width: 56%; }
-  .works-wall-project--3 .works-wall-position--1 { left: 2%; top: 29%; width: 36%; }
-  .works-wall-project--3 .works-wall-position--2 { left: 46%; top: 69%; width: 24%; }
-  .works-wall-project--3 .works-wall-position--0 .works-wall-frame { aspect-ratio: 1.5; }
-  .works-wall-project--3 .works-wall-position--1 .works-wall-frame { aspect-ratio: 1.2; }
+@media (min-width: 1024px) {
+  .works-wall { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .works-wall-project { height: clamp(290px, 24vw, 360px); }
 }
 
 @media (prefers-reduced-motion: reduce) {

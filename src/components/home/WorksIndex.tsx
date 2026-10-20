@@ -21,7 +21,7 @@ function Cover({ project, className }: { project: Project; className: string }) 
 
 function ProjectCard({ project }: { project: Project }) {
   return (
-    <li>
+    <li className="md:w-3/4 md:even:ml-auto">
       <SectionReveal>
       <Link href={`/work/${project.slug}/`} className="group block focus-visible:outline-offset-4">
         <div className="relative aspect-[4/3] overflow-hidden bg-cream">
@@ -46,9 +46,8 @@ export function WorksIndex() {
     <section id="work" aria-labelledby="work-title" className={`min-h-screen bg-white pb-28 ${view === "gallery" ? "pt-32 md:pt-36" : "pt-32 md:pt-40"}`}>
       <div className="shell">
         {view === "gallery" ? (
-          <div className="mb-8 flex items-center justify-between text-[11px] uppercase tracking-[.16em] text-ink-soft md:mb-10">
+          <div className="text-[11px] uppercase tracking-[.16em] text-ink-soft">
             <h1 id="work-title" className="font-sans text-[11px] font-normal">Projects</h1>
-            <span>{String(sorted.length).padStart(2, "0")} projects</span>
           </div>
         ) : <SectionReveal className="grid gap-6 border-b editorial-line pb-10 md:grid-cols-[1fr_1fr] md:gap-14 md:pb-16">
           <div>
@@ -60,13 +59,15 @@ export function WorksIndex() {
           </p>
         </SectionReveal>}
 
-        {view !== "gallery" && <div className="mb-10 mt-5 text-[11px] uppercase tracking-[.16em] text-ink-soft">{String(sorted.length).padStart(2, "0")} projects</div>}
-        <div className="fixed bottom-5 right-5 z-40 flex items-center gap-1 rounded-sm border border-ink/10 bg-white/95 p-1 text-[11px] uppercase tracking-[.08em] shadow-sm backdrop-blur-sm md:bottom-7 md:right-8" role="group" aria-label="Project view">
+        <div className="mb-8 mt-5 flex items-center justify-between gap-4 text-[11px] uppercase tracking-[.16em] text-ink-soft md:mb-10">
+          <span>{String(sorted.length).padStart(2, "0")} projects</span>
+          <div className="flex items-center gap-1" role="group" aria-label="Project view">
               {(["gallery", "list", "grid"] as const).map((option) => (
-                <button key={option} type="button" aria-pressed={view === option} onClick={() => { setView(option); window.scrollTo({ top: 0, behavior: "instant" }); }} className={`min-h-9 px-3 py-2 transition-colors hover:text-ink ${view === option ? "bg-ink text-white hover:text-white" : "text-ink-soft"}`}>
+                <button key={option} type="button" aria-pressed={view === option} onClick={() => { setView(option); window.scrollTo({ top: 0, behavior: "instant" }); }} className={`min-h-9 px-3 py-2 transition-colors hover:text-ink ${view === option ? "bg-ink text-white hover:text-white" : ""}`}>
                   {option}
                 </button>
               ))}
+          </div>
         </div>
 
         {view === "gallery" ? <WorksWall projects={sorted} /> : view === "list" ? (
