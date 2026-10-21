@@ -52,33 +52,6 @@ function ImageCard({ image, onOpen, aspect = "aspect-[4/3]", contain = true }: {
   </figure>;
 }
 
-function SpotlightImageCard({ image, onOpen, aspect = "aspect-[4/3]", sizes = "(min-width: 1024px) 30vw, 92vw" }: {
-  image: VerdantImage;
-  onOpen: (image: SiteImage) => void;
-  aspect?: string;
-  sizes?: string;
-}) {
-  return <figure>
-    <button
-      type="button"
-      aria-label={`Enlarge ${image.title}`}
-      onClick={() => onOpen({ src: image.full, title: image.title, alt: image.alt })}
-      onPointerMove={(event) => {
-        const bounds = event.currentTarget.getBoundingClientRect();
-        event.currentTarget.style.setProperty("--spot-x", `${event.clientX - bounds.left}px`);
-        event.currentTarget.style.setProperty("--spot-y", `${event.clientY - bounds.top}px`);
-      }}
-      className={`verdant-interior relative block w-full overflow-hidden border border-sage-300/35 bg-white focus-visible:outline-offset-4 ${aspect}`}
-    >
-      <Image src={image.src} alt={image.alt} fill unoptimized sizes={sizes} className="object-contain opacity-30" />
-      <span aria-hidden="true" className="verdant-interior-reveal pointer-events-none absolute inset-0">
-        <Image src={image.src} alt="" fill unoptimized sizes={sizes} className="object-contain" />
-      </span>
-    </button>
-    <figcaption className="mt-3 text-[12px] uppercase tracking-[.12em] text-ink-soft">{image.title}</figcaption>
-  </figure>;
-}
-
 export function Verdant({ project }: { project: Project }) {
   const [viewer, setViewer] = useState<SiteImage | null>(null);
   const [selectedRender, setSelectedRender] = useState(0);
@@ -119,12 +92,9 @@ export function Verdant({ project }: { project: Project }) {
         <Heading label="03 / Exploration" title="From programme to form" text="Diagrams, massing studies and early views trace the movement from a theatre brief to a building shaped by circulation, topography and views toward Edinburgh Castle." />
         <div className="space-y-20 md:space-y-28">
           <div>
-            <SectionReveal className="mb-7 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 border-t border-sage-300/60 pt-5">
-              <h3 className="font-display text-3xl text-ink">Programme and spatial relationships</h3>
-              <p className="text-[11px] uppercase tracking-[.14em] text-ink-soft">Hover over a sketch to reveal its detail</p>
-            </SectionReveal>
+            <SectionReveal className="mb-7 border-t border-sage-300/60 pt-5"><h3 className="font-display text-3xl text-ink">Programme and spatial relationships</h3></SectionReveal>
             <div className="grid gap-7 md:grid-cols-3">
-              {assets.exploration.slice(0, 3).map((image) => <SectionReveal key={image.src}><SpotlightImageCard image={image} onOpen={setViewer} /></SectionReveal>)}
+              {assets.exploration.slice(0, 3).map((image) => <SectionReveal key={image.src}><ImageCard image={image} onOpen={setViewer} /></SectionReveal>)}
             </div>
           </div>
           <div>
@@ -136,9 +106,25 @@ export function Verdant({ project }: { project: Project }) {
           <div>
             <SectionReveal className="mb-7 border-t border-sage-300/60 pt-5"><h3 className="font-display text-3xl text-ink">Early spatial view</h3></SectionReveal>
             <SectionReveal>
-              <div className="mx-auto max-w-[950px]">
-                <SpotlightImageCard image={earlyInterior} onOpen={setViewer} aspect="aspect-[2200/1573]" sizes="(min-width: 1024px) 950px, 92vw" />
-              </div>
+              <figure className="mx-auto max-w-[950px]">
+                <button
+                  type="button"
+                  aria-label={`Enlarge ${earlyInterior.title}`}
+                  onClick={() => setViewer({ src: earlyInterior.full, title: earlyInterior.title, alt: earlyInterior.alt })}
+                  onPointerMove={(event) => {
+                    const bounds = event.currentTarget.getBoundingClientRect();
+                    event.currentTarget.style.setProperty("--spot-x", `${event.clientX - bounds.left}px`);
+                    event.currentTarget.style.setProperty("--spot-y", `${event.clientY - bounds.top}px`);
+                  }}
+                  className="verdant-interior relative block aspect-[2200/1573] w-full overflow-hidden border border-sage-300/35 bg-white focus-visible:outline-offset-4"
+                >
+                  <Image src={earlyInterior.src} alt={earlyInterior.alt} fill unoptimized sizes="(min-width: 1024px) 950px, 92vw" className="object-contain opacity-30" />
+                  <span aria-hidden="true" className="verdant-interior-reveal pointer-events-none absolute inset-0">
+                    <Image src={earlyInterior.src} alt="" fill unoptimized sizes="(min-width: 1024px) 950px, 92vw" className="object-contain" />
+                  </span>
+                </button>
+                <figcaption className="mt-3 text-[12px] uppercase tracking-[.12em] text-ink-soft">{earlyInterior.title}</figcaption>
+              </figure>
             </SectionReveal>
           </div>
         </div>

@@ -105,21 +105,21 @@ function ImageButton({ image, onOpen, className, fit = "contain", sizes = "(min-
   </button>;
 }
 
-function SectionSketchSpotlight({ onOpen }: { onOpen: (image: SiteImage) => void }) {
+function SketchSpotlight({ image, onOpen, className, sizes }: { image: { title: string; src: string }; onOpen: (image: SiteImage) => void; className: string; sizes: string }) {
   return <button
     type="button"
-    aria-label="Enlarge section sketch"
-    onClick={() => onOpen({ ...sectionSketch, alt: "Section sketch from Elysian Arcadia" })}
+    aria-label={`Enlarge ${image.title}`}
+    onClick={() => onOpen({ ...image, alt: `${image.title} from Elysian Arcadia` })}
     onPointerMove={(event) => {
       const bounds = event.currentTarget.getBoundingClientRect();
       event.currentTarget.style.setProperty("--spot-x", `${event.clientX - bounds.left}px`);
       event.currentTarget.style.setProperty("--spot-y", `${event.clientY - bounds.top}px`);
     }}
-    className="elysian-sketch relative block aspect-[3122/1128] w-full overflow-hidden bg-white focus-visible:outline-offset-4"
+    className={`elysian-sketch relative block w-full overflow-hidden bg-white focus-visible:outline-offset-4 ${className}`}
   >
-    <Image src={sectionSketch.src} fill alt="Section sketch" unoptimized sizes="94vw" className="object-contain opacity-35" />
+    <Image src={image.src} fill alt={image.title} unoptimized sizes={sizes} className="object-contain opacity-35" />
     <span className="elysian-sketch-reveal pointer-events-none absolute inset-0" aria-hidden="true">
-      <Image src={sectionSketch.src} fill alt="" unoptimized sizes="94vw" className="object-contain" />
+      <Image src={image.src} fill alt="" unoptimized sizes={sizes} className="object-contain" />
     </span>
   </button>;
 }
@@ -240,10 +240,13 @@ export function ElysianSections() {
           </article>)}
         </CommonGroundScrollStory>
         <SectionReveal className="mt-16 md:mt-24">
-          <SectionLabel>Early visualisations</SectionLabel>
+          <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+            <SectionLabel>Early visualisations</SectionLabel>
+            <p className="text-[11px] uppercase tracking-[.14em] text-ink-soft">Hover over the sketches to see them clearly</p>
+          </div>
           <div className="mt-6 grid max-w-[680px] gap-6 sm:grid-cols-2 md:gap-8">
             {earlyVisualisations.map((image) => <div key={image.src}>
-              <ImageButton image={image} onOpen={setViewer} className="aspect-square w-full bg-white" sizes="(min-width: 640px) 45vw, 92vw" />
+              <SketchSpotlight image={image} onOpen={setViewer} className="aspect-square" sizes="(min-width: 640px) 45vw, 92vw" />
               <p className="mt-3 text-[11px] uppercase tracking-[.12em] text-ink-soft">{image.title}</p>
             </div>)}
           </div>
@@ -253,7 +256,7 @@ export function ElysianSections() {
 
     <section aria-label="Section sketch" className="bg-white pb-20 pt-4 md:pb-28 md:pt-8">
       <div className="shell">
-        <SectionReveal><SectionSketchSpotlight onOpen={setViewer} /></SectionReveal>
+        <SectionReveal><SketchSpotlight image={sectionSketch} onOpen={setViewer} className="aspect-[3122/1128]" sizes="94vw" /></SectionReveal>
       </div>
     </section>
 
