@@ -48,9 +48,8 @@ const explorationBeats = [
 const earlyVisualisations = [
   { title: "Early courtyard visualisation", src: `${base}/exploration/early-visualisation-1.webp` },
   { title: "Early block visualisation", src: `${base}/exploration/early-visualisation-2.webp` },
+  { title: "Section sketch", src: `${base}/exploration/sketch-section.webp` },
 ] as const;
-
-const sectionSketch = { title: "Section sketch", src: `${base}/exploration/sketch-section.webp` };
 
 const plans = [
   { title: "Ground floor", src: `${base}/final/floor-plans/ground-floor.webp`, note: "The public ground level draws movement into the block and around its shared courtyard." },
@@ -244,19 +243,13 @@ export function ElysianSections() {
             <SectionLabel>Early visualisations</SectionLabel>
             <p className="text-[11px] uppercase tracking-[.14em] text-ink-soft">Hover over the sketches to see them clearly</p>
           </div>
-          <div className="mt-6 grid max-w-[680px] gap-6 sm:grid-cols-2 md:gap-8">
+          <div className="mt-6 grid gap-6 sm:grid-cols-3 md:gap-8">
             {earlyVisualisations.map((image) => <div key={image.src}>
-              <SketchSpotlight image={image} onOpen={setViewer} className="aspect-square" sizes="(min-width: 640px) 45vw, 92vw" />
+              <SketchSpotlight image={image} onOpen={setViewer} className="aspect-[4/3]" sizes="(min-width: 640px) 30vw, 92vw" />
               <p className="mt-3 text-[11px] uppercase tracking-[.12em] text-ink-soft">{image.title}</p>
             </div>)}
           </div>
         </SectionReveal>
-      </div>
-    </section>
-
-    <section aria-label="Section sketch" className="bg-white pb-20 pt-4 md:pb-28 md:pt-8">
-      <div className="shell">
-        <SectionReveal><SketchSpotlight image={sectionSketch} onOpen={setViewer} className="aspect-[3122/1128]" sizes="94vw" /></SectionReveal>
       </div>
     </section>
 
