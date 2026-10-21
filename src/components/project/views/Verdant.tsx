@@ -18,10 +18,10 @@ const siteGroups: DrawingGroup[] = [
   { label: "Site layers", items: assets.site.slice(4, 9) },
   { label: "Context", items: assets.site.slice(9) },
 ];
-const planGroups: DrawingGroup[] = [{ label: "Floor plans", items: assets.plans }];
-const sectionGroups: DrawingGroup[] = [
+const drawingGroups: DrawingGroup[] = [
+  { label: "Floor plans", items: assets.plans },
   { label: "Sections", items: assets.sections.slice(0, 2) },
-  { label: "Elevation", items: assets.sections.slice(2, 3) },
+  { label: "Elevations", items: assets.sections.slice(2, 3) },
   { label: "Assembly", items: assets.sections.slice(3) },
 ];
 
@@ -131,23 +131,16 @@ export function Verdant({ project }: { project: Project }) {
       </div>
     </section>
 
-    <section id="verdant-plans" aria-label="Verdant Theatre floor plans" className="scroll-mt-32 bg-cream py-20 md:py-28">
+    <section id="verdant-drawings" aria-label="Verdant Theatre architectural drawings" className="scroll-mt-32 bg-cream py-20 md:py-28">
       <div className="shell">
-        <Heading label="04 / Floor plans" title="Five levels of theatre" text="Move from the public ground floor through the auditorium, studios and upper rooms. Hover over a level to change the drawing, or open a sheet for detailed inspection." />
-        <SectionReveal><StackedDrawingBrowser groups={planGroups} name="floor plan" onOpen={setViewer} /></SectionReveal>
+        <Heading label="04 / Drawings" title="Plans, sections & elevations" text="Explore the five floor plans, theatre sections, north-east elevation and exploded assembly together. Hover over a drawing title to change the sheet, or open it for detailed inspection." />
+        <SectionReveal><StackedDrawingBrowser groups={drawingGroups} name="architectural drawing" onOpen={setViewer} /></SectionReveal>
       </div>
     </section>
 
-    <section id="verdant-sections" aria-label="Verdant Theatre sections and elevations" className="scroll-mt-32 bg-white py-20 md:py-28">
+    <section id="verdant-renders" aria-label="Verdant Theatre renders" className="scroll-mt-32 bg-white py-20 md:py-28">
       <div className="shell">
-        <Heading label="05 / Sections and elevations" title="Theatre in section" text="A long section, an enlarged auditorium section, the north-east elevation and an exploded assembly show how the proposal meets the slope and frames its performance spaces." />
-        <SectionReveal><StackedDrawingBrowser groups={sectionGroups} name="section or elevation" onOpen={setViewer} /></SectionReveal>
-      </div>
-    </section>
-
-    <section id="verdant-renders" aria-label="Verdant Theatre renders" className="scroll-mt-32 bg-cream py-20 md:py-28">
-      <div className="shell">
-        <Heading label="06 / Renders" title="A public theatre" text="Select a view to move from Castle Terrace through the auditorium, circulation, music room and public foyer." />
+        <Heading label="05 / Renders" title="A public theatre" text="Select a view to move from Castle Terrace through the auditorium, circulation, music room and public foyer." />
         <SectionReveal className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(235px,290px)] lg:gap-10">
           <div>
             <button

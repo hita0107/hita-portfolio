@@ -10,8 +10,6 @@ import { StackedDrawingBrowser, type DrawingGroup } from "@/components/project/S
 import { CommonGroundImageDialog, type SiteImage } from "../CommonGroundImageDialog";
 import { Opener } from "../Opener";
 
-type VillaImage = (typeof assets)["renders"][number];
-
 const planGroups: DrawingGroup[] = [{ label: "Floor plans", items: assets.plans }];
 const drawingGroups: DrawingGroup[] = [
   { label: "Elevations", items: assets.elevations },
@@ -26,22 +24,10 @@ function SectionHeading({ label, title, text }: { label: string; title: string; 
   </SectionReveal>;
 }
 
-function VillaRender({ image, onOpen, wide = false }: { image: VillaImage; onOpen: (image: SiteImage) => void; wide?: boolean }) {
-  return <figure>
-    <button
-      type="button"
-      aria-label={`Enlarge ${image.title}`}
-      onClick={() => onOpen({ src: image.full, title: image.title, alt: image.alt })}
-      className={`group relative block w-full overflow-hidden bg-cream focus-visible:outline-offset-4 ${wide ? "aspect-[2.15]" : "aspect-[16/9]"}`}
-    >
-      <Image src={image.src} alt={image.alt} fill unoptimized sizes={wide ? "90vw" : "(min-width: 768px) 45vw, 90vw"} className="object-cover transition-transform duration-700 group-hover:scale-[1.025] motion-reduce:transition-none" />
-    </button>
-    <figcaption className="mt-3 text-[12px] uppercase tracking-[.12em] text-ink-soft">{image.title}</figcaption>
-  </figure>;
-}
-
 export function LuxuryVilla({ project }: { project: Project }) {
   const [viewer, setViewer] = useState<SiteImage | null>(null);
+  const [selectedRender, setSelectedRender] = useState(0);
+  const featuredRender = assets.renders[selectedRender];
 
   return <>
     <Opener project={project} introduction={project.paragraphs} />
@@ -49,11 +35,49 @@ export function LuxuryVilla({ project }: { project: Project }) {
     <section aria-label="Luxury Villa visualisations" className="bg-white py-20 md:py-28">
       <div className="shell">
         <SectionHeading label="Visualisations" title="Arrival to courtyard" text="Views move from the street-facing elevation and entrance through to the garden side, courtyard and sheltered outdoor room." />
-        <div className="grid gap-x-7 gap-y-10 md:grid-cols-2">
-          {assets.renders.map((image, index) => <SectionReveal key={image.src} className={index === 0 ? "md:col-span-2" : ""}>
-            <VillaRender image={image} onOpen={setViewer} wide={index === 0} />
-          </SectionReveal>)}
-        </div>
+        <SectionReveal className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(220px,290px)] lg:gap-10">
+          <div>
+            <button
+              type="button"
+              aria-label={`Enlarge ${featuredRender.title}`}
+              onClick={() => setViewer({ src: featuredRender.full, title: featuredRender.title, alt: featuredRender.alt })}
+              className="relative block aspect-[3/2] w-full overflow-hidden bg-cream focus-visible:outline-offset-4"
+            >
+              {assets.renders.map((image, index) => <Image
+                key={image.src}
+                src={image.src}
+                alt={selectedRender === index ? image.alt : ""}
+                fill
+                unoptimized
+                sizes="(min-width: 1024px) 70vw, 94vw"
+                className={`pointer-events-none object-cover transition-opacity duration-500 ease-in-out motion-reduce:transition-none ${selectedRender === index ? "opacity-100" : "opacity-0"}`}
+              />)}
+            </button>
+            <div className="mt-4 flex items-center justify-between gap-4 border-t border-sage-300/60 pt-3 text-[11px] uppercase tracking-[.14em] text-ink-soft">
+              <span>{featuredRender.title}</span>
+              <span>{String(selectedRender + 1).padStart(2, "0")} / {String(assets.renders.length).padStart(2, "0")}</span>
+            </div>
+          </div>
+          <div role="group" aria-label="Select a Luxury Villa render" className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-1 lg:gap-0">
+            {assets.renders.map((image, index) => <button
+              key={image.src}
+              type="button"
+              aria-pressed={selectedRender === index}
+              onMouseEnter={() => setSelectedRender(index)}
+              onFocus={() => setSelectedRender(index)}
+              onClick={() => setSelectedRender(index)}
+              className={`flex min-w-0 items-center gap-3 border-b border-sage-300/60 py-2 text-left transition-opacity focus-visible:outline-offset-4 ${selectedRender === index ? "opacity-100" : "opacity-55 hover:opacity-100"}`}
+            >
+              <span className="relative aspect-[4/3] w-16 shrink-0 overflow-hidden bg-cream sm:w-20">
+                <Image src={image.src} alt="" fill unoptimized sizes="80px" className="object-cover" />
+              </span>
+              <span className="min-w-0">
+                <span className="block text-[10px] tracking-[.14em] text-sage-700">{String(index + 1).padStart(2, "0")}</span>
+                <span className="mt-1 block font-display text-[clamp(1rem,1.35vw,1.25rem)] leading-tight text-ink">{image.title}</span>
+              </span>
+            </button>)}
+          </div>
+        </SectionReveal>
       </div>
     </section>
 

@@ -6,8 +6,7 @@ const stages = [
   { label: "Site analysis", id: "verdant-site" },
   { label: "Brief", id: "verdant-brief" },
   { label: "Exploration", id: "verdant-exploration" },
-  { label: "Floor plans", id: "verdant-plans" },
-  { label: "Sections & elevations", id: "verdant-sections" },
+  { label: "Drawings", id: "verdant-drawings" },
   { label: "Renders", id: "verdant-renders" },
 ] as const;
 
@@ -90,7 +89,7 @@ export function VerdantProgress() {
   }, []);
 
   return <nav aria-label="Verdant Theatre project sections" className="shell h-12 overflow-x-auto">
-    <div className="grid h-full min-w-[700px] grid-cols-6 items-end gap-3 pb-2 sm:gap-5 lg:min-w-0">
+    <div className="grid h-full min-w-[620px] grid-cols-5 items-end gap-3 pb-2 sm:gap-5 lg:min-w-0">
       {stages.map((stage, index) => <a
         key={stage.id}
         href={`#${stage.id}`}
