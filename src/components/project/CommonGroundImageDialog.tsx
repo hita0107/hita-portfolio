@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { lockScroll } from "@/lib/lenis";
 import { publicPath } from "@/lib/publicPath";
 
-export type SiteImage = { src: string; title: string; alt: string; blendWithPage?: boolean };
+export type SiteImage = { src: string; title: string; alt: string; blendWithPage?: boolean; crop?: { aspectRatio: number; objectPosition?: string } };
 
 export function CommonGroundImageDialog({ image, onClose }: { image: SiteImage | null; onClose: () => void }) {
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -45,9 +45,16 @@ export function CommonGroundImageDialog({ image, onClose }: { image: SiteImage |
         >
           <span aria-hidden="true">×</span>
         </button>
-        {/* The submitted WebP is already sized for this full-resolution view. */}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={publicPath(image.src)} alt={image.alt} className={`block max-h-[calc(96svh-5rem)] max-w-[calc(96vw-2.5rem)] object-contain ${image.blendWithPage ? "mix-blend-multiply" : ""}`} />
+        {image.crop ? <div
+          className="relative overflow-hidden"
+          style={{ aspectRatio: image.crop.aspectRatio, width: `min(90vw, ${image.crop.aspectRatio * 76}svh)` }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={publicPath(image.src)} alt={image.alt} className="absolute inset-0 h-full w-full object-cover" style={{ objectPosition: image.crop.objectPosition ?? "center" }} />
+        </div> : <>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={publicPath(image.src)} alt={image.alt} className={`block max-h-[calc(96svh-5rem)] max-w-[calc(96vw-2.5rem)] object-contain ${image.blendWithPage ? "mix-blend-multiply" : ""}`} />
+        </>}
         <p className="t-label mt-3 text-ink-soft">{image.title}</p>
       </div>
     </dialog>

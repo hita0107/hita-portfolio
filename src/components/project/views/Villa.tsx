@@ -45,8 +45,13 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
       <button
         type="button"
         aria-label={`Enlarge ${image.title}`}
-        onClick={() => onOpen({ src: image.full, title: image.title, alt: image.alt })}
-        className={`relative block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[2.7]" : "aspect-[1.18]"}`}
+        onClick={() => onOpen({
+          src: image.full,
+          title: image.title,
+          alt: image.alt,
+          crop: { aspectRatio: isElevation ? 3.25 : 1.18, objectPosition: isElevation ? (imageIndex === 0 ? "center 15%" : "center 83%") : "center" },
+        })}
+        className={`relative block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[3.25]" : "aspect-[1.18]"}`}
       >
         {isElevation ? assets.elevations.map((elevation, index) => <Image
           key={elevation.src}
@@ -56,7 +61,7 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
           unoptimized
           sizes="(min-width: 1024px) 70vw, 92vw"
           className={`object-cover transition-opacity duration-400 ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
-          style={{ objectPosition: index === 0 ? "center 20%" : "center 80%" }}
+          style={{ objectPosition: index === 0 ? "center 15%" : "center 83%" }}
         />) : <Image
           src={image.src}
           alt={image.alt}
@@ -68,14 +73,14 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
       </button>
       <div className="self-start border-t border-sage-300/60 pt-4">
         <p className="text-[11px] uppercase tracking-[.14em] text-sage-700">{group.label} / {String(imageIndex + 1).padStart(2, "0")}</p>
-        <h3 className="mt-4 grid font-display text-[clamp(1.55rem,2vw,2rem)] text-ink lg:min-h-[7.5rem]">
+        <h3 className="mt-3 grid min-h-10 font-display text-[clamp(1.55rem,2vw,2rem)] text-ink">
           {group.images.map((option, index) => <span
             key={option.src}
             aria-hidden={imageIndex !== index}
             className={`col-start-1 row-start-1 transition-opacity duration-400 motion-reduce:transition-none ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
           >{option.title}</span>)}
         </h3>
-        <div role="group" aria-label={`Choose ${group.label.toLowerCase()}`} className="mt-7 grid border-t border-sage-300/60">
+        <div role="group" aria-label={`Choose ${group.label.toLowerCase()}`} className="mt-3 grid border-t border-sage-300/60">
           {group.images.map((option, index) => <button
             key={option.src}
             type="button"
