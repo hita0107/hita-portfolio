@@ -54,14 +54,15 @@ function ImageCard({ image, onOpen, aspect = "aspect-[4/3]", contain = true }: {
 
 function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [focusIndex, setFocusIndex] = useState(0);
+  const activeIndex = Math.round(focusIndex);
 
   const goTo = (index: number) => {
     const track = trackRef.current;
     const card = track?.querySelectorAll<HTMLElement>("[data-precedent]")[index];
     if (!track || !card) return;
     track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2, behavior: "smooth" });
-    setActiveIndex(index);
+    setFocusIndex(index);
   };
 
   const updateCenter = () => {
@@ -69,9 +70,11 @@ function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
     if (!track) return;
     const center = track.scrollLeft + track.clientWidth / 2;
     const cards = [...track.querySelectorAll<HTMLElement>("[data-precedent]")];
-    const nearest = cards.reduce((best, card, index) =>
-      Math.abs(card.offsetLeft + card.clientWidth / 2 - center) < Math.abs(cards[best].offsetLeft + cards[best].clientWidth / 2 - center) ? index : best, 0);
-    setActiveIndex(nearest);
+    const centers = cards.map((card) => card.offsetLeft + card.clientWidth / 2);
+    const next = centers.findIndex((cardCenter) => cardCenter >= center);
+    if (next <= 0) setFocusIndex(0);
+    else if (next === -1) setFocusIndex(centers.length - 1);
+    else setFocusIndex(next - 1 + (center - centers[next - 1]) / (centers[next] - centers[next - 1]));
   };
 
   return <div>
@@ -79,23 +82,41 @@ function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
       ref={trackRef}
       onScroll={updateCenter}
       aria-label="Precedent studies, scroll horizontally"
-      className="relative flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain py-10 md:gap-8 md:py-14"
-      style={{ "--precedent-width": "clamp(220px, 27vw, 360px)" } as React.CSSProperties}
+      className="relative flex snap-x snap-mandatory items-center overflow-x-auto overscroll-x-contain py-16 md:py-24"
+      style={{ "--precedent-width": "clamp(270px, 35vw, 470px)", "--precedent-overlap": "clamp(48px, 8vw, 110px)" } as React.CSSProperties}
     >
       <span aria-hidden="true" className="shrink-0" style={{ width: "calc(50% - var(--precedent-width) / 2)" }} />
-      {assets.precedents.map((image, index) => <div
-        key={image.src}
-        data-precedent
-        className={`shrink-0 snap-center transition-transform duration-500 ease-out motion-reduce:transition-none ${activeIndex === index ? "scale-100" : "scale-[.86]"}`}
-        style={{ width: "var(--precedent-width)" }}
-      >
-        <ImageCard image={image} onOpen={onOpen} aspect="aspect-[3/4]" />
-      </div>)}
+      {assets.precedents.map((image, index) => {
+        const distance = Math.min(Math.abs(index - focusIndex), 2);
+        const direction = Math.sign(index - focusIndex);
+        return <div
+          key={image.src}
+          data-precedent
+          className="shrink-0 snap-center will-change-transform motion-reduce:transform-none"
+          style={{
+            width: "var(--precedent-width)",
+            marginLeft: index === 0 ? 0 : "calc(-1 * var(--precedent-overlap))",
+            transform: `perspective(1100px) rotateY(${-direction * distance * 23}deg) scale(${1.16 - distance * .32})`,
+            opacity: 1 - distance * .18,
+            zIndex: 10 - Math.round(distance * 3),
+          }}
+        >
+          <button
+            type="button"
+            aria-label={activeIndex === index ? `Enlarge ${image.title}` : `View ${image.title}`}
+            onClick={() => activeIndex === index ? onOpen({ src: image.full, title: image.title, alt: image.alt }) : goTo(index)}
+            className="relative block aspect-[3/4] w-full overflow-hidden border border-sage-300/50 bg-white shadow-[0_18px_45px_rgba(48,54,39,.16)] focus-visible:outline-offset-4"
+          >
+            <Image src={image.src} alt={image.alt} fill unoptimized sizes="(min-width: 1024px) 45vw, 80vw" className="object-contain" />
+          </button>
+        </div>;
+      })}
       <span aria-hidden="true" className="shrink-0" style={{ width: "calc(50% - var(--precedent-width) / 2)" }} />
     </div>
-    <div className="mt-3 flex items-center justify-between border-t border-sage-300/60 pt-4 text-[12px] uppercase tracking-[.12em] text-ink-soft">
+    <p className="text-center font-display text-[clamp(1.3rem,2.1vw,2rem)] text-ink">{assets.precedents[activeIndex].title}</p>
+    <div className="mt-5 flex items-center justify-between border-t border-sage-300/60 pt-4 text-[12px] uppercase tracking-[.12em] text-ink-soft">
       <span>{String(activeIndex + 1).padStart(2, "0")} / {String(assets.precedents.length).padStart(2, "0")}</span>
-      <span className="hidden sm:inline">Scroll to explore</span>
+      <span className="hidden sm:inline">Scroll to explore · select the center image to enlarge</span>
       <div className="flex gap-5">
         <button type="button" aria-label="Previous precedent" disabled={activeIndex === 0} onClick={() => goTo(activeIndex - 1)} className="text-ink transition-opacity disabled:opacity-30">←</button>
         <button type="button" aria-label="Next precedent" disabled={activeIndex === assets.precedents.length - 1} onClick={() => goTo(activeIndex + 1)} className="text-ink transition-opacity disabled:opacity-30">→</button>
