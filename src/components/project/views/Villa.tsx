@@ -11,7 +11,7 @@ import { CommonGroundImageDialog, type SiteImage } from "../CommonGroundImageDia
 import { Opener } from "../Opener";
 
 const planGroups: DrawingGroup[] = [{ label: "Floor plans", items: assets.plans }];
-const sectionPositions = ["center 0%", "center 50%", "center 100%"];
+const sectionPositions = ["center 3%", "center 53%", "center 100%"];
 const sections = ["Section AA", "Section BB", "Section CC"].map((title) => ({
   ...assets.sections[0],
   title,
@@ -55,9 +55,9 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
           src: image.full,
           title: image.title,
           alt: image.alt,
-          crop: { aspectRatio: isElevation ? 3.25 : 4, objectPosition: isElevation ? (imageIndex === 0 ? "center 15%" : "center 83%") : sectionPositions[imageIndex] },
+          crop: { aspectRatio: isElevation ? 3.25 : 4.4, objectPosition: isElevation ? (imageIndex === 0 ? "center 15%" : "center 83%") : sectionPositions[imageIndex] },
         })}
-        className={`relative block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[3.25]" : "aspect-[4]"}`}
+        className={`relative block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[3.25]" : "aspect-[4.4]"}`}
       >
         {isElevation ? assets.elevations.map((elevation, index) => <Image
           key={elevation.src}
