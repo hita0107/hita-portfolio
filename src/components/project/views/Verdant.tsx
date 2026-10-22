@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "@/components/SiteImage";
 import type { Project } from "@/content/portfolio";
 import assets from "@/content/verdantAssets.json";
@@ -52,6 +52,58 @@ function ImageCard({ image, onOpen, aspect = "aspect-[4/3]", contain = true }: {
   </figure>;
 }
 
+function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
+  const trackRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const goTo = (index: number) => {
+    const track = trackRef.current;
+    const card = track?.querySelectorAll<HTMLElement>("[data-precedent]")[index];
+    if (!track || !card) return;
+    track.scrollTo({ left: card.offsetLeft - (track.clientWidth - card.clientWidth) / 2, behavior: "smooth" });
+    setActiveIndex(index);
+  };
+
+  const updateCenter = () => {
+    const track = trackRef.current;
+    if (!track) return;
+    const center = track.scrollLeft + track.clientWidth / 2;
+    const cards = [...track.querySelectorAll<HTMLElement>("[data-precedent]")];
+    const nearest = cards.reduce((best, card, index) =>
+      Math.abs(card.offsetLeft + card.clientWidth / 2 - center) < Math.abs(cards[best].offsetLeft + cards[best].clientWidth / 2 - center) ? index : best, 0);
+    setActiveIndex(nearest);
+  };
+
+  return <div>
+    <div
+      ref={trackRef}
+      onScroll={updateCenter}
+      aria-label="Precedent studies, scroll horizontally"
+      className="relative flex snap-x snap-mandatory gap-4 overflow-x-auto overscroll-x-contain py-10 md:gap-8 md:py-14"
+      style={{ "--precedent-width": "clamp(220px, 27vw, 360px)" } as React.CSSProperties}
+    >
+      <span aria-hidden="true" className="shrink-0" style={{ width: "calc(50% - var(--precedent-width) / 2)" }} />
+      {assets.precedents.map((image, index) => <div
+        key={image.src}
+        data-precedent
+        className={`shrink-0 snap-center transition-transform duration-500 ease-out motion-reduce:transition-none ${activeIndex === index ? "scale-100" : "scale-[.86]"}`}
+        style={{ width: "var(--precedent-width)" }}
+      >
+        <ImageCard image={image} onOpen={onOpen} aspect="aspect-[3/4]" />
+      </div>)}
+      <span aria-hidden="true" className="shrink-0" style={{ width: "calc(50% - var(--precedent-width) / 2)" }} />
+    </div>
+    <div className="mt-3 flex items-center justify-between border-t border-sage-300/60 pt-4 text-[12px] uppercase tracking-[.12em] text-ink-soft">
+      <span>{String(activeIndex + 1).padStart(2, "0")} / {String(assets.precedents.length).padStart(2, "0")}</span>
+      <span className="hidden sm:inline">Scroll to explore</span>
+      <div className="flex gap-5">
+        <button type="button" aria-label="Previous precedent" disabled={activeIndex === 0} onClick={() => goTo(activeIndex - 1)} className="text-ink transition-opacity disabled:opacity-30">←</button>
+        <button type="button" aria-label="Next precedent" disabled={activeIndex === assets.precedents.length - 1} onClick={() => goTo(activeIndex + 1)} className="text-ink transition-opacity disabled:opacity-30">→</button>
+      </div>
+    </div>
+  </div>;
+}
+
 export function Verdant({ project }: { project: Project }) {
   const [viewer, setViewer] = useState<SiteImage | null>(null);
   const [selectedRender, setSelectedRender] = useState(0);
@@ -81,9 +133,7 @@ export function Verdant({ project }: { project: Project }) {
           <SectionLabel>Precedent studies</SectionLabel>
           <p className="mt-4 max-w-2xl text-[15px] leading-[1.7] text-ink-soft">Five cultural buildings informed the study of public approaches, landscape, structure and performance space.</p>
         </SectionReveal>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {assets.precedents.map((image) => <SectionReveal key={image.src}><ImageCard image={image} onOpen={setViewer} aspect="aspect-[3/4]" /></SectionReveal>)}
-        </div>
+        <SectionReveal><PrecedentCarousel onOpen={setViewer} /></SectionReveal>
       </div>
     </section>
 
