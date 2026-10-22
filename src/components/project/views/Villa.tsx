@@ -11,10 +11,6 @@ import { CommonGroundImageDialog, type SiteImage } from "../CommonGroundImageDia
 import { Opener } from "../Opener";
 
 const planGroups: DrawingGroup[] = [{ label: "Floor plans", items: assets.plans }];
-const drawingGroups: DrawingGroup[] = [
-  { label: "Elevations", items: assets.elevations },
-  { label: "Sections", items: assets.sections },
-];
 
 function SectionHeading({ label, title, text }: { label: string; title: string; text: string }) {
   return <SectionReveal className="mb-10">
@@ -22,6 +18,65 @@ function SectionHeading({ label, title, text }: { label: string; title: string; 
     <h2 className="mt-5 font-display text-[clamp(2.7rem,5.5vw,5.5rem)] font-light leading-[.95] tracking-[-.045em] text-ink">{title}</h2>
     <p className="mt-6 max-w-3xl text-base leading-[1.75] text-ink-soft">{text}</p>
   </SectionReveal>;
+}
+
+function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void }) {
+  const [groupIndex, setGroupIndex] = useState(0);
+  const [imageIndex, setImageIndex] = useState(0);
+  const groups = [
+    { label: "Elevations", images: assets.elevations },
+    { label: "Sections", images: assets.sections },
+  ];
+  const group = groups[groupIndex];
+  const image = group.images[imageIndex];
+  const isElevation = groupIndex === 0;
+
+  return <>
+    <div role="group" aria-label="Choose drawing type" className="mb-8 flex gap-7 border-b border-sage-300/60">
+      {groups.map((option, index) => <button
+        key={option.label}
+        type="button"
+        aria-pressed={groupIndex === index}
+        onClick={() => { setGroupIndex(index); setImageIndex(0); }}
+        className={`border-b-2 py-3 text-[12px] uppercase tracking-[.12em] transition-colors ${groupIndex === index ? "border-ink text-ink" : "border-transparent text-ink-soft hover:text-ink"}`}
+      >{option.label}</button>)}
+    </div>
+    <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(210px,.25fr)] lg:gap-12">
+      <button
+        type="button"
+        aria-label={`Enlarge ${image.title}`}
+        onClick={() => onOpen({ src: image.full, title: image.title, alt: image.alt })}
+        className={`relative block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[2.7]" : "aspect-[1.18]"}`}
+      >
+        <Image
+          key={image.src}
+          src={image.src}
+          alt={image.alt}
+          fill
+          unoptimized
+          sizes="(min-width: 1024px) 70vw, 92vw"
+          className="object-cover"
+          style={{ objectPosition: isElevation ? (imageIndex === 0 ? "center 20%" : "center 80%") : "center" }}
+        />
+      </button>
+      <div className="self-start border-t border-sage-300/60 pt-4">
+        <p className="text-[11px] uppercase tracking-[.14em] text-sage-700">{group.label} / {String(imageIndex + 1).padStart(2, "0")}</p>
+        <h3 className="mt-4 font-display text-[clamp(1.55rem,2vw,2rem)] text-ink lg:min-h-[7.5rem]">{image.title}</h3>
+        <div role="group" aria-label={`Choose ${group.label.toLowerCase()}`} className="mt-7 grid border-t border-sage-300/60">
+          {group.images.map((option, index) => <button
+            key={option.src}
+            type="button"
+            aria-pressed={imageIndex === index}
+            onMouseEnter={() => setImageIndex(index)}
+            onFocus={() => setImageIndex(index)}
+            onClick={() => setImageIndex(index)}
+            className={`border-b border-sage-300/60 py-3 text-left text-sm transition-colors ${imageIndex === index ? "text-ink" : "text-ink-soft hover:text-ink"}`}
+          >{String(index + 1).padStart(2, "0")} &nbsp; {option.title}</button>)}
+        </div>
+        <p className="mt-6 text-[11px] uppercase tracking-[.12em] text-ink-soft">Select the drawing to inspect the full sheet</p>
+      </div>
+    </div>
+  </>;
 }
 
 export function LuxuryVilla({ project }: { project: Project }) {
@@ -91,7 +146,7 @@ export function LuxuryVilla({ project }: { project: Project }) {
     <section aria-label="Luxury Villa elevations and sections" className="bg-white py-20 md:py-28">
       <div className="shell">
         <SectionHeading label="Drawings / 02" title="Elevations and sections" text="The elevations and building sections show the villa's proportions, openings and relationship between the two floors." />
-        <SectionReveal><StackedDrawingBrowser groups={drawingGroups} name="elevation or section" onOpen={setViewer} /></SectionReveal>
+        <SectionReveal><VillaDrawingBrowser onOpen={setViewer} /></SectionReveal>
       </div>
     </section>
 
