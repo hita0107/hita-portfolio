@@ -76,7 +76,7 @@ export function JssPrivateSchool({ project }: { project: Project }) {
     <section aria-label="JSS Private School elevations and sections" className="bg-white py-20 md:py-28">
       <div className="shell">
         <SectionHeading label="Tender drawings / 02" title="Elevations and sections" text="Building sections, elevations and enlarged wall sections describe the school from its overall form to the construction of Block B." />
-        <SectionReveal><StackedDrawingBrowser groups={constructionGroups} name="elevation or section" onOpen={setViewer} /></SectionReveal>
+        <SectionReveal><StackedDrawingBrowser groups={constructionGroups} name="elevation or section" onOpen={setViewer} flat /></SectionReveal>
       </div>
     </section>
 
