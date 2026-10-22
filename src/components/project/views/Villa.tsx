@@ -68,7 +68,13 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
       </button>
       <div className="self-start border-t border-sage-300/60 pt-4">
         <p className="text-[11px] uppercase tracking-[.14em] text-sage-700">{group.label} / {String(imageIndex + 1).padStart(2, "0")}</p>
-        <h3 className="mt-4 font-display text-[clamp(1.55rem,2vw,2rem)] text-ink lg:min-h-[7.5rem]">{image.title}</h3>
+        <h3 className="mt-4 grid font-display text-[clamp(1.55rem,2vw,2rem)] text-ink lg:min-h-[7.5rem]">
+          {group.images.map((option, index) => <span
+            key={option.src}
+            aria-hidden={imageIndex !== index}
+            className={`col-start-1 row-start-1 transition-opacity duration-400 motion-reduce:transition-none ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
+          >{option.title}</span>)}
+        </h3>
         <div role="group" aria-label={`Choose ${group.label.toLowerCase()}`} className="mt-7 grid border-t border-sage-300/60">
           {group.images.map((option, index) => <button
             key={option.src}
