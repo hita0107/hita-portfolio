@@ -17,9 +17,28 @@ const planGroups: DrawingGroup[] = [
   { label: "Block B", items: assets.blockPlans },
 ];
 
+const elevationPositions = ["center 0%", "center 30%", "center 67%", "center 100%"];
+const elevationDrawings: DrawingGroup["items"] = elevationPositions.map((objectPosition, index) => ({
+  ...assets.elevations[0],
+  title: `Elevation ${String(index + 1).padStart(2, "0")}`,
+  alt: `JSS Private School — elevation ${index + 1}`,
+  crop: { aspectRatio: 6.2, objectPosition },
+}));
+
+const sectionPositions = ["center 10%", "center 47%", "center 90%"];
+const sectionDrawings: DrawingGroup["items"] = [
+  { source: assets.sections[0], labels: ["AA", "DD", "CC"] },
+  { source: assets.sections[1], labels: ["EE", "BB", "FF"] },
+].flatMap(({ source, labels }) => labels.map((label, index) => ({
+  ...source,
+  title: `Section ${label}`,
+  alt: `JSS Private School — section ${label}`,
+  crop: { aspectRatio: 5.5, objectPosition: sectionPositions[index] },
+})));
+
 const constructionGroups: DrawingGroup[] = [
-  { label: "Elevations", items: assets.elevations },
-  { label: "Building sections", items: assets.sections.slice(0, 2) },
+  { label: "Elevations", items: elevationDrawings },
+  { label: "Building sections", items: sectionDrawings },
   { label: "Wall sections", items: assets.sections.slice(2) },
 ];
 
