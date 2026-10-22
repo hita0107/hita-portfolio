@@ -56,11 +56,12 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
           src: image.full,
           title: image.title,
           alt: image.alt,
-          crop: { aspectRatio: isElevation ? 3.25 : 4.4, objectPosition: isElevation ? (imageIndex === 0 ? "center 15%" : "center 83%") : sectionPositions[imageIndex] },
+          crop: { aspectRatio: isElevation ? 3.25 : 4.4, objectPosition: positions[imageIndex] },
         })}
-        className={`relative isolate block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[3.25]" : "aspect-[4.4]"}`}
+        className="relative isolate block aspect-[3.25] w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4"
       >
-        {group.images.map((drawing, index) => <Image
+        <div className={isElevation ? "absolute inset-0" : "absolute inset-x-0 top-1/2 aspect-[4.4] -translate-y-1/2"}>
+          {group.images.map((drawing, index) => <Image
           key={`${group.label}-${drawing.title}`}
           src={drawing.src}
           alt={imageIndex === index ? drawing.alt : ""}
@@ -70,7 +71,8 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
           sizes="(min-width: 1024px) 70vw, 92vw"
           className={`pointer-events-none object-cover transition-opacity duration-500 ease-in-out motion-reduce:transition-none ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
           style={{ objectPosition: positions[index], zIndex: imageIndex === index ? 2 : 1 }}
-        />)}
+          />)}
+        </div>
       </button>
       <div className="self-start border-t border-sage-300/60 pt-4">
         <p className="text-[11px] uppercase tracking-[.14em] text-sage-700">{group.label} / {String(imageIndex + 1).padStart(2, "0")}</p>
