@@ -46,20 +46,25 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
         type="button"
         aria-label={`Enlarge ${image.title}`}
         onClick={() => onOpen({ src: image.full, title: image.title, alt: image.alt })}
-        className="relative block aspect-[1.18] w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4"
+        className={`relative block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[2.7]" : "aspect-[1.18]"}`}
       >
-        <span className={`absolute inset-x-0 top-1/2 block -translate-y-1/2 overflow-hidden ${isElevation ? "aspect-[2.7]" : "aspect-[1.18]"}`}>
-          <Image
-            key={image.src}
-            src={image.src}
-            alt={image.alt}
-            fill
-            unoptimized
-            sizes="(min-width: 1024px) 70vw, 92vw"
-            className="object-cover"
-            style={{ objectPosition: isElevation ? (imageIndex === 0 ? "center 20%" : "center 80%") : "center" }}
-          />
-        </span>
+        {isElevation ? assets.elevations.map((elevation, index) => <Image
+          key={elevation.src}
+          src={elevation.src}
+          alt={imageIndex === index ? elevation.alt : ""}
+          fill
+          unoptimized
+          sizes="(min-width: 1024px) 70vw, 92vw"
+          className={`object-cover transition-opacity duration-400 ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
+          style={{ objectPosition: index === 0 ? "center 20%" : "center 80%" }}
+        />) : <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          unoptimized
+          sizes="(min-width: 1024px) 70vw, 92vw"
+          className="object-cover"
+        />}
       </button>
       <div className="self-start border-t border-sage-300/60 pt-4">
         <p className="text-[11px] uppercase tracking-[.14em] text-sage-700">{group.label} / {String(imageIndex + 1).padStart(2, "0")}</p>
