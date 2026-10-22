@@ -11,6 +11,12 @@ import { CommonGroundImageDialog, type SiteImage } from "../CommonGroundImageDia
 import { Opener } from "../Opener";
 
 const planGroups: DrawingGroup[] = [{ label: "Floor plans", items: assets.plans }];
+const sectionPositions = ["center 0%", "center 50%", "center 100%"];
+const sections = ["Section AA", "Section BB", "Section CC"].map((title) => ({
+  ...assets.sections[0],
+  title,
+  alt: `Luxury Villa — ${title}`,
+}));
 
 function SectionHeading({ label, title, text }: { label: string; title: string; text: string }) {
   return <SectionReveal className="mb-10">
@@ -25,7 +31,7 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
   const [imageIndex, setImageIndex] = useState(0);
   const groups = [
     { label: "Elevations", images: assets.elevations },
-    { label: "Sections", images: assets.sections },
+    { label: "Sections", images: sections },
   ];
   const group = groups[groupIndex];
   const image = group.images[imageIndex];
@@ -49,9 +55,9 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
           src: image.full,
           title: image.title,
           alt: image.alt,
-          crop: { aspectRatio: isElevation ? 3.25 : 1.18, objectPosition: isElevation ? (imageIndex === 0 ? "center 15%" : "center 83%") : "center" },
+          crop: { aspectRatio: isElevation ? 3.25 : 4, objectPosition: isElevation ? (imageIndex === 0 ? "center 15%" : "center 83%") : sectionPositions[imageIndex] },
         })}
-        className={`relative block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[3.25]" : "aspect-[1.18]"}`}
+        className={`relative block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[3.25]" : "aspect-[4]"}`}
       >
         {isElevation ? assets.elevations.map((elevation, index) => <Image
           key={elevation.src}
@@ -62,27 +68,29 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
           sizes="(min-width: 1024px) 70vw, 92vw"
           className={`object-cover transition-opacity duration-400 ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
           style={{ objectPosition: index === 0 ? "center 15%" : "center 83%" }}
-        />) : <Image
-          src={image.src}
-          alt={image.alt}
+        />) : sections.map((section, index) => <Image
+          key={section.title}
+          src={section.src}
+          alt={imageIndex === index ? section.alt : ""}
           fill
           unoptimized
           sizes="(min-width: 1024px) 70vw, 92vw"
-          className="object-cover"
-        />}
+          className={`object-cover transition-opacity duration-400 ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
+          style={{ objectPosition: sectionPositions[index] }}
+        />)}
       </button>
       <div className="self-start border-t border-sage-300/60 pt-4">
         <p className="text-[11px] uppercase tracking-[.14em] text-sage-700">{group.label} / {String(imageIndex + 1).padStart(2, "0")}</p>
         <h3 className="mt-3 grid min-h-10 font-display text-[clamp(1.55rem,2vw,2rem)] text-ink">
           {group.images.map((option, index) => <span
-            key={option.src}
+            key={option.title}
             aria-hidden={imageIndex !== index}
             className={`col-start-1 row-start-1 transition-opacity duration-400 motion-reduce:transition-none ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
           >{option.title}</span>)}
         </h3>
         <div role="group" aria-label={`Choose ${group.label.toLowerCase()}`} className="mt-3 grid border-t border-sage-300/60">
           {group.images.map((option, index) => <button
-            key={option.src}
+            key={option.title}
             type="button"
             aria-pressed={imageIndex === index}
             onMouseEnter={() => setImageIndex(index)}
@@ -91,7 +99,7 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
             className={`border-b border-sage-300/60 py-3 text-left text-sm transition-colors ${imageIndex === index ? "text-ink" : "text-ink-soft hover:text-ink"}`}
           >{String(index + 1).padStart(2, "0")} &nbsp; {option.title}</button>)}
         </div>
-        <p className="mt-6 text-[11px] uppercase tracking-[.12em] text-ink-soft">Select the drawing to inspect the full sheet</p>
+        <p className="mt-6 text-[11px] uppercase tracking-[.12em] text-ink-soft">Select the drawing for a larger view</p>
       </div>
     </div>
   </>;
