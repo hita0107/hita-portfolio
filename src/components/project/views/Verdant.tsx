@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "@/components/SiteImage";
 import type { Project } from "@/content/portfolio";
 import assets from "@/content/verdantAssets.json";
@@ -54,8 +54,15 @@ function ImageCard({ image, onOpen, aspect = "aspect-[4/3]", contain = true }: {
 
 function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const [focusIndex, setFocusIndex] = useState(0);
+  const middleIndex = Math.floor(assets.precedents.length / 2);
+  const [focusIndex, setFocusIndex] = useState(middleIndex);
   const activeIndex = Math.round(focusIndex);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    const card = track?.querySelectorAll<HTMLElement>("[data-precedent]")[middleIndex];
+    if (track && card) track.scrollLeft = card.offsetLeft - (track.clientWidth - card.clientWidth) / 2;
+  }, [middleIndex]);
 
   const goTo = (index: number) => {
     const track = trackRef.current;
@@ -77,13 +84,13 @@ function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
     else setFocusIndex(next - 1 + (center - centers[next - 1]) / (centers[next] - centers[next - 1]));
   };
 
-  return <div>
+  return <div className="bg-[#293229] px-4 pb-6 pt-2 text-white md:px-8 md:pb-8">
     <div
       ref={trackRef}
       onScroll={updateCenter}
       aria-label="Precedent studies, scroll horizontally"
-      className="relative flex snap-x snap-mandatory items-center overflow-x-auto overscroll-x-contain py-16 md:py-24"
-      style={{ "--precedent-width": "clamp(270px, 35vw, 470px)", "--precedent-overlap": "clamp(48px, 8vw, 110px)" } as React.CSSProperties}
+      className="relative flex snap-x snap-mandatory items-center overflow-x-auto overscroll-x-contain py-14 md:py-20"
+      style={{ "--precedent-width": "clamp(220px, 27vw, 350px)", "--precedent-overlap": "clamp(40px, 6vw, 85px)" } as React.CSSProperties}
     >
       <span aria-hidden="true" className="shrink-0" style={{ width: "calc(50% - var(--precedent-width) / 2)" }} />
       {assets.precedents.map((image, index) => {
@@ -113,13 +120,13 @@ function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
       })}
       <span aria-hidden="true" className="shrink-0" style={{ width: "calc(50% - var(--precedent-width) / 2)" }} />
     </div>
-    <p className="text-center font-display text-[clamp(1.3rem,2.1vw,2rem)] text-ink">{assets.precedents[activeIndex].title}</p>
-    <div className="mt-5 flex items-center justify-between border-t border-sage-300/60 pt-4 text-[12px] uppercase tracking-[.12em] text-ink-soft">
+    <p className="text-center font-display text-[clamp(1.3rem,2.1vw,2rem)] text-white">{assets.precedents[activeIndex].title}</p>
+    <div className="mt-5 flex items-center justify-between border-t border-white/30 pt-4 text-[12px] uppercase tracking-[.12em] text-white/70">
       <span>{String(activeIndex + 1).padStart(2, "0")} / {String(assets.precedents.length).padStart(2, "0")}</span>
       <span className="hidden sm:inline">Scroll to explore · select the center image to enlarge</span>
       <div className="flex gap-5">
-        <button type="button" aria-label="Previous precedent" disabled={activeIndex === 0} onClick={() => goTo(activeIndex - 1)} className="text-ink transition-opacity disabled:opacity-30">←</button>
-        <button type="button" aria-label="Next precedent" disabled={activeIndex === assets.precedents.length - 1} onClick={() => goTo(activeIndex + 1)} className="text-ink transition-opacity disabled:opacity-30">→</button>
+        <button type="button" aria-label="Previous precedent" disabled={activeIndex === 0} onClick={() => goTo(activeIndex - 1)} className="text-white transition-opacity disabled:opacity-30">←</button>
+        <button type="button" aria-label="Next precedent" disabled={activeIndex === assets.precedents.length - 1} onClick={() => goTo(activeIndex + 1)} className="text-white transition-opacity disabled:opacity-30">→</button>
       </div>
     </div>
   </div>;
