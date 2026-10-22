@@ -30,12 +30,12 @@ export function StackedDrawingBrowser({ groups, name, onOpen, compact = false, f
         type="button"
         aria-label={`Enlarge ${image.title}`}
         onClick={() => onOpen({ src: image.full, title: image.title, alt: image.alt, crop: image.crop })}
-        className="group relative isolate block aspect-[1.42] w-full overflow-hidden focus-visible:outline-offset-4"
+        className={`group relative isolate block w-full overflow-hidden focus-visible:outline-offset-4 ${cropAspect ? "aspect-[2] lg:aspect-[3.25]" : "aspect-[1.42]"}`}
       >
         <span className={flat ? "absolute inset-0 block" : "absolute left-[1.5%] right-[3%] top-[1.5%] bottom-[4%] block"}>
           {!flat && <><span aria-hidden="true" className="absolute inset-0 block translate-x-4 translate-y-4 border border-sage-300/40 bg-white shadow-sm" />
           <span aria-hidden="true" className="absolute inset-0 block translate-x-2 translate-y-2 border border-sage-300/50 bg-white shadow-sm" /></>}
-          <span className={flat ? "absolute inset-0 flex items-center bg-white" : "absolute inset-0 block overflow-hidden border border-sage-300/50 bg-white shadow-[0_10px_28px_rgba(48,54,39,.08)]"}>
+          <span className={flat ? `absolute inset-0 flex bg-white ${cropAspect ? "items-start pt-4" : "items-center"}` : "absolute inset-0 block overflow-hidden border border-sage-300/50 bg-white shadow-[0_10px_28px_rgba(48,54,39,.08)]"}>
             <span className="relative block w-full overflow-hidden border border-sage-300/50 bg-white" style={{ aspectRatio: cropAspect ?? (flat ? 1.42 : undefined), height: flat ? undefined : "100%" }}>
             {group.items.map((sheet, index) => <Image
               key={`${sheet.src}-${sheet.title}`}
