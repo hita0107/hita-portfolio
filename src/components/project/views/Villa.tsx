@@ -36,6 +36,7 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
   const group = groups[groupIndex];
   const image = group.images[imageIndex];
   const isElevation = groupIndex === 0;
+  const positions = isElevation ? ["center 15%", "center 83%"] : sectionPositions;
 
   return <>
     <div role="group" aria-label="Choose drawing type" className="mb-8 flex gap-7 border-b border-sage-300/60">
@@ -57,26 +58,18 @@ function VillaDrawingBrowser({ onOpen }: { onOpen: (image: SiteImage) => void })
           alt: image.alt,
           crop: { aspectRatio: isElevation ? 3.25 : 4.4, objectPosition: isElevation ? (imageIndex === 0 ? "center 15%" : "center 83%") : sectionPositions[imageIndex] },
         })}
-        className={`relative block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[3.25]" : "aspect-[4.4]"}`}
+        className={`relative isolate block w-full overflow-hidden border border-sage-300/50 bg-white focus-visible:outline-offset-4 ${isElevation ? "aspect-[3.25]" : "aspect-[4.4]"}`}
       >
-        {isElevation ? assets.elevations.map((elevation, index) => <Image
-          key={elevation.src}
-          src={elevation.src}
-          alt={imageIndex === index ? elevation.alt : ""}
+        {group.images.map((drawing, index) => <Image
+          key={`${group.label}-${drawing.title}`}
+          src={drawing.src}
+          alt={imageIndex === index ? drawing.alt : ""}
           fill
           unoptimized
+          loading="eager"
           sizes="(min-width: 1024px) 70vw, 92vw"
-          className={`object-cover transition-opacity duration-400 ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
-          style={{ objectPosition: index === 0 ? "center 15%" : "center 83%" }}
-        />) : sections.map((section, index) => <Image
-          key={section.title}
-          src={section.src}
-          alt={imageIndex === index ? section.alt : ""}
-          fill
-          unoptimized
-          sizes="(min-width: 1024px) 70vw, 92vw"
-          className={`object-cover transition-opacity duration-400 ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
-          style={{ objectPosition: sectionPositions[index] }}
+          className={`pointer-events-none object-cover transition-opacity duration-500 ease-in-out motion-reduce:transition-none ${imageIndex === index ? "opacity-100" : "opacity-0"}`}
+          style={{ objectPosition: positions[index], zIndex: imageIndex === index ? 2 : 1 }}
         />)}
       </button>
       <div className="self-start border-t border-sage-300/60 pt-4">
