@@ -1,7 +1,10 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import Image from "@/components/SiteImage";
+import { lockScroll } from "@/lib/lenis";
+import { publicPath } from "@/lib/publicPath";
 import type { Project } from "@/content/portfolio";
 import assets from "@/content/verdantAssets.json";
 import { SectionLabel } from "@/components/SectionLabel";
@@ -52,11 +55,64 @@ function ImageCard({ image, onOpen, aspect = "aspect-[4/3]", contain = true }: {
   </figure>;
 }
 
-function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
+type GalleryRect = { left: number; top: number; width: number; height: number };
+
+function PrecedentCarousel() {
   const trackRef = useRef<HTMLDivElement>(null);
+  const openerRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
   const middleIndex = Math.floor(assets.precedents.length / 2);
   const [focusIndex, setFocusIndex] = useState(middleIndex);
+  const [detail, setDetail] = useState<{ index: number; from: GalleryRect; to: GalleryRect } | null>(null);
+  const [expanded, setExpanded] = useState(false);
+  const [detailSrc, setDetailSrc] = useState("");
   const activeIndex = Math.round(focusIndex);
+
+  const closeDetail = useCallback(() => {
+    setExpanded(false);
+    window.setTimeout(() => setDetail(null), 650);
+  }, []);
+
+  useEffect(() => {
+    if (!detail) return;
+    lockScroll(true);
+    closeRef.current?.focus();
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") closeDetail();
+      if (event.key === "Tab") {
+        event.preventDefault();
+        closeRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      lockScroll(false);
+      document.removeEventListener("keydown", onKeyDown);
+      openerRef.current?.focus();
+    };
+  }, [detail, closeDetail]);
+
+  useEffect(() => {
+    if (!detail) return;
+    const image = new window.Image();
+    image.src = publicPath(assets.precedents[detail.index].full);
+    image.onload = () => setDetailSrc(image.src);
+    return () => { image.onload = null; };
+  }, [detail]);
+
+  const openDetail = (index: number, button: HTMLButtonElement) => {
+    const bounds = button.getBoundingClientRect();
+    const width = Math.min(window.innerWidth * .9, window.innerHeight * .9 * .75);
+    const height = width * 4 / 3;
+    openerRef.current = button;
+    setDetailSrc(publicPath(assets.precedents[index].src));
+    setDetail({
+      index,
+      from: { left: bounds.left, top: bounds.top, width: bounds.width, height: bounds.height },
+      to: { left: (window.innerWidth - width) / 2, top: (window.innerHeight - height) / 2, width, height },
+    });
+    requestAnimationFrame(() => setExpanded(true));
+  };
 
   useEffect(() => {
     const track = trackRef.current;
@@ -84,12 +140,12 @@ function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
     else setFocusIndex(next - 1 + (center - centers[next - 1]) / (centers[next] - centers[next - 1]));
   };
 
-  return <div className="bg-[#293229] px-4 pb-6 pt-2 text-white md:px-8 md:pb-8">
+  return <div className="relative left-1/2 flex min-h-[100svh] w-screen -translate-x-1/2 flex-col justify-center bg-[#293229] px-4 pb-6 pt-2 text-white md:px-8 md:pb-8">
     <div
       ref={trackRef}
       onScroll={updateCenter}
       aria-label="Precedent studies, scroll horizontally"
-      className="relative flex snap-x snap-mandatory items-center overflow-x-auto overscroll-x-contain py-14 md:py-20"
+      className="relative flex snap-x snap-mandatory items-center overflow-x-auto overscroll-x-contain py-20 md:py-24"
       style={{ "--precedent-width": "clamp(220px, 27vw, 350px)", "--precedent-overlap": "clamp(40px, 6vw, 85px)" } as React.CSSProperties}
     >
       <span aria-hidden="true" className="shrink-0" style={{ width: "calc(50% - var(--precedent-width) / 2)" }} />
@@ -103,7 +159,7 @@ function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
           style={{
             width: "var(--precedent-width)",
             marginLeft: index === 0 ? 0 : "calc(-1 * var(--precedent-overlap))",
-            transform: `perspective(1100px) rotateY(${-direction * distance * 23}deg) scale(${1.16 - distance * .32})`,
+            transform: `perspective(1100px) rotateY(${-direction * distance * 23}deg) scale(${1.3 - distance * .39})`,
             opacity: 1 - distance * .18,
             zIndex: 10 - Math.round(distance * 3),
           }}
@@ -111,7 +167,7 @@ function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
           <button
             type="button"
             aria-label={activeIndex === index ? `Enlarge ${image.title}` : `View ${image.title}`}
-            onClick={() => activeIndex === index ? onOpen({ src: image.full, title: image.title, alt: image.alt }) : goTo(index)}
+            onClick={(event) => activeIndex === index ? openDetail(index, event.currentTarget) : goTo(index)}
             className="relative block aspect-[3/4] w-full overflow-hidden border border-sage-300/50 bg-white shadow-[0_18px_45px_rgba(48,54,39,.16)] focus-visible:outline-offset-4"
           >
             <Image src={image.src} alt={image.alt} fill unoptimized sizes="(min-width: 1024px) 45vw, 80vw" className="object-contain" />
@@ -123,12 +179,24 @@ function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
     <p className="text-center font-display text-[clamp(1.3rem,2.1vw,2rem)] text-white">{assets.precedents[activeIndex].title}</p>
     <div className="mt-5 flex items-center justify-between border-t border-white/30 pt-4 text-[12px] uppercase tracking-[.12em] text-white/70">
       <span>{String(activeIndex + 1).padStart(2, "0")} / {String(assets.precedents.length).padStart(2, "0")}</span>
-      <span className="hidden sm:inline">Scroll to explore · select the center image to enlarge</span>
+      <span className="hidden sm:inline">Scroll to explore · select the center image for a full-page view</span>
       <div className="flex gap-5">
         <button type="button" aria-label="Previous precedent" disabled={activeIndex === 0} onClick={() => goTo(activeIndex - 1)} className="text-white transition-opacity disabled:opacity-30">←</button>
         <button type="button" aria-label="Next precedent" disabled={activeIndex === assets.precedents.length - 1} onClick={() => goTo(activeIndex + 1)} className="text-white transition-opacity disabled:opacity-30">→</button>
       </div>
     </div>
+    {detail && createPortal(<div role="dialog" aria-modal="true" aria-label={assets.precedents[detail.index].title} className="fixed inset-0 z-[1000]">
+      <div onClick={closeDetail} className={`absolute inset-0 bg-[#121a15] transition-opacity duration-500 ${expanded ? "opacity-95" : "opacity-0"}`} />
+      <div
+        className="absolute overflow-hidden bg-white shadow-2xl transition-[left,top,width,height] duration-[650ms] ease-[cubic-bezier(.22,1,.36,1)] motion-reduce:transition-none"
+        style={expanded ? detail.to : detail.from}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={detailSrc} alt={assets.precedents[detail.index].alt} className="h-full w-full object-contain" />
+      </div>
+      <button ref={closeRef} type="button" onClick={closeDetail} aria-label="Close precedent" className={`absolute right-5 top-5 z-10 grid h-11 w-11 place-items-center rounded-full border border-white/40 bg-[#293229] text-2xl text-white transition-opacity duration-300 hover:bg-[#405040] focus-visible:outline-offset-4 md:right-8 md:top-8 ${expanded ? "opacity-100" : "opacity-0"}`}>×</button>
+      <p className={`pointer-events-none absolute bottom-5 left-5 text-[12px] uppercase tracking-[.14em] text-white transition-opacity duration-300 md:bottom-8 md:left-8 ${expanded ? "opacity-100" : "opacity-0"}`}>{assets.precedents[detail.index].title}</p>
+    </div>, document.body)}
   </div>;
 }
 
@@ -267,7 +335,7 @@ export function Verdant({ project }: { project: Project }) {
           <SectionLabel>Precedent studies</SectionLabel>
           <p className="mt-4 max-w-2xl text-[15px] leading-[1.7] text-ink-soft">Five cultural buildings informed the study of public approaches, landscape, structure and performance space.</p>
         </SectionReveal>
-        <SectionReveal><PrecedentCarousel onOpen={setViewer} /></SectionReveal>
+        <SectionReveal><PrecedentCarousel /></SectionReveal>
       </div>
     </section>
 
