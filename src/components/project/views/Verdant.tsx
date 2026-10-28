@@ -135,23 +135,42 @@ function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
 const programmeZones = [
   {
     title: "Theatre",
-    spaces: ["480-seat hall", "Stage", "Technical", "Trap room & storage", "Toilets"],
+    spaces: [
+      { label: "Technical", percent: 6 },
+      { label: "Stage", percent: 9 },
+      { label: "Toilets", percent: 10 },
+      { label: "Trap room & storage", percent: 33 },
+      { label: "480-seat hall", percent: 42 },
+    ],
     description: "The hall is the performance core. Stage and technical spaces support the production, while the trap room, storage and toilets complete the theatre's working programme.",
     height: 82,
   },
   {
     title: "Front of house",
-    spaces: ["Bar & café", "Foyers", "Kitchen", "Public WCs", "Support"],
+    spaces: [
+      { label: "FOH support", percent: 5 },
+      { label: "Public WCs", percent: 7 },
+      { label: "Kitchen", percent: 7 },
+      { label: "Foyers", percent: 53 },
+      { label: "Bar & café", percent: 28 },
+    ],
     description: "Foyers and the bar and café make arrival a social experience. The kitchen, public WCs and support spaces serve visitors before and after performances.",
     height: 100,
   },
   {
     title: "Back of house",
-    spaces: ["Rehearsal", "Staff", "Break room", "Caretaker", "Support"],
+    spaces: [
+      { label: "Caretaker", percent: 10 },
+      { label: "Break room", percent: 11 },
+      { label: "Staff", percent: 13 },
+      { label: "Rehearsal", percent: 16 },
+      { label: "BOH support", percent: 50 },
+    ],
     description: "Rehearsal, staff, break and caretaker spaces form the quieter working side of the building, supporting performers and the day-to-day running of the theatre.",
     height: 68,
   },
 ] as const;
+const programmeColours = ["#b5cedd", "#74a9bf", "#478eac", "#2f6f99", "#1c315b"];
 
 function BriefProgramme({ onOpen }: { onOpen: (image: SiteImage) => void }) {
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -192,12 +211,18 @@ function BriefProgramme({ onOpen }: { onOpen: (image: SiteImage) => void }) {
               const reveal = Math.min(1, Math.max(0, (progress - index * .27) / .28));
               return <div key={zone.title} className="flex h-full flex-col justify-end">
                 <div
-                  className="flex min-h-3 flex-col justify-end overflow-hidden bg-gradient-to-t from-[#1c315b] via-[#3b81a1] to-[#a9cadb] px-2 pb-3 text-white shadow-[0_12px_26px_rgba(28,49,91,.12)] md:px-4 md:pb-5"
+                  className="flex min-h-3 flex-col overflow-hidden shadow-[0_12px_26px_rgba(28,49,91,.12)]"
                   style={{ height: `${zone.height * (.06 + reveal * .94)}%` }}
                 >
-                  <div className="space-y-2 transition-opacity duration-300" style={{ opacity: reveal > .55 ? 1 : 0 }}>
-                    {zone.spaces.map((space) => <p key={space} className="border-t border-white/35 pt-1.5 text-[10px] leading-tight md:text-[12px]">{space}</p>)}
-                  </div>
+                  {zone.spaces.map((space, spaceIndex) => <div
+                    key={space.label}
+                    aria-label={`${space.label}: approximately ${space.percent}% of the ${zone.title} diagram bar`}
+                    className={`flex min-h-0 items-center justify-between gap-1 overflow-hidden border-t border-white/35 px-1.5 text-[9px] leading-tight md:px-3 md:text-[11px] ${spaceIndex < 2 ? "text-[#1c315b]" : "text-white"}`}
+                    style={{ flex: `0 0 ${space.percent}%`, backgroundColor: programmeColours[spaceIndex] }}
+                  >
+                    <span className="transition-opacity duration-300" style={{ opacity: reveal > .55 ? 1 : 0 }}>{space.label}</span>
+                    <strong className="shrink-0 font-medium tabular-nums transition-opacity duration-300" style={{ opacity: reveal > .55 ? 1 : 0 }}>{space.percent}%</strong>
+                  </div>)}
                 </div>
                 <h3 className={`mt-4 min-h-12 font-display text-[clamp(1.1rem,1.7vw,1.65rem)] leading-tight transition-colors ${activeZone === index ? "text-ink" : "text-ink-soft"}`}>{zone.title}</h3>
               </div>;
@@ -211,7 +236,7 @@ function BriefProgramme({ onOpen }: { onOpen: (image: SiteImage) => void }) {
           </div>
         </div>
         <div className="mt-8 flex items-center justify-between gap-6 border-t border-sage-300/60 pt-4">
-          <span className="text-[11px] uppercase tracking-[.14em] text-ink-soft">Scroll to build the programme</span>
+          <span className="text-[11px] uppercase tracking-[.14em] text-ink-soft">Scroll to build the programme · approximate diagram proportions</span>
           <button type="button" onClick={() => onOpen({ src: assets.brief[0].full, title: assets.brief[0].title, alt: assets.brief[0].alt })} className="editorial-link pb-1 text-[11px] uppercase tracking-[.12em]">View original diagram ↗</button>
         </div>
       </div>
