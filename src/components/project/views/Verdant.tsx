@@ -14,7 +14,7 @@ type VerdantImage = (typeof assets)["renders"][number];
 const earlyInterior = assets.exploration[5];
 
 const siteGroups: DrawingGroup[] = [
-  { label: "Setting", items: assets.site.slice(0, 4) },
+  { label: "Setting", items: [assets.site[3], assets.site[2], assets.site[1], assets.site[0]] },
   { label: "Site layers", items: assets.site.slice(4, 9) },
   { label: "Context", items: assets.site.slice(9) },
 ];
@@ -132,6 +132,93 @@ function PrecedentCarousel({ onOpen }: { onOpen: (image: SiteImage) => void }) {
   </div>;
 }
 
+const programmeZones = [
+  {
+    title: "Theatre",
+    spaces: ["480-seat hall", "Stage", "Technical", "Trap room & storage", "Toilets"],
+    description: "The hall is the performance core. Stage and technical spaces support the production, while the trap room, storage and toilets complete the theatre's working programme.",
+    height: 82,
+  },
+  {
+    title: "Front of house",
+    spaces: ["Bar & café", "Foyers", "Kitchen", "Public WCs", "Support"],
+    description: "Foyers and the bar and café make arrival a social experience. The kitchen, public WCs and support spaces serve visitors before and after performances.",
+    height: 100,
+  },
+  {
+    title: "Back of house",
+    spaces: ["Rehearsal", "Staff", "Break room", "Caretaker", "Support"],
+    description: "Rehearsal, staff, break and caretaker spaces form the quieter working side of the building, supporting performers and the day-to-day running of the theatre.",
+    height: 68,
+  },
+] as const;
+
+function BriefProgramme({ onOpen }: { onOpen: (image: SiteImage) => void }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [progress, setProgress] = useState(0);
+  const activeZone = Math.min(2, Math.floor(progress * 3));
+
+  useEffect(() => {
+    let frame = 0;
+    const update = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        const bounds = scrollRef.current?.getBoundingClientRect();
+        if (!bounds) return;
+        const travel = Math.max(1, bounds.height - window.innerHeight);
+        setProgress(Math.min(1, Math.max(0, -bounds.top / travel)));
+      });
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  return <div ref={scrollRef} className="relative h-[250svh] border-t border-sage-300/60">
+    <div className="sticky top-16 flex min-h-[calc(100svh-4rem)] items-center py-8 md:top-20 md:min-h-[calc(100svh-5rem)]">
+      <div className="w-full">
+        <div className="mb-8 flex items-center justify-between gap-4 text-[11px] uppercase tracking-[.14em] text-sage-700">
+          <span>Programme organisation</span>
+          <span>{String(activeZone + 1).padStart(2, "0")} / 03</span>
+        </div>
+        <div className="grid items-center gap-8 lg:grid-cols-[minmax(0,1.35fr)_minmax(250px,.65fr)] lg:gap-16">
+          <div className="grid h-[46svh] min-h-[300px] grid-cols-3 items-end gap-3 border-b border-sage-500/60 md:h-[62svh] md:gap-6">
+            {programmeZones.map((zone, index) => {
+              const reveal = Math.min(1, Math.max(0, (progress - index * .27) / .28));
+              return <div key={zone.title} className="flex h-full flex-col justify-end">
+                <div
+                  className="flex min-h-3 flex-col justify-end overflow-hidden bg-gradient-to-t from-[#1c315b] via-[#3b81a1] to-[#a9cadb] px-2 pb-3 text-white shadow-[0_12px_26px_rgba(28,49,91,.12)] md:px-4 md:pb-5"
+                  style={{ height: `${zone.height * (.06 + reveal * .94)}%` }}
+                >
+                  <div className="space-y-2 transition-opacity duration-300" style={{ opacity: reveal > .55 ? 1 : 0 }}>
+                    {zone.spaces.map((space) => <p key={space} className="border-t border-white/35 pt-1.5 text-[10px] leading-tight md:text-[12px]">{space}</p>)}
+                  </div>
+                </div>
+                <h3 className={`mt-4 min-h-12 font-display text-[clamp(1.1rem,1.7vw,1.65rem)] leading-tight transition-colors ${activeZone === index ? "text-ink" : "text-ink-soft"}`}>{zone.title}</h3>
+              </div>;
+            })}
+          </div>
+          <div className="grid min-h-48 self-center">
+            {programmeZones.map((zone, index) => <div key={zone.title} aria-hidden={activeZone !== index} className={`col-start-1 row-start-1 transition-all duration-500 motion-reduce:transition-none ${activeZone === index ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0"}`}>
+              <p className="mb-4 text-[11px] uppercase tracking-[.14em] text-sage-700">0{index + 1} / {zone.title}</p>
+              <p className="font-display text-[clamp(1.5rem,2.5vw,2.5rem)] leading-[1.2] text-ink">{zone.description}</p>
+            </div>)}
+          </div>
+        </div>
+        <div className="mt-8 flex items-center justify-between gap-6 border-t border-sage-300/60 pt-4">
+          <span className="text-[11px] uppercase tracking-[.14em] text-ink-soft">Scroll to build the programme</span>
+          <button type="button" onClick={() => onOpen({ src: assets.brief[0].full, title: assets.brief[0].title, alt: assets.brief[0].alt })} className="editorial-link pb-1 text-[11px] uppercase tracking-[.12em]">View original diagram ↗</button>
+        </div>
+      </div>
+    </div>
+  </div>;
+}
+
 export function Verdant({ project }: { project: Project }) {
   const [viewer, setViewer] = useState<SiteImage | null>(null);
   const [selectedRender, setSelectedRender] = useState(0);
@@ -150,13 +237,7 @@ export function Verdant({ project }: { project: Project }) {
     <section id="verdant-brief" aria-label="Verdant Theatre brief" className="scroll-mt-32 bg-cream py-20 md:py-28">
       <div className="shell">
         <Heading label="02 / Brief" title="A place for performance" text="A 480-seat theatre sits alongside rehearsal, recording, dressing, café and public foyer spaces. The programme separates theatre, front of house and backstage functions while connecting them through shared circulation." />
-        <div className="grid items-center gap-10 border-t border-sage-300/60 pt-9 lg:grid-cols-[minmax(0,.9fr)_minmax(0,1.1fr)] lg:gap-20">
-          <SectionReveal className="max-w-lg">
-            <p className="font-display text-[clamp(1.75rem,2.7vw,2.75rem)] leading-[1.15] text-ink">The building is organised around the experience of arriving, gathering and watching.</p>
-            <p className="mt-6 text-[15px] leading-[1.75] text-ink-soft">{project.paragraphs[1]}</p>
-          </SectionReveal>
-          <SectionReveal><ImageCard image={assets.brief[0]} onOpen={setViewer} aspect="aspect-[4/3]" /></SectionReveal>
-        </div>
+        <BriefProgramme onOpen={setViewer} />
         <SectionReveal className="mb-7 mt-20 border-t border-sage-300/60 pt-6">
           <SectionLabel>Precedent studies</SectionLabel>
           <p className="mt-4 max-w-2xl text-[15px] leading-[1.7] text-ink-soft">Five cultural buildings informed the study of public approaches, landscape, structure and performance space.</p>
