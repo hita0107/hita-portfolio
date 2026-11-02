@@ -27,9 +27,10 @@ const otherStages = {
 
 export function ProjectBar({ project }: { project: Project; next: Project }) {
   const hasProgress = project.slug === "common-ground" || project.slug === "faithlie-centre" || project.slug === "elysian-arcadia" || project.slug === "verdant-theatre";
-  return <><MobileSectionRail /><div className={`fixed inset-x-0 top-16 z-40 border-b editorial-line bg-white/95 backdrop-blur-sm md:top-20 ${project.slug === "verdant-theatre" ? "bg-white" : ""}`}>
-    {hasProgress
+  return <div className={`fixed inset-x-0 top-16 z-40 border-b editorial-line bg-white/95 backdrop-blur-sm md:top-20 ${project.slug === "verdant-theatre" ? "bg-white" : ""}`}>
+    <div className="sm:hidden"><MobileSectionRail /></div>
+    <div className="hidden sm:block">{hasProgress
       ? project.slug === "common-ground" ? <CommonGroundProgress /> : project.slug === "faithlie-centre" ? <FaithlieProgress /> : project.slug === "verdant-theatre" ? <VerdantProgress /> : <ElysianProgress />
-      : <SimpleProjectProgress stages={otherStages[project.slug as keyof typeof otherStages]} />}
-  </div></>;
+      : <SimpleProjectProgress stages={otherStages[project.slug as keyof typeof otherStages]} />}</div>
+  </div>;
 }

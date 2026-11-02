@@ -19,9 +19,9 @@ function Cover({ project, className }: { project: Project; className: string }) 
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, className = "" }: { project: Project; className?: string }) {
   return (
-    <li className="md:w-[68%] md:odd:ml-auto">
+    <li className={`md:w-[68%] md:odd:ml-auto ${className}`}>
       <SectionReveal>
       <Link href={`/work/${project.slug}/`} className="group block focus-visible:outline-offset-4">
         <div className="relative aspect-[4/3] overflow-hidden bg-cream">
@@ -41,6 +41,12 @@ function ProjectCard({ project }: { project: Project }) {
 
 export function WorksIndex() {
   const [view, setView] = useState<View>("gallery");
+  const [gridPage, setGridPage] = useState(0);
+  const gridPages = Math.ceil(sorted.length / 4);
+  const changeGridPage = (page: number) => {
+    setGridPage(page);
+    window.requestAnimationFrame(() => document.getElementById("project-grid")?.scrollIntoView({ behavior: "smooth", block: "start" }));
+  };
 
   return (
     <section id="work" aria-labelledby="work-title" className={`min-h-screen bg-white pb-28 ${view === "gallery" ? "pt-32 md:pt-36" : "pt-32 md:pt-40"}`}>
@@ -89,9 +95,16 @@ export function WorksIndex() {
             ))}
           </ol>
           ) : (
-          <ol className="grid gap-x-4 gap-y-12 md:grid-cols-2 md:gap-x-20 md:gap-y-0">
-            {sorted.map((project) => <ProjectCard key={project.slug} project={project} />)}
-          </ol>
+          <>
+            <ol id="project-grid" key={gridPage} className="grid scroll-mt-32 gap-x-4 gap-y-12 md:grid-cols-2 md:gap-x-20 md:gap-y-0">
+              {sorted.map((project, index) => <ProjectCard key={project.slug} project={project} className={index < gridPage * 4 || index >= (gridPage + 1) * 4 ? "hidden md:block" : ""} />)}
+            </ol>
+            <nav aria-label="Grid pages" className="mt-12 flex items-center justify-center gap-5 md:hidden">
+              <button type="button" onClick={() => changeGridPage(Math.max(0, gridPage - 1))} disabled={gridPage === 0} className="min-h-11 min-w-11 disabled:opacity-30" aria-label="Previous projects">←</button>
+              <span className="font-mono text-[11px] text-ink-soft">{String(gridPage + 1).padStart(2, "0")} / {String(gridPages).padStart(2, "0")}</span>
+              <button type="button" onClick={() => changeGridPage(Math.min(gridPages - 1, gridPage + 1))} disabled={gridPage === gridPages - 1} className="min-h-11 min-w-11 disabled:opacity-30" aria-label="Next projects">→</button>
+            </nav>
+          </>
           )}
       </div>
     </section>

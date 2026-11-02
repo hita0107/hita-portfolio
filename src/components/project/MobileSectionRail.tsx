@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
 
 type Section = { id: string; label: string };
@@ -10,6 +10,7 @@ export function MobileSectionRail() {
   const [sections, setSections] = useState<Section[]>([]);
   const [active, setActive] = useState(0);
   const [open, setOpen] = useState(false);
+  const menuRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const nodes = Array.from(document.querySelectorAll<HTMLElement>("main section, main footer, main + footer, main ~ footer"))
@@ -47,6 +48,22 @@ export function MobileSectionRail() {
     };
   }, [pathname]);
 
+  useEffect(() => {
+    if (!open) return;
+    const closeOutside = (event: PointerEvent) => {
+      if (!menuRef.current?.contains(event.target as Node)) setOpen(false);
+    };
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    document.addEventListener("keydown", closeOnEscape);
+    return () => {
+      document.removeEventListener("pointerdown", closeOutside);
+      document.removeEventListener("keydown", closeOnEscape);
+    };
+  }, [open]);
+
   if (sections.length < 2) return null;
   const go = (index: number) => {
     const next = Math.max(0, Math.min(sections.length - 1, index));
@@ -56,21 +73,16 @@ export function MobileSectionRail() {
     setOpen(false);
   };
 
-  return <div className="fixed right-0 top-1/2 z-50 -translate-y-1/2 lg:hidden">
-    <nav aria-label="Page section navigation" className="flex items-stretch rounded-l-xl border border-r-0 border-sage-300/70 bg-white/95 shadow-lg backdrop-blur-md">
-      {open && <div className="max-h-[65svh] w-[min(70vw,250px)] overflow-y-auto p-3">
-        <p className="mb-2 px-2 font-mono text-[10px] uppercase tracking-widest text-ink-soft">On this page</p>
-        {sections.map((section, index) => <button key={section.id} type="button" onClick={() => go(index)} aria-current={active === index ? "step" : undefined} className={`block min-h-11 w-full border-b border-sage-300/40 px-2 py-2 text-left text-xs leading-snug ${active === index ? "text-ink" : "text-ink-soft"}`}>
-          <span className="mr-2 font-mono text-[10px]">{String(index + 1).padStart(2, "0")}</span>{section.label}
-        </button>)}
-      </div>}
-      <div className="flex w-11 flex-col border-l border-sage-300/50">
-        <button type="button" onClick={() => go(active - 1)} disabled={active === 0} aria-label="Previous section" className="min-h-11 disabled:opacity-30">↑</button>
-        <button type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-label={open ? "Close page sections" : "Show page sections"} className="flex min-h-14 flex-col items-center justify-center border-y border-sage-300/50 font-mono text-[10px]">
-          <span>{String(active + 1).padStart(2, "0")}</span><span className="text-ink-soft">/{String(sections.length).padStart(2, "0")}</span>
-        </button>
-        <button type="button" onClick={() => go(active + 1)} disabled={active === sections.length - 1} aria-label="Next section" className="min-h-11 disabled:opacity-30">↓</button>
-      </div>
-    </nav>
-  </div>;
+  return <nav ref={menuRef} aria-label="Project topics" className="shell relative h-12">
+    <button type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="project-topics-list" className="flex h-full w-full items-center justify-between gap-4 text-left font-mono text-[10px] uppercase tracking-[.1em] text-ink">
+      <span className="truncate"><span className="mr-3 text-sage-700">{String(active + 1).padStart(2, "0")} / {String(sections.length).padStart(2, "0")}</span>{sections[active].label}</span>
+      <span aria-hidden="true" className={`text-base transition-transform ${open ? "rotate-180" : ""}`}>⌄</span>
+    </button>
+    {open && <div id="project-topics-list" className="absolute left-0 right-0 top-full max-h-[70svh] overflow-y-auto border border-sage-300/70 bg-white p-3 shadow-xl">
+      <p className="px-2 pb-2 font-mono text-[10px] uppercase tracking-widest text-ink-soft">Project topics</p>
+      {sections.map((section, index) => <button key={section.id} type="button" onClick={() => go(index)} aria-current={active === index ? "step" : undefined} className={`block min-h-11 w-full border-t border-sage-300/40 px-2 py-2 text-left text-sm leading-snug ${active === index ? "text-ink" : "text-ink-soft"}`}>
+        <span className="mr-3 font-mono text-[10px] text-sage-700">{String(index + 1).padStart(2, "0")}</span>{section.label}
+      </button>)}
+    </div>}
+  </nav>;
 }
