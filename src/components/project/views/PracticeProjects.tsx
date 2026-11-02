@@ -50,7 +50,7 @@ export function ConceptualMultistorey({ project }: { project: Project }) {
   return <>
     <Opener project={project} introduction={project.paragraphs} />
 
-    <section aria-label="Furjan Residences visualisations" className="bg-white py-20 md:py-28">
+    <section id="furjan-visualisations" aria-label="Furjan Residences visualisations" className="scroll-mt-32 bg-white py-20 md:py-28">
       <div className="shell">
         <PracticeHeading eyebrow="Concept views" title="A new street presence" />
         <div className="grid gap-x-8 gap-y-10 md:grid-cols-2">
@@ -59,7 +59,7 @@ export function ConceptualMultistorey({ project }: { project: Project }) {
       </div>
     </section>
 
-    <section aria-label="Furjan Residences floor plans" className="bg-cream py-20 md:py-28">
+    <section id="furjan-plans" aria-label="Furjan Residences floor plans" className="scroll-mt-32 bg-cream py-20 md:py-28">
       <div className="shell">
         <PracticeHeading eyebrow="Drawings" title="From ground to skyline" description="Explore the ground floor, parking podiums, amenities and residential levels. Select a drawing to enlarge it, or open the full-resolution sheet to inspect its details." />
         <SectionReveal><StackedDrawingBrowser groups={furjanDrawings} name="floor plan" onOpen={setViewer} compact /></SectionReveal>

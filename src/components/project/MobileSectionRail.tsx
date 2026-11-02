@@ -14,7 +14,7 @@ export function MobileSectionRail() {
   useEffect(() => {
     const nodes = Array.from(document.querySelectorAll<HTMLElement>("main section, main footer, main + footer, main ~ footer"))
       .filter((node) => !node.parentElement?.closest("section"))
-      .filter((node) => node.offsetHeight > 120 && (node.querySelector("h1, h2") || node.hasAttribute("aria-label") || node.hasAttribute("aria-labelledby")));
+      .filter((node) => node.offsetHeight > 120 && (node.querySelector("h1, h2") || node.tagName === "FOOTER"));
     const entries = nodes.map((node, index) => {
       if (!node.id) node.id = `project-section-${index}`;
       const heading = node.querySelector("h2");

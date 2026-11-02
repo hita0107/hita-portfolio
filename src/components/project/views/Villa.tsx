@@ -108,7 +108,7 @@ export function LuxuryVilla({ project }: { project: Project }) {
   return <>
     <Opener project={project} introduction={project.paragraphs} />
 
-    <section aria-label="Luxury Villa visualisations" className="bg-white py-20 md:py-28">
+    <section id="villa-visualisations" aria-label="Luxury Villa visualisations" className="scroll-mt-32 bg-white py-20 md:py-28">
       <div className="shell">
         <SectionHeading label="Visualisations" title="Arrival to courtyard" text="Views move from the street-facing elevation and entrance through to the garden side, courtyard and sheltered outdoor room." />
         <SectionReveal className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_minmax(220px,290px)] lg:gap-10">
@@ -157,14 +157,14 @@ export function LuxuryVilla({ project }: { project: Project }) {
       </div>
     </section>
 
-    <section aria-label="Luxury Villa floor plans" className="bg-cream py-20 md:py-28">
+    <section id="villa-plans" aria-label="Luxury Villa floor plans" className="scroll-mt-32 bg-cream py-20 md:py-28">
       <div className="shell">
         <SectionHeading label="Drawings / 01" title="Across two levels" text="Explore the ground and first floors to see how the rooms and courtyard connect." />
         <SectionReveal><StackedDrawingBrowser groups={planGroups} name="floor plan" onOpen={setViewer} /></SectionReveal>
       </div>
     </section>
 
-    <section aria-label="Luxury Villa elevations and sections" className="bg-white py-20 md:py-28">
+    <section id="villa-sections" aria-label="Luxury Villa elevations and sections" className="scroll-mt-32 bg-white py-20 md:py-28">
       <div className="shell">
         <SectionHeading label="Drawings / 02" title="Elevations and sections" text="The elevations and building sections show the villa's proportions, openings and relationship between the two floors." />
         <SectionReveal><VillaDrawingBrowser onOpen={setViewer} /></SectionReveal>

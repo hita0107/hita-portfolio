@@ -74,7 +74,7 @@ export function JssPrivateSchool({ project }: { project: Project }) {
   return <>
     <Opener project={project} introduction={project.paragraphs} />
 
-    <section aria-label="JSS Private School visualisations" className="bg-white py-20 md:py-28">
+    <section id="jss-visualisations" aria-label="JSS Private School visualisations" className="scroll-mt-32 bg-white py-20 md:py-28">
       <div className="shell">
         <SectionHeading label="Visualisations" title="The school in context" text="Views of the main arrival, the school frontage and its outdoor sports facilities." />
         <div className="grid gap-x-7 gap-y-10 md:grid-cols-2">
@@ -85,21 +85,21 @@ export function JssPrivateSchool({ project }: { project: Project }) {
       </div>
     </section>
 
-    <section aria-label="JSS Private School floor plans" className="bg-cream py-20 md:py-28">
+    <section id="jss-plans" aria-label="JSS Private School floor plans" className="scroll-mt-32 bg-cream py-20 md:py-28">
       <div className="shell">
         <SectionHeading label="Tender drawings / 01" title="Floor by floor" text="The overall school plans and the corresponding Block B sheets can be explored level by level." />
         <SectionReveal><StackedDrawingBrowser groups={planGroups} name="floor plan" onOpen={setViewer} /></SectionReveal>
       </div>
     </section>
 
-    <section aria-label="JSS Private School elevations and sections" className="bg-white py-20 md:py-28">
+    <section id="jss-sections" aria-label="JSS Private School elevations and sections" className="scroll-mt-32 bg-white py-20 md:py-28">
       <div className="shell">
         <SectionHeading label="Tender drawings / 02" title="Elevations and sections" text="Building sections, elevations and enlarged wall sections describe the school from its overall form to the construction of Block B." />
         <SectionReveal><StackedDrawingBrowser groups={constructionGroups} name="elevation or section" onOpen={setViewer} flat /></SectionReveal>
       </div>
     </section>
 
-    <section aria-label="JSS Private School landscape details" className="bg-cream py-20 md:py-28">
+    <section id="jss-landscape" aria-label="JSS Private School landscape details" className="scroll-mt-32 bg-cream py-20 md:py-28">
       <div className="shell">
         <SectionHeading label="Tender drawings / 03" title="Landscape details" text="The landscape sheets resolve the external levels, access, planting and edge conditions around the school." />
         <SectionReveal><StackedDrawingBrowser groups={landscapeGroups} onOpen={setViewer} name="landscape drawing" /></SectionReveal>

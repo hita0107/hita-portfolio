@@ -85,7 +85,7 @@ export function RoomsCities({ project }: { project: Project }) {
         <div className="shell">
           <SectionReveal>
             <SectionLabel>Neighbourhood atlas</SectionLabel>
-            <h2 id="rooms-cities-atlas" className="mt-5 font-display text-[clamp(2.5rem,5vw,5rem)] font-light leading-[.98] tracking-[-.04em] text-ink">One lexicon, eight neighbourhoods</h2>
+            <h2 id="rooms-cities-atlas" className="scroll-mt-32 mt-5 font-display text-[clamp(2.5rem,5vw,5rem)] font-light leading-[.98] tracking-[-.04em] text-ink">One lexicon, eight neighbourhoods</h2>
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-ink-soft">The group used the same visual language to compare how eight places are organised, inhabited and remembered. Choose a feature to read their drawings and research alongside one another.</p>
           </SectionReveal>
           <div className="mt-10 flex gap-x-6 gap-y-2 overflow-x-auto border-b border-sage-300/60" role="group" aria-label="Compare by feature">
