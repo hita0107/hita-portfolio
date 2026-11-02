@@ -19,19 +19,19 @@ function Cover({ project, className }: { project: Project; className: string }) 
   );
 }
 
-function ProjectCard({ project, className = "" }: { project: Project; className?: string }) {
+function ProjectCard({ project }: { project: Project }) {
   return (
-    <li className={`md:w-[68%] md:odd:ml-auto ${className}`}>
+    <li className="min-w-0">
       <SectionReveal>
       <Link href={`/work/${project.slug}/`} className="group block focus-visible:outline-offset-4">
-        <div className="relative aspect-[4/3] overflow-hidden bg-cream">
+        <div className="relative aspect-square overflow-hidden bg-cream">
           <Cover project={project} className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] ease-[var(--ease-expo)] group-hover:scale-[1.045] group-focus-visible:scale-[1.045] motion-reduce:transition-none" />
           <span className="absolute inset-0 bg-black/0 transition-colors duration-500 group-hover:bg-black/10" />
           <span className="absolute bottom-5 right-5 translate-y-3 text-[12px] uppercase tracking-[.14em] text-white opacity-0 transition-[opacity,transform] duration-500 group-hover:translate-y-0 group-hover:opacity-100">View project ↗</span>
         </div>
-        <div className="mt-3 flex items-start justify-between gap-6 text-[12px] leading-snug md:min-h-[68px] md:text-[13px]">
-          <div><span className="block">{project.title}</span><span className="mt-0.5 block text-ink-soft">{project.subtitle}</span></div>
-          <span className="shrink-0 text-ink-soft">{project.years}</span>
+        <div className="mt-2 grid gap-1 text-[11px] leading-snug sm:grid-cols-[1fr_auto] sm:gap-3 md:text-[12px]">
+          <div><span className="block">{project.title}</span><span className="mt-0.5 hidden text-ink-soft sm:line-clamp-2">{project.subtitle}</span></div>
+          <span className="text-ink-soft">{project.years}</span>
         </div>
       </Link>
       </SectionReveal>
@@ -41,12 +41,6 @@ function ProjectCard({ project, className = "" }: { project: Project; className?
 
 export function WorksIndex() {
   const [view, setView] = useState<View>("gallery");
-  const [gridPage, setGridPage] = useState(0);
-  const gridPages = Math.ceil(ordered.length / 4);
-  const changeGridPage = (page: number) => {
-    setGridPage(page);
-    window.requestAnimationFrame(() => document.getElementById("project-grid")?.scrollIntoView({ behavior: "smooth", block: "start" }));
-  };
 
   return (
     <section id="work" aria-labelledby="work-title" className={`min-h-screen bg-white pb-28 ${view === "gallery" ? "pt-32 md:pt-36" : "pt-32 md:pt-40"}`}>
@@ -98,16 +92,9 @@ export function WorksIndex() {
             ))}
           </ol>
           ) : (
-          <>
-            <ol id="project-grid" key={gridPage} className="grid scroll-mt-32 gap-x-4 gap-y-12 md:grid-cols-2 md:gap-x-20 md:gap-y-0">
-              {ordered.map((project, index) => <ProjectCard key={project.slug} project={project} className={index < gridPage * 4 || index >= (gridPage + 1) * 4 ? "hidden md:block" : ""} />)}
-            </ol>
-            <nav aria-label="Grid pages" className="mt-12 flex items-center justify-center gap-5 md:hidden">
-              <button type="button" onClick={() => changeGridPage(Math.max(0, gridPage - 1))} disabled={gridPage === 0} className="min-h-11 min-w-11 disabled:opacity-30" aria-label="Previous projects">←</button>
-              <span className="font-mono text-[11px] text-ink-soft">{String(gridPage + 1).padStart(2, "0")} / {String(gridPages).padStart(2, "0")}</span>
-              <button type="button" onClick={() => changeGridPage(Math.min(gridPages - 1, gridPage + 1))} disabled={gridPage === gridPages - 1} className="min-h-11 min-w-11 disabled:opacity-30" aria-label="Next projects">→</button>
-            </nav>
-          </>
+          <ol id="project-grid" className="mx-auto grid max-w-[520px] grid-cols-2 gap-x-4 gap-y-9 sm:gap-x-8 sm:gap-y-10">
+            {ordered.map((project) => <ProjectCard key={project.slug} project={project} />)}
+          </ol>
           )}
       </div>
     </section>
