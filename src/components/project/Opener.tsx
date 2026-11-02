@@ -68,7 +68,7 @@ export function Opener({ project, hero, introduction, sideImage }: Props) {
         <div>
           <p className="text-[11px] uppercase tracking-[.2em] text-ink-soft">The project / {sheetNo}</p>
           <h2 className="mt-7 max-w-[900px] font-display text-[clamp(2.8rem,5.2vw,6rem)] leading-[.94] tracking-[-.045em]">{project.subtitle}</h2>
-          <div className="mt-10 max-w-[760px] space-y-5 border-t editorial-line pt-7 text-[15px] leading-[1.75] text-ink-soft">
+          <div className="mt-10 max-w-[760px] space-y-5 border-t editorial-line pt-7 text-[22.5px] leading-[1.75] text-ink-soft">
             {paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
           </div>
         </div>
