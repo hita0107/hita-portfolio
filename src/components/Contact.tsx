@@ -53,8 +53,7 @@ export function Contact() {
           </div>
           <div className="sm:text-right">
             <p className="t-label text-sage-300">Portfolio</p>
-            <p className="mt-3">{profile.role}</p>
-            <p className="text-sage-100/70">&copy; 2026 {profile.name}</p>
+            <p className="mt-3 text-sage-100/70">&copy; 2026 {profile.name}</p>
           </div>
         </div>
       </div>
