@@ -5,6 +5,29 @@ import { usePathname } from "next/navigation";
 
 type Section = { id: string; label: string };
 
+const shortTopics: Record<string, string> = {
+  "cg-site-analysis": "Site analysis",
+  "cg-peripheral-growth": "Peripheral growth",
+  "cg-overview-map": "Overview map",
+  "cg-exploration": "Exploration",
+  "cg-final-drawings": "Rooms in use",
+  "cg-gardens": "Gardens",
+  "cg-floor-plans": "Floor plans",
+  "cg-construction": "Long section + details",
+  "cg-axonometric": "Exploded axonometric",
+  "faithlie-context": "Context",
+  "faithlie-study": "Design + delivery",
+  "faithlie-carbon": "Carbon",
+  "faithlie-model": "Physical model",
+  "faithlie-process": "Making process",
+  "elysian-site": "Site",
+  "elysian-exploration": "Exploration",
+  "elysian-plans": "Floor plans",
+  "elysian-drawings": "Drawings",
+  "elysian-renders": "Renders",
+  "elysian-model": "Physical model",
+};
+
 export function MobileSectionRail() {
   const pathname = usePathname();
   const [sections, setSections] = useState<Section[]>([]);
@@ -20,7 +43,7 @@ export function MobileSectionRail() {
       if (!node.id) node.id = `project-section-${index}`;
       const heading = node.querySelector("h2");
       const firstLabel = pathname === "/" ? "Index" : pathname.startsWith("/about") ? "About" : pathname === "/work" || pathname === "/work/" ? "Projects" : "Introduction";
-      const label = node.tagName === "FOOTER" ? "Contact" : index === 0 ? firstLabel : node.getAttribute("aria-label") || heading?.textContent?.trim() || `Part ${index + 1}`;
+      const label = node.tagName === "FOOTER" ? "Contact" : index === 0 ? firstLabel : shortTopics[node.id] || node.getAttribute("aria-label")?.replace(/^(JSS Private School|Luxury Villa|Furjan Residences|Verdant Theatre)\s+/i, "") || heading?.textContent?.trim() || `Part ${index + 1}`;
       return { id: node.id, label: label.replace(/^(\d{2}\s*[\/·-]\s*)/, "") };
     });
     const setupFrame = window.requestAnimationFrame(() => setSections(entries));
@@ -73,14 +96,12 @@ export function MobileSectionRail() {
     setOpen(false);
   };
 
-  return <nav ref={menuRef} aria-label="Project topics" className="shell relative h-12">
-    <button type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="project-topics-list" className="flex h-full w-full items-center justify-between gap-4 text-left font-mono text-[10px] uppercase tracking-[.1em] text-ink">
-      <span className="truncate"><span className="mr-3 text-sage-700">{String(active + 1).padStart(2, "0")} / {String(sections.length).padStart(2, "0")}</span>{sections[active].label}</span>
-      <span aria-hidden="true" className={`text-base transition-transform ${open ? "rotate-180" : ""}`}>⌄</span>
+  return <nav ref={menuRef} aria-label="Project topics" className="relative h-12">
+    <button type="button" onClick={() => setOpen((value) => !value)} aria-expanded={open} aria-controls="project-topics-list" aria-label={`${String(active + 1).padStart(2, "0")} of ${String(sections.length).padStart(2, "0")}: ${sections[active].label}. ${open ? "Close" : "Open"} project topics`} className="flex h-full w-full items-center justify-center font-mono text-[10px] tracking-[.04em] text-ink">
+      {String(active + 1).padStart(2, "0")} / {String(sections.length).padStart(2, "0")}
     </button>
-    {open && <div id="project-topics-list" className="absolute left-0 right-0 top-full max-h-[70svh] overflow-y-auto border border-sage-300/70 bg-white p-3 shadow-xl">
-      <p className="px-2 pb-2 font-mono text-[10px] uppercase tracking-widest text-ink-soft">Project topics</p>
-      {sections.map((section, index) => <button key={section.id} type="button" onClick={() => go(index)} aria-current={active === index ? "step" : undefined} className={`block min-h-11 w-full border-t border-sage-300/40 px-2 py-2 text-left text-sm leading-snug ${active === index ? "text-ink" : "text-ink-soft"}`}>
+    {open && <div id="project-topics-list" className="absolute right-0 top-full w-[min(90vw,380px)] max-h-[70svh] overflow-y-auto bg-white p-3 shadow-xl">
+      {sections.map((section, index) => <button key={section.id} type="button" onClick={() => go(index)} aria-current={active === index ? "step" : undefined} className={`block min-h-10 w-full px-2 py-2 text-left text-sm leading-snug ${active === index ? "text-ink" : "text-ink-soft"}`}>
         <span className="mr-3 font-mono text-[10px] text-sage-700">{String(index + 1).padStart(2, "0")}</span>{section.label}
       </button>)}
     </div>}
