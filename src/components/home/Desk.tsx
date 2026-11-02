@@ -4,7 +4,7 @@ import { Picture } from "@/components/Picture";
 import { GalleryReveal } from "@/components/home/GalleryReveal";
 import { projects } from "@/content/portfolio";
 
-const featured = [...projects].sort((a, b) => Number(b.years.slice(0, 4)) - Number(a.years.slice(0, 4)));
+const featured = projects;
 
 const galleryLayout = [
   { place: "sm:col-span-7 sm:col-start-1", shape: "aspect-[4/3]" },

@@ -8,7 +8,7 @@ import { SectionReveal } from "@/components/motion/SectionReveal";
 import { WorksWall } from "@/components/home/WorksWall";
 import { projects, type Project } from "@/content/portfolio";
 
-const sorted = [...projects].sort((a, b) => Number(b.years.slice(0, 4)) - Number(a.years.slice(0, 4)));
+const ordered = projects;
 type View = "gallery" | "list" | "grid";
 
 function Cover({ project, className }: { project: Project; className: string }) {
@@ -42,7 +42,7 @@ function ProjectCard({ project, className = "" }: { project: Project; className?
 export function WorksIndex() {
   const [view, setView] = useState<View>("gallery");
   const [gridPage, setGridPage] = useState(0);
-  const gridPages = Math.ceil(sorted.length / 4);
+  const gridPages = Math.ceil(ordered.length / 4);
   const changeGridPage = (page: number) => {
     setGridPage(page);
     window.requestAnimationFrame(() => document.getElementById("project-grid")?.scrollIntoView({ behavior: "smooth", block: "start" }));
@@ -66,7 +66,7 @@ export function WorksIndex() {
         </SectionReveal>}
 
         <div className="mb-8 mt-5 flex items-center justify-between gap-4 text-[11px] uppercase tracking-[.16em] text-ink-soft md:mb-10">
-          <span>{String(sorted.length).padStart(2, "0")} projects</span>
+          <span>{String(ordered.length).padStart(2, "0")} projects</span>
           <div className="flex items-center gap-1" role="group" aria-label="Project view">
               {(["gallery", "list", "grid"] as const).map((option) => (
                 <button key={option} type="button" aria-pressed={view === option} onClick={() => { setView(option); window.scrollTo({ top: 0, behavior: "instant" }); }} className={`min-h-9 px-3 py-2 transition-colors hover:text-ink ${view === option ? "bg-ink text-white hover:text-white" : ""}`}>
@@ -76,9 +76,9 @@ export function WorksIndex() {
           </div>
         </div>
 
-        {view === "gallery" ? <WorksWall projects={sorted} /> : view === "list" ? (
+        {view === "gallery" ? <WorksWall projects={ordered} /> : view === "list" ? (
           <ol className="border-t editorial-line">
-            {sorted.map((project, index) => (
+            {ordered.map((project, index) => (
               <li key={project.slug} className="border-b editorial-line">
                 <SectionReveal>
                 <Link href={`/work/${project.slug}/`} className="group relative grid items-center gap-4 py-5 transition-[background-color,padding] duration-500 hover:bg-cream hover:px-4 focus-visible:bg-cream focus-visible:px-4 md:grid-cols-[4rem_1fr_9rem_2rem] md:py-7">
@@ -97,7 +97,7 @@ export function WorksIndex() {
           ) : (
           <>
             <ol id="project-grid" key={gridPage} className="grid scroll-mt-32 gap-x-4 gap-y-12 md:grid-cols-2 md:gap-x-20 md:gap-y-0">
-              {sorted.map((project, index) => <ProjectCard key={project.slug} project={project} className={index < gridPage * 4 || index >= (gridPage + 1) * 4 ? "hidden md:block" : ""} />)}
+              {ordered.map((project, index) => <ProjectCard key={project.slug} project={project} className={index < gridPage * 4 || index >= (gridPage + 1) * 4 ? "hidden md:block" : ""} />)}
             </ol>
             <nav aria-label="Grid pages" className="mt-12 flex items-center justify-center gap-5 md:hidden">
               <button type="button" onClick={() => changeGridPage(Math.max(0, gridPage - 1))} disabled={gridPage === 0} className="min-h-11 min-w-11 disabled:opacity-30" aria-label="Previous projects">←</button>
