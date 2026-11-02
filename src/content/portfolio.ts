@@ -105,6 +105,7 @@ export type Project = {
   slug: ProjectSlug;
   number: string;
   title: string;
+  location: string;
   subtitle: string;
   stage: string;
   years: string;
@@ -121,6 +122,7 @@ export const projects: Project[] = [
     slug: "common-ground",
     number: "1",
     title: "Common Ground",
+    location: "Edinburgh, Scotland",
     subtitle: "How social infrastructure as a spatial system can produce encounter",
     stage: "Year 5 / 2025-2026",
     years: "2025-2026",
@@ -145,6 +147,7 @@ export const projects: Project[] = [
     slug: "rooms-cities",
     number: "2",
     title: "Rooms + Cities",
+    location: "Europe & Japan",
     subtitle: "A comparative lexicon of neighbourhoods",
     stage: "Year 5 group studio / 2025–26",
     years: "2025-2026",
@@ -168,6 +171,7 @@ export const projects: Project[] = [
     slug: "elysian-arcadia",
     number: "3",
     title: "Elysian Arcadia",
+    location: "Athens, Greece",
     subtitle: "Reimagining an Urban Block through Timber and Vertical Farming",
     stage: "Year 4 / 2024-2025",
     years: "2024-2025",
@@ -192,6 +196,7 @@ export const projects: Project[] = [
     slug: "faithlie-centre",
     number: "4",
     title: "Faithlie Centre",
+    location: "Fraserburgh, Scotland",
     subtitle: "A case study looking at the tectonics + Praxis",
     stage: "Year 4 / 2024-2025",
     years: "2024-2025",
@@ -217,6 +222,7 @@ export const projects: Project[] = [
     slug: "jss-private-school",
     number: "5",
     title: "JSS Private School",
+    location: "Jebel Ali, Dubai",
     subtitle: "A school tender package in Jebel Ali",
     stage: "2024",
     years: "2024",
@@ -240,6 +246,7 @@ export const projects: Project[] = [
     slug: "luxury-villa",
     number: "6",
     title: "Luxury Villa",
+    location: "Abu Dhabi, UAE",
     subtitle: "A private residence in Abu Dhabi",
     stage: "2024",
     years: "2024",
@@ -263,6 +270,7 @@ export const projects: Project[] = [
     slug: "conceptual-multistorey",
     number: "7",
     title: "Furjan Residences",
+    location: "Al Furjan, Dubai",
     subtitle: "A residential concept in Al Furjan",
     stage: "2024",
     years: "2024",
@@ -286,6 +294,7 @@ export const projects: Project[] = [
     slug: "verdant-theatre",
     number: "8",
     title: "Verdant Theatre",
+    location: "Edinburgh, Scotland",
     subtitle: "Creating a new landmark building in Edinburgh for Musical Performances",
     stage: "Year 3 / 2023-2024",
     years: "2023-2024",

@@ -83,7 +83,10 @@ export function WorksIndex() {
                 <SectionReveal>
                 <Link href={`/work/${project.slug}/`} className="group relative grid items-center gap-4 py-5 transition-[background-color,padding] duration-500 hover:bg-cream hover:px-4 focus-visible:bg-cream focus-visible:px-4 md:grid-cols-[4rem_1fr_9rem_2rem] md:py-7">
                   <span className="text-[12px] text-ink-soft">{String(index + 1).padStart(2, "0")}</span>
-                  <span className="font-display text-[clamp(2.5rem,5vw,6rem)] leading-[.86] tracking-[-.05em]">{project.title}</span>
+                  <span className="block">
+                    <span className="block font-display text-[clamp(2rem,3.3vw,4.25rem)] leading-[.92] tracking-[-.04em]">{project.title}</span>
+                    <span className="mt-2 block text-[11px] uppercase tracking-[.1em] text-ink-soft md:text-[12px]">{project.location}</span>
+                  </span>
                   <span className="text-[12px] text-ink-soft">{project.years}</span>
                   <span aria-hidden className="text-xl transition-transform duration-500 group-hover:translate-x-2">↗</span>
                   <span className="pointer-events-none absolute right-[17%] z-20 hidden h-44 w-64 overflow-hidden opacity-0 shadow-2xl transition-[opacity,transform] duration-500 group-hover:-translate-y-2 group-hover:opacity-100 group-focus-visible:opacity-100 lg:block">
