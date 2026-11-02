@@ -7,11 +7,14 @@ import { projects } from "@/content/portfolio";
 const featured = [...projects].sort((a, b) => Number(b.years.slice(0, 4)) - Number(a.years.slice(0, 4)));
 
 const galleryLayout = [
-  { place: "sm:col-span-6 sm:col-start-1", shape: "aspect-[4/3]" },
-  { place: "sm:col-span-5 sm:col-start-8 sm:mt-28", shape: "aspect-[5/4]" },
-  { place: "sm:col-span-5 sm:col-start-2 sm:-mt-4", shape: "aspect-[5/4]" },
-  { place: "sm:col-span-6 sm:col-start-7 sm:mt-32", shape: "aspect-[4/3]" },
-  { place: "sm:col-span-7 sm:col-start-1 sm:-mt-8", shape: "aspect-[3/2]" },
+  { place: "sm:col-span-7 sm:col-start-1", shape: "aspect-[4/3]" },
+  { place: "sm:col-span-4 sm:col-start-9 sm:mt-28", shape: "aspect-[5/4]" },
+  { place: "sm:col-span-5 sm:col-start-2 sm:-mt-10", shape: "aspect-[5/4]" },
+  { place: "sm:col-span-5 sm:col-start-8 sm:mt-24", shape: "aspect-[4/3]" },
+  { place: "sm:col-span-6 sm:col-start-1 sm:mt-12", shape: "aspect-[3/2]" },
+  { place: "sm:col-span-4 sm:col-start-9 sm:-mt-12", shape: "aspect-[4/5]" },
+  { place: "sm:col-span-5 sm:col-start-3 sm:mt-20", shape: "aspect-[5/4]" },
+  { place: "sm:col-span-5 sm:col-start-8 sm:-mt-8", shape: "aspect-[3/2]" },
 ] as const;
 
 function Preview({ image, src }: { image: (typeof projects)[number]["indexImage"]; src?: string }) {
@@ -43,10 +46,10 @@ export function Desk() {
           <GalleryReveal>
             <ol className="home-gallery grid gap-x-[4vw] gap-y-20 sm:grid-cols-12 sm:gap-y-32 lg:gap-y-40">
               {featured.map((project, index) => (
-                <li key={project.slug} className={`home-gallery-card relative min-w-0 transition-opacity duration-500 ${galleryLayout[index]?.place ?? "sm:col-span-6"}`}>
+                <li key={project.slug} className={`home-gallery-card relative min-w-0 transition-opacity duration-500 ${galleryLayout[index % galleryLayout.length].place}`}>
                   <div data-gallery-reveal>
                     <Link href={`/work/${project.slug}/`} className="block transition-transform duration-500 ease-[var(--ease-expo)] hover:scale-[1.035] focus-visible:scale-[1.035] focus-visible:outline-offset-4">
-                      <span className={`relative block overflow-hidden bg-cream ${galleryLayout[index]?.shape ?? "aspect-[4/3]"}`}>
+                      <span className={`relative block overflow-hidden bg-cream ${galleryLayout[index % galleryLayout.length].shape}`}>
                         <Preview image={project.indexImage} src={project.indexSrc} />
                       </span>
                       <span className="mt-3 flex items-start justify-between gap-4 text-[12px] leading-snug md:text-[13px]">

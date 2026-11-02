@@ -152,27 +152,9 @@
 
 @utility t-body {
   font-family: var(--font-sans);
-  font-size: clamp(1.5rem, 1.425rem + 0.3vw, 1.59375rem);
+  font-size: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
   line-height: 1.7;
   color: var(--color-ink-soft);
-}
-
-@layer utilities {
-  :is(p, li, span, figcaption, blockquote).text-xs[class*="leading-"]:not(.t-label):not(.font-mono):not([class*="uppercase"]) { font-size: 1.125rem; }
-  :is(p, li, span, figcaption, blockquote).text-sm[class*="leading-"]:not(.t-label):not(.font-mono):not([class*="uppercase"]) { font-size: 1.3125rem; }
-  :is(p, li, span, figcaption, blockquote).text-base[class*="leading-"]:not(.t-label):not(.font-mono):not([class*="uppercase"]) { font-size: 1.5rem; }
-  :is(p, li, span, figcaption, blockquote).text-lg[class*="leading-"]:not(.t-label):not(.font-mono):not([class*="uppercase"]) { font-size: 1.6875rem; }
-  :is(p, li, span, figcaption, blockquote)[class~="text-[12px]"][class*="leading-"]:not(.t-label):not(.font-mono):not([class*="uppercase"]) { font-size: 18px; }
-  :is(p, li, span, figcaption, blockquote)[class~="text-[13px]"][class*="leading-"]:not(.t-label):not(.font-mono):not([class*="uppercase"]) { font-size: 19.5px; }
-  :is(p, li, span, figcaption, blockquote)[class~="text-[14px]"][class*="leading-"]:not(.t-label):not(.font-mono):not([class*="uppercase"]) { font-size: 21px; }
-  :is(p, li, span, figcaption, blockquote)[class~="text-[15px]"][class*="leading-"]:not(.t-label):not(.font-mono):not([class*="uppercase"]) { font-size: 22.5px; }
-}
-
-@media (min-width: 48rem) {
-  :is(p, li, span, figcaption, blockquote)[class~="md:text-base"][class*="leading-"]:not([class*="uppercase"]) { font-size: 1.5rem; }
-  :is(p, li, span, figcaption, blockquote)[class~="md:text-lg"][class*="leading-"]:not([class*="uppercase"]) { font-size: 1.6875rem; }
-  :is(p, li, span, figcaption, blockquote)[class~="md:text-[15px]"][class*="leading-"]:not([class*="uppercase"]) { font-size: 22.5px; }
-  :is(p, li, span, figcaption, blockquote)[class~="md:text-[18px]"][class*="leading-"]:not([class*="uppercase"]) { font-size: 27px; }
 }
 
 @utility paper-grain {

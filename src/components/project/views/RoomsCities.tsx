@@ -102,7 +102,7 @@ export function RoomsCities({ project }: { project: Project }) {
                 <h3 className="mt-4 font-display text-[clamp(2rem,3.5vw,3.5rem)] font-light leading-tight text-ink">{feature.label}</h3>
                 <p className="mt-3 font-display text-lg text-sage-700">{feature.focus}</p>
               </div>
-              <div className="max-w-3xl space-y-4 text-[24px] leading-[1.75] text-ink-soft md:text-[27px]">
+              <div className="max-w-3xl space-y-4 text-base leading-[1.75] text-ink-soft md:text-lg">
                 <p>{feature.text}</p>
                 <p>{feature.reading}</p>
               </div>

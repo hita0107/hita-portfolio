@@ -9,12 +9,14 @@ export function GalleryReveal({ children }: { children: ReactNode }) {
   useGSAP(() => {
     const media = gsap.matchMedia();
     media.add(MOTION_OK, () => {
-      gsap.utils.toArray<HTMLElement>("[data-gallery-reveal]", root.current).forEach((card) => {
-        gsap.fromTo(card, { opacity: 0 }, {
-          opacity: 1,
-          duration: 1.1,
+      gsap.utils.toArray<HTMLElement>("[data-gallery-reveal]", root.current).forEach((card, index) => {
+        gsap.fromTo(card, { autoAlpha: 0, y: 32 }, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.9,
+          delay: (index % 2) * 0.28,
           ease: "power2.out",
-          scrollTrigger: { trigger: card, start: "top 88%", once: true },
+          scrollTrigger: { trigger: card, start: "top 92%", once: true },
         });
       });
     });
