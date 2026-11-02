@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { LightboxProvider } from "@/components/Lightbox";
 import { Dock } from "@/components/Dock";
+import { MobileSectionRail } from "@/components/project/MobileSectionRail";
 
 const cormorant = Cormorant_Garamond({ subsets: ["latin"], variable: "--font-cormorant", display: "swap" });
 const hanken = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-hanken", display: "swap" });
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <LightboxProvider>
           <SmoothScroll />
           {children}
+          <MobileSectionRail />
           <Dock />
         </LightboxProvider>
       </body>
