@@ -1,10 +1,35 @@
 "use client";
 
-import { useRef } from "react";
-import { gsap, useGSAP, MOTION_OK } from "@/lib/gsap";
+import { useEffect, useRef } from "react";
+import { gsap, useGSAP, MOTION_OK, ScrollTrigger } from "@/lib/gsap";
+import { jumpToY } from "@/lib/lenis";
 
 export function CommonGroundScrollMotion({ children }: { children: React.ReactNode }) {
   const root = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const id = decodeURIComponent(window.location.hash.slice(1));
+    if (!id.startsWith("cg-")) return;
+
+    let frame = 0;
+    let cancelled = false;
+    document.fonts.ready.then(() => {
+      if (cancelled) return;
+      frame = window.requestAnimationFrame(() => {
+        ScrollTrigger.refresh();
+        frame = window.requestAnimationFrame(() => {
+          const target = document.getElementById(id);
+          if (!target) return;
+          jumpToY(window.scrollY + target.getBoundingClientRect().top - 128);
+          ScrollTrigger.update();
+        });
+      });
+    });
+    return () => {
+      cancelled = true;
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
 
   useGSAP(
     () => {

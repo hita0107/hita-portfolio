@@ -11,6 +11,11 @@ export function scrollToY(y: number) {
   else window.scrollTo({ top: y, behavior: "smooth" });
 }
 
+export function jumpToY(y: number) {
+  if (instance) instance.scrollTo(y, { immediate: true });
+  else window.scrollTo({ top: y, behavior: "instant" });
+}
+
 export function lockScroll(locked: boolean) {
   if (instance) {
     if (locked) instance.stop();
