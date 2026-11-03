@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { publicPath } from "@/lib/publicPath";
 
 const links = [
   { href: "/", label: "Index" },
@@ -48,7 +49,7 @@ export function Dock() {
             );
           })}
           <li>
-            <a href="/Hita_Shah_CV.pdf" target="_blank" rel="noopener noreferrer" className="editorial-link py-1 transition-opacity hover:opacity-60">
+            <a href={publicPath("/Hita_Shah_CV.pdf")} target="_blank" rel="noopener noreferrer" className="editorial-link py-1 transition-opacity hover:opacity-60">
               Resume
             </a>
           </li>
